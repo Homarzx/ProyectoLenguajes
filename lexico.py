@@ -32,7 +32,7 @@ reserved = {
 }
 
 tokens = (
-    'NUMBER',
+    'INT',
     'FLOAT',
     'STRING',
     'PLUS',
@@ -53,6 +53,7 @@ tokens = (
     'PUNTO',
     'FLECHA'
     'ID',
+    'NEWLINE'
  ) + tuple(reserved.values())
 
 # Reglas de expresión regular para tokens simples
@@ -80,8 +81,22 @@ def t_ID(t):
     t.type = reserved.get(t.value, 'ID')  # Check for reserved words
     return t
 
-def t_NUMBER(t):
+def t_INT(t):
     r'\d+'
     t.value = int(t.value)
     return t
 
+def t_FLOAT(t):
+    r'\d+\.\d+'
+    t.value = float(t.value)
+    return t
+
+def t_NEWLINE(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+    return t
+
+def t_STRING(t):
+    r'\'[a-zA-Z0-9_+\*\- :,]*\''
+    t.type = reserved.get(t.value,'STRING')    # Check for reserved words
+    return t
