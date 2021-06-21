@@ -6,7 +6,29 @@ reserved = {
     'else' : 'ELSE',
     'for' : 'FOR',
     'puts': 'PUTS',
-
+    'Begin':'BEGIN',
+    'end':'END',
+    'alias':'ALIAS',
+    'and':'AND',
+    'break':'BREAK',
+    'case':'CASE',
+    'class':'CLASS',
+    'def':'DEF',
+    'defined':'DEFINED',
+    'do':'DO','else':'ELSE',
+    'elsif':'ELSIF','end':'END',
+    'ensure':'ENSURE','false':'FALSE',
+    'for':'FOR','if':'IF',
+    'in':'IN','module':'MODULE',
+    'next':'NEXT','nil':'NIL',
+    'not':'NOT','or':'OR',
+    'redo':'REDO','rescue':'RESCUE',
+    'retry':'RETRY','return':'RETURN',
+    'self':'SELF','super':'SUPER',
+    'then':'THEN','true':'TRUE',
+    'undef':'UNDEF','unless':'UNLESS',
+    'until':'UNTIL','when':'WHEN',
+    'while':'WHILE','yield':'YIELD'
 }
 
 tokens = (
@@ -57,3 +79,9 @@ def t_ID(t):
     r'[a-z_][a-z0-9_]*'
     t.type = reserved.get(t.value, 'ID')  # Check for reserved words
     return t
+
+def t_NUMBER(t):
+    r'\d+'
+    t.value = int(t.value)
+    return t
+
