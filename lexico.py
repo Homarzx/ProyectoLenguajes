@@ -27,7 +27,6 @@ reserved = {
     'undef':'UNDEF','unless':'UNLESS',
     'until':'UNTIL','when':'WHEN',
     'while':'WHILE','yield':'YIELD',
-<<<<<<< HEAD
     'gets':'GETS',
     'chomp':'CHOMP',
     'length':'LENGTH',
@@ -39,14 +38,7 @@ reserved = {
     'clear':'CLEAR',
     'fetch':'FETCH',
     'delete':'DELETE'
-=======
-    'gets':'GETS','chomp':'CHOMP',
-    'length':'LENGTH','sample':'SAMPLE',
-    'first':'FIRST','add':'ADD',
-    'merge':'MERGE','size':'SIZE',
-    'clear':'CLEAR','fetch':'FETCH',
-    'delete':'DELETE',
->>>>>>> c58f3921937669f2f756c953c7a0ca029b880ae7
+
 }
 
 tokens = (
@@ -72,7 +64,8 @@ tokens = (
     'MOD',
     'EQUAL',
     'ID',
-    'NEWLINE'
+    'NEWLINE',
+    'SET'
  ) + tuple(reserved.values())
 
 # Reglas de expresión regular para tokens simples
@@ -96,9 +89,20 @@ t_FLECHA = r'=>'
 t_NUMERAL = r'\#'
 t_ignore = ' \t'
 
+def t_SET (t) :
+   r'Set'
+   t.type = reserved.get(t.value, 'SET')  # Check for reserved words
+   return t
+
+
 def t_ID(t):
     r'[a-z_][a-z0-9_]*'
     t.type = reserved.get(t.value, 'ID')  # Check for reserved words
+    return t
+
+def t_FLOAT(t):
+    r'\d+\.\d+'
+    t.value = float(t.value)
     return t
 
 def t_INT(t):
@@ -106,10 +110,7 @@ def t_INT(t):
     t.value = int(t.value)
     return t
 
-def t_FLOAT(t):
-    r'\d+\.\d+'
-    t.value = float(t.value)
-    return t
+
 
 def t_NEWLINE(t):
     r'\n+'
