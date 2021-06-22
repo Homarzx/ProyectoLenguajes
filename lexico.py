@@ -15,10 +15,8 @@ reserved = {
     'class':'CLASS',
     'def':'DEF',
     'defined':'DEFINED',
-    'do':'DO','else':'ELSE',
-    'elsif':'ELSIF','end':'END',
+    'do':'DO',
     'ensure':'ENSURE','false':'FALSE',
-    'for':'FOR','if':'IF',
     'in':'IN','module':'MODULE',
     'next':'NEXT','nil':'NIL',
     'not':'NOT','or':'OR',
@@ -48,7 +46,6 @@ tokens = (
     'MAYORQUE',
     'MENORQUE',
     'NUMERAL',
-    'IGUAL',
     'COMMA',
     'PUNTO',
     'FLECHA',
@@ -108,16 +105,18 @@ def t_error(t):
     print("illegal character '%s'" %t.value[0])
     t.lexer.skip(1)
 
-# Test it out
-data ="var5.if "
-print("texto ingresado:"+data)
-lexer=lex.lex() 
- # Give the lexer some input
-lexer.input(data)
- 
- # Tokenize
-while True:
-    tok = lexer.token()
-    if not tok:
-        break      # No more input
-    print(tok)
+def getTokens(lexer):
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break  # No more input
+        print(tok)
+# Build the lexer
+lexer = lex.lex()
+linea=" "
+while linea!="":
+    linea=input(">>")
+    lexer.input(linea)
+    getTokens(lexer)
+# Tokenize
+print("Succesfull")
