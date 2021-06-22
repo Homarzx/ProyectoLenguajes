@@ -26,7 +26,13 @@ reserved = {
     'then':'THEN','true':'TRUE',
     'undef':'UNDEF','unless':'UNLESS',
     'until':'UNTIL','when':'WHEN',
-    'while':'WHILE','yield':'YIELD'
+    'while':'WHILE','yield':'YIELD',
+    'gets':'GETS','chomp':'CHOMP',
+    'length':'LENGTH','sample':'SAMPLE',
+    'first':'FIRST','add':'ADD',
+    'merge':'MERGE','size':'SIZE',
+    'clear':'CLEAR','fetch':'FETCH',
+    'delete':'DELETE',
 }
 
 tokens = (
