@@ -27,6 +27,7 @@ reserved = {
     'undef':'UNDEF','unless':'UNLESS',
     'until':'UNTIL','when':'WHEN',
     'while':'WHILE','yield':'YIELD',
+<<<<<<< HEAD
     'gets':'GETS',
     'chomp':'CHOMP',
     'length':'LENGTH',
@@ -38,6 +39,14 @@ reserved = {
     'clear':'CLEAR',
     'fetch':'FETCH',
     'delete':'DELETE'
+=======
+    'gets':'GETS','chomp':'CHOMP',
+    'length':'LENGTH','sample':'SAMPLE',
+    'first':'FIRST','add':'ADD',
+    'merge':'MERGE','size':'SIZE',
+    'clear':'CLEAR','fetch':'FETCH',
+    'delete':'DELETE',
+>>>>>>> c58f3921937669f2f756c953c7a0ca029b880ae7
 }
 
 tokens = (
