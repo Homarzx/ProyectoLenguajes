@@ -51,7 +51,9 @@ tokens = (
     'IGUAL',
     'COMMA',
     'PUNTO',
-    'FLECHA'
+    'FLECHA',
+    'MOD',
+    'EQUAL',
     'ID',
     'NEWLINE'
  ) + tuple(reserved.values())
@@ -75,6 +77,7 @@ t_COMMA = r','
 t_PUNTO = r'\.'
 t_FLECHA = r'=>'
 t_NUMERAL = r'\#'
+t_ignore = ' \t'
 
 def t_ID(t):
     r'[a-z_][a-z0-9_]*'
@@ -97,6 +100,24 @@ def t_NEWLINE(t):
     return t
 
 def t_STRING(t):
-    r'\'[a-zA-Z0-9_+\*\- :,]*\''
+    r'(\'[a-zA-Z0-9_+\*\- :,]*\')|(\"[a-zA-Z0-9_+\*\- :,]*\")'
     t.type = reserved.get(t.value,'STRING')    # Check for reserved words
     return t
+
+def t_error(t):
+    print("illegal character '%s'" %t.value[0])
+    t.lexer.skip(1)
+
+# Test it out
+data ="var5.if "
+print("texto ingresado:"+data)
+lexer=lex.lex() 
+ # Give the lexer some input
+lexer.input(data)
+ 
+ # Tokenize
+while True:
+    tok = lexer.token()
+    if not tok:
+        break      # No more input
+    print(tok)
