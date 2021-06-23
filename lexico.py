@@ -63,7 +63,10 @@ tokens = (
     'MOD',
     'EQUAL',
     'ID',
-    'NEWLINE'
+    'NEWLINE',
+    'SET',
+    'CONSTANT',
+    'GLOBAL'
  ) + tuple(reserved.values())
 
 # Reglas de expresión regular para tokens simples
@@ -87,19 +90,35 @@ t_FLECHA = r'=>'
 t_NUMERAL = r'\#'
 t_ignore = ' \t'
 
+def t_SET (t) :
+   r'Set'
+   t.type = reserved.get(t.value, 'SET')  # Check for reserved words
+   return t
+
+
 def t_ID(t):
     r'[a-z_][a-z0-9_]*'
     t.type = reserved.get(t.value, 'ID')  # Check for reserved words
     return t
 
-def t_INT(t):
-    r'\d+'
-    t.value = int(t.value)
+def t_CONSTANT(t):
+    r'[A-Z][A-Z0-9]*'
+    t.type=reserved.get(t.value,'CONSTANT')
+    return t
+
+def t_GLOBAL(t):
+    r'\$[a-z][a-z0-9_]*'
+    t.type=reserved.get(t.value,'GLOBAL')
     return t
 
 def t_FLOAT(t):
     r'\d+\.\d+'
     t.value = float(t.value)
+    return t
+
+def t_INT(t):
+    r'\d+'
+    t.value = int(t.value)
     return t
 
 def t_NEWLINE(t):
