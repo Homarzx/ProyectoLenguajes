@@ -4,7 +4,8 @@ from lexico import tokens
 
 def p_cuerpo(p):
     """cuerpo : expression
-             | impresion"""
+             | impresion
+             | asignacion"""
 def p_impresion(p):
     '''impresion : PUTS factor
                     | PUTS comparacion
@@ -38,8 +39,7 @@ def p_operadoresMat(p):
 def p_factor_num(p):
     '''factor : INT
             | variables
-            | FLOAT
-            | booleanos'''
+            | FLOAT'''
 
 def p_factor_expr(p):
     'factor : expression'
@@ -48,6 +48,7 @@ def p_booleanos(p):
     '''booleanos : TRUE
         | FALSE
     '''
+
 def p_operadoresBool(p):
     '''operadoresBool : AND
                         | OR
@@ -59,6 +60,33 @@ def p_variables(p):
     '''variables : ID
                 | CONSTANT
                 | GLOBAL'''
+
+
+def p_asignacion(p):
+    '''asignacion : variables EQUAL factor
+                  | variables EQUAL STRING
+                  | variables EQUAL booleanos
+                  | variables EQUAL comparacion_bool
+                  | variables EQUAL struct'''
+
+#AQUI PUEDEN DEFINIR LAS DEMAS ESTRUCTURAS
+def p_struct(p):
+    'struct : conjunto'
+
+def p_conjunto(p):
+    '''conjunto : SET LCOR repetirvalor RCOR
+                | SET LCOR RCOR'''
+
+def p_valor(p):
+    '''valor : INT
+             | ID
+             | STRING
+             | booleanos
+             | FLOAT'''
+
+def p_repetirvalor(p):
+    '''repetirvalor : valor
+                    | valor COMMA repetirvalor'''
 
 # Error rule for syntax errors
 def p_error(p):

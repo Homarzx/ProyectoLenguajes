@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ADD ALIAS AND BEGIN BREAK CASE CHOMP CLASS CLEAR COMMA CONSTANT DEF DEFINED DELETE DIVIDE DO ELSE ELSIF END ENSURE EQUAL EQUALSX2 FALSE FETCH FIRST FLECHA FLOAT FOR GETS GLOBAL ID IF IN INT LBRACE LCOR LENGTH LPAREN MAYORQUE MENORQUE MERGE MINUS MOD MODULE NEWLINE NEXT NIL NOT NOTEQUALS NUMERAL OR PLUS PUNTO PUTS RBRACE RCOR REDO RESCUE RETRY RETURN RPAREN SAMPLE SELF SET SIZE STRING SUPER THEN TIMES TRUE UNDEF UNLESS UNTIL WHEN WHILE YIELDcuerpo : expression\n             | impresionimpresion : PUTS factor\n                    | PUTS comparacion\n                    | PUTS comparacion_bool\n                    | PUTS STRINGexpression : factor operadoresMat factorcomparacion : factor operadoresComp factorcomparacion_bool : booleanos operadoresBool booleanosoperadoresComp : MAYORQUE\n                    | MENORQUE\n                    | operadoresEqualsoperadoresMat : PLUS\n                    | MINUS\n                    | TIMES\n                    | DIVIDE\n                    | MODfactor : INT\n            | variables\n            | FLOAT\n            | booleanosfactor : expressionbooleanos : TRUE\n        | FALSE\n    operadoresBool : AND\n                        | OR\n                        | operadoresEqualsoperadoresEquals : EQUALSX2\n                        | NOTEQUALSvariables : ID\n                | CONSTANT\n                | GLOBAL'
+_lr_signature = 'ADD ALIAS AND BEGIN BREAK CASE CHOMP CLASS CLEAR COMMA CONSTANT DEF DEFINED DELETE DIVIDE DO ELSE ELSIF END ENSURE EQUAL EQUALSX2 FALSE FETCH FIRST FLECHA FLOAT FOR GETS GLOBAL ID IF IN INT LBRACE LCOR LENGTH LPAREN MAYORQUE MENORQUE MERGE MINUS MOD MODULE NEWLINE NEXT NIL NOT NOTEQUALS NUMERAL OR PLUS PUNTO PUTS RBRACE RCOR REDO RESCUE RETRY RETURN RPAREN SAMPLE SELF SET SIZE STRING SUPER THEN TIMES TRUE UNDEF UNLESS UNTIL WHEN WHILE YIELDcuerpo : expression\n             | impresion\n             | asignacionimpresion : PUTS factor\n                    | PUTS comparacion\n                    | PUTS comparacion_bool\n                    | PUTS STRINGexpression : factor operadoresMat factorcomparacion : factor operadoresComp factorcomparacion_bool : booleanos operadoresBool booleanosoperadoresComp : MAYORQUE\n                    | MENORQUE\n                    | operadoresEqualsoperadoresMat : PLUS\n                    | MINUS\n                    | TIMES\n                    | DIVIDE\n                    | MODfactor : INT\n            | variables\n            | FLOATfactor : expressionbooleanos : TRUE\n        | FALSE\n    operadoresBool : AND\n                        | OR\n                        | operadoresEqualsoperadoresEquals : EQUALSX2\n                        | NOTEQUALSvariables : ID\n                | CONSTANT\n                | GLOBALasignacion : variables EQUAL factor\n                  | variables EQUAL STRING\n                  | variables EQUAL booleanos\n                  | variables EQUAL comparacion_bool\n                  | variables EQUAL structstruct : conjuntoconjunto : SET LCOR repetirvalor RCOR\n                | SET LCOR RCORvalor : INT\n             | ID\n             | STRING\n             | booleanos\n             | FLOATrepetirvalor : valor\n                    | valor COMMA repetirvalor'
     
-_lr_action_items = {'PUTS':([0,],[5,]),'INT':([0,5,15,16,17,18,19,20,28,29,30,31,32,33,],[6,6,6,-13,-14,-15,-16,-17,6,-10,-11,-12,-28,-29,]),'FLOAT':([0,5,15,16,17,18,19,20,28,29,30,31,32,33,],[8,8,8,-13,-14,-15,-16,-17,8,-10,-11,-12,-28,-29,]),'ID':([0,5,15,16,17,18,19,20,28,29,30,31,32,33,],[10,10,10,-13,-14,-15,-16,-17,10,-10,-11,-12,-28,-29,]),'CONSTANT':([0,5,15,16,17,18,19,20,28,29,30,31,32,33,],[11,11,11,-13,-14,-15,-16,-17,11,-10,-11,-12,-28,-29,]),'GLOBAL':([0,5,15,16,17,18,19,20,28,29,30,31,32,33,],[12,12,12,-13,-14,-15,-16,-17,12,-10,-11,-12,-28,-29,]),'TRUE':([0,5,15,16,17,18,19,20,28,29,30,31,32,33,34,35,36,37,],[13,13,13,-13,-14,-15,-16,-17,13,-10,-11,-12,-28,-29,13,-25,-26,-27,]),'FALSE':([0,5,15,16,17,18,19,20,28,29,30,31,32,33,34,35,36,37,],[14,14,14,-13,-14,-15,-16,-17,14,-10,-11,-12,-28,-29,14,-25,-26,-27,]),'$end':([1,2,3,6,7,8,9,10,11,12,13,14,21,22,23,24,25,26,27,38,39,],[0,-1,-2,-18,-19,-20,-21,-30,-31,-32,-23,-24,-3,-4,-5,-6,-21,-22,-7,-8,-9,]),'PLUS':([2,4,6,7,8,9,10,11,12,13,14,21,25,26,27,38,],[-22,16,-18,-19,-20,-21,-30,-31,-32,-23,-24,16,-21,-22,16,16,]),'MINUS':([2,4,6,7,8,9,10,11,12,13,14,21,25,26,27,38,],[-22,17,-18,-19,-20,-21,-30,-31,-32,-23,-24,17,-21,-22,17,17,]),'TIMES':([2,4,6,7,8,9,10,11,12,13,14,21,25,26,27,38,],[-22,18,-18,-19,-20,-21,-30,-31,-32,-23,-24,18,-21,-22,18,18,]),'DIVIDE':([2,4,6,7,8,9,10,11,12,13,14,21,25,26,27,38,],[-22,19,-18,-19,-20,-21,-30,-31,-32,-23,-24,19,-21,-22,19,19,]),'MOD':([2,4,6,7,8,9,10,11,12,13,14,21,25,26,27,38,],[-22,20,-18,-19,-20,-21,-30,-31,-32,-23,-24,20,-21,-22,20,20,]),'STRING':([5,],[24,]),'MAYORQUE':([6,7,8,9,10,11,12,13,14,21,25,26,27,],[-18,-19,-20,-21,-30,-31,-32,-23,-24,29,-21,-22,-7,]),'MENORQUE':([6,7,8,9,10,11,12,13,14,21,25,26,27,],[-18,-19,-20,-21,-30,-31,-32,-23,-24,30,-21,-22,-7,]),'EQUALSX2':([6,7,8,9,10,11,12,13,14,21,25,26,27,],[-18,-19,-20,-21,-30,-31,-32,-23,-24,32,32,-22,-7,]),'NOTEQUALS':([6,7,8,9,10,11,12,13,14,21,25,26,27,],[-18,-19,-20,-21,-30,-31,-32,-23,-24,33,33,-22,-7,]),'AND':([13,14,25,],[-23,-24,35,]),'OR':([13,14,25,],[-23,-24,36,]),}
+_lr_action_items = {'PUTS':([0,],[6,]),'INT':([0,6,13,14,15,16,17,18,28,30,31,32,33,34,35,49,59,],[8,8,8,-14,-15,-16,-17,-18,8,8,-11,-12,-13,-28,-29,53,53,]),'FLOAT':([0,6,13,14,15,16,17,18,28,30,31,32,33,34,35,49,59,],[9,9,9,-14,-15,-16,-17,-18,9,9,-11,-12,-13,-28,-29,57,57,]),'ID':([0,6,13,14,15,16,17,18,28,30,31,32,33,34,35,49,59,],[10,10,10,-14,-15,-16,-17,-18,10,10,-11,-12,-13,-28,-29,54,54,]),'CONSTANT':([0,6,13,14,15,16,17,18,28,30,31,32,33,34,35,],[11,11,11,-14,-15,-16,-17,-18,11,11,-11,-12,-13,-28,-29,]),'GLOBAL':([0,6,13,14,15,16,17,18,28,30,31,32,33,34,35,],[12,12,12,-14,-15,-16,-17,-18,12,12,-11,-12,-13,-28,-29,]),'$end':([1,2,3,4,8,9,10,11,12,19,20,21,22,23,24,26,27,29,40,41,42,43,44,45,47,48,51,58,],[0,-1,-2,-3,-19,-21,-30,-31,-32,-4,-5,-6,-7,-20,-22,-23,-24,-8,-33,-34,-35,-36,-37,-38,-9,-10,-40,-39,]),'PLUS':([2,5,7,8,9,10,11,12,19,23,24,29,40,47,],[-22,14,-20,-19,-21,-30,-31,-32,14,-20,-22,14,14,14,]),'MINUS':([2,5,7,8,9,10,11,12,19,23,24,29,40,47,],[-22,15,-20,-19,-21,-30,-31,-32,15,-20,-22,15,15,15,]),'TIMES':([2,5,7,8,9,10,11,12,19,23,24,29,40,47,],[-22,16,-20,-19,-21,-30,-31,-32,16,-20,-22,16,16,16,]),'DIVIDE':([2,5,7,8,9,10,11,12,19,23,24,29,40,47,],[-22,17,-20,-19,-21,-30,-31,-32,17,-20,-22,17,17,17,]),'MOD':([2,5,7,8,9,10,11,12,19,23,24,29,40,47,],[-22,18,-20,-19,-21,-30,-31,-32,18,-20,-22,18,18,18,]),'STRING':([6,28,49,59,],[22,41,55,55,]),'TRUE':([6,28,34,35,36,37,38,39,49,59,],[26,26,-28,-29,26,-25,-26,-27,26,26,]),'FALSE':([6,28,34,35,36,37,38,39,49,59,],[27,27,-28,-29,27,-25,-26,-27,27,27,]),'EQUAL':([7,10,11,12,],[28,-30,-31,-32,]),'MAYORQUE':([8,9,10,11,12,19,23,24,29,],[-19,-21,-30,-31,-32,31,-20,-22,-8,]),'MENORQUE':([8,9,10,11,12,19,23,24,29,],[-19,-21,-30,-31,-32,32,-20,-22,-8,]),'EQUALSX2':([8,9,10,11,12,19,23,24,25,26,27,29,42,],[-19,-21,-30,-31,-32,34,-20,-22,34,-23,-24,-8,34,]),'NOTEQUALS':([8,9,10,11,12,19,23,24,25,26,27,29,42,],[-19,-21,-30,-31,-32,35,-20,-22,35,-23,-24,-8,35,]),'AND':([25,26,27,42,],[37,-23,-24,37,]),'OR':([25,26,27,42,],[38,-23,-24,38,]),'COMMA':([26,27,52,53,54,55,56,57,],[-23,-24,59,-41,-42,-43,-44,-45,]),'RCOR':([26,27,49,50,52,53,54,55,56,57,60,],[-23,-24,51,58,-46,-41,-42,-43,-44,-45,-47,]),'SET':([28,],[46,]),'LCOR':([46,],[49,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'cuerpo':([0,],[1,]),'expression':([0,5,15,28,],[2,26,26,26,]),'impresion':([0,],[3,]),'factor':([0,5,15,28,],[4,21,27,38,]),'variables':([0,5,15,28,],[7,7,7,7,]),'booleanos':([0,5,15,28,34,],[9,25,9,9,39,]),'operadoresMat':([4,21,27,38,],[15,15,15,15,]),'comparacion':([5,],[22,]),'comparacion_bool':([5,],[23,]),'operadoresComp':([21,],[28,]),'operadoresEquals':([21,25,],[31,37,]),'operadoresBool':([25,],[34,]),}
+_lr_goto_items = {'cuerpo':([0,],[1,]),'expression':([0,6,13,28,30,],[2,24,24,24,24,]),'impresion':([0,],[3,]),'asignacion':([0,],[4,]),'factor':([0,6,13,28,30,],[5,19,29,40,47,]),'variables':([0,6,13,28,30,],[7,23,23,23,23,]),'operadoresMat':([5,19,29,40,47,],[13,13,13,13,13,]),'comparacion':([6,],[20,]),'comparacion_bool':([6,28,],[21,43,]),'booleanos':([6,28,36,49,59,],[25,42,48,56,56,]),'operadoresComp':([19,],[30,]),'operadoresEquals':([19,25,42,],[33,39,39,]),'operadoresBool':([25,42,],[36,36,]),'struct':([28,],[44,]),'conjunto':([28,],[45,]),'repetirvalor':([49,59,],[50,60,]),'valor':([49,59,],[52,52,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -29,34 +29,49 @@ _lr_productions = [
   ("S' -> cuerpo","S'",1,None,None,None),
   ('cuerpo -> expression','cuerpo',1,'p_cuerpo','sintactico.py',6),
   ('cuerpo -> impresion','cuerpo',1,'p_cuerpo','sintactico.py',7),
-  ('impresion -> PUTS factor','impresion',2,'p_impresion','sintactico.py',9),
-  ('impresion -> PUTS comparacion','impresion',2,'p_impresion','sintactico.py',10),
-  ('impresion -> PUTS comparacion_bool','impresion',2,'p_impresion','sintactico.py',11),
-  ('impresion -> PUTS STRING','impresion',2,'p_impresion','sintactico.py',12),
-  ('expression -> factor operadoresMat factor','expression',3,'p_expression_mat','sintactico.py',15),
-  ('comparacion -> factor operadoresComp factor','comparacion',3,'p_comparacion','sintactico.py',21),
-  ('comparacion_bool -> booleanos operadoresBool booleanos','comparacion_bool',3,'p_comparacion_bool','sintactico.py',24),
-  ('operadoresComp -> MAYORQUE','operadoresComp',1,'p_operadoresComp','sintactico.py',27),
-  ('operadoresComp -> MENORQUE','operadoresComp',1,'p_operadoresComp','sintactico.py',28),
-  ('operadoresComp -> operadoresEquals','operadoresComp',1,'p_operadoresComp','sintactico.py',29),
-  ('operadoresMat -> PLUS','operadoresMat',1,'p_operadoresMat','sintactico.py',32),
-  ('operadoresMat -> MINUS','operadoresMat',1,'p_operadoresMat','sintactico.py',33),
-  ('operadoresMat -> TIMES','operadoresMat',1,'p_operadoresMat','sintactico.py',34),
-  ('operadoresMat -> DIVIDE','operadoresMat',1,'p_operadoresMat','sintactico.py',35),
-  ('operadoresMat -> MOD','operadoresMat',1,'p_operadoresMat','sintactico.py',36),
-  ('factor -> INT','factor',1,'p_factor_num','sintactico.py',39),
-  ('factor -> variables','factor',1,'p_factor_num','sintactico.py',40),
-  ('factor -> FLOAT','factor',1,'p_factor_num','sintactico.py',41),
-  ('factor -> booleanos','factor',1,'p_factor_num','sintactico.py',42),
+  ('cuerpo -> asignacion','cuerpo',1,'p_cuerpo','sintactico.py',8),
+  ('impresion -> PUTS factor','impresion',2,'p_impresion','sintactico.py',10),
+  ('impresion -> PUTS comparacion','impresion',2,'p_impresion','sintactico.py',11),
+  ('impresion -> PUTS comparacion_bool','impresion',2,'p_impresion','sintactico.py',12),
+  ('impresion -> PUTS STRING','impresion',2,'p_impresion','sintactico.py',13),
+  ('expression -> factor operadoresMat factor','expression',3,'p_expression_mat','sintactico.py',16),
+  ('comparacion -> factor operadoresComp factor','comparacion',3,'p_comparacion','sintactico.py',22),
+  ('comparacion_bool -> booleanos operadoresBool booleanos','comparacion_bool',3,'p_comparacion_bool','sintactico.py',25),
+  ('operadoresComp -> MAYORQUE','operadoresComp',1,'p_operadoresComp','sintactico.py',28),
+  ('operadoresComp -> MENORQUE','operadoresComp',1,'p_operadoresComp','sintactico.py',29),
+  ('operadoresComp -> operadoresEquals','operadoresComp',1,'p_operadoresComp','sintactico.py',30),
+  ('operadoresMat -> PLUS','operadoresMat',1,'p_operadoresMat','sintactico.py',33),
+  ('operadoresMat -> MINUS','operadoresMat',1,'p_operadoresMat','sintactico.py',34),
+  ('operadoresMat -> TIMES','operadoresMat',1,'p_operadoresMat','sintactico.py',35),
+  ('operadoresMat -> DIVIDE','operadoresMat',1,'p_operadoresMat','sintactico.py',36),
+  ('operadoresMat -> MOD','operadoresMat',1,'p_operadoresMat','sintactico.py',37),
+  ('factor -> INT','factor',1,'p_factor_num','sintactico.py',40),
+  ('factor -> variables','factor',1,'p_factor_num','sintactico.py',41),
+  ('factor -> FLOAT','factor',1,'p_factor_num','sintactico.py',42),
   ('factor -> expression','factor',1,'p_factor_expr','sintactico.py',45),
   ('booleanos -> TRUE','booleanos',1,'p_booleanos','sintactico.py',48),
   ('booleanos -> FALSE','booleanos',1,'p_booleanos','sintactico.py',49),
-  ('operadoresBool -> AND','operadoresBool',1,'p_operadoresBool','sintactico.py',52),
-  ('operadoresBool -> OR','operadoresBool',1,'p_operadoresBool','sintactico.py',53),
-  ('operadoresBool -> operadoresEquals','operadoresBool',1,'p_operadoresBool','sintactico.py',54),
-  ('operadoresEquals -> EQUALSX2','operadoresEquals',1,'p_operadoresEqual','sintactico.py',56),
-  ('operadoresEquals -> NOTEQUALS','operadoresEquals',1,'p_operadoresEqual','sintactico.py',57),
-  ('variables -> ID','variables',1,'p_variables','sintactico.py',59),
-  ('variables -> CONSTANT','variables',1,'p_variables','sintactico.py',60),
-  ('variables -> GLOBAL','variables',1,'p_variables','sintactico.py',61),
+  ('operadoresBool -> AND','operadoresBool',1,'p_operadoresBool','sintactico.py',53),
+  ('operadoresBool -> OR','operadoresBool',1,'p_operadoresBool','sintactico.py',54),
+  ('operadoresBool -> operadoresEquals','operadoresBool',1,'p_operadoresBool','sintactico.py',55),
+  ('operadoresEquals -> EQUALSX2','operadoresEquals',1,'p_operadoresEqual','sintactico.py',57),
+  ('operadoresEquals -> NOTEQUALS','operadoresEquals',1,'p_operadoresEqual','sintactico.py',58),
+  ('variables -> ID','variables',1,'p_variables','sintactico.py',60),
+  ('variables -> CONSTANT','variables',1,'p_variables','sintactico.py',61),
+  ('variables -> GLOBAL','variables',1,'p_variables','sintactico.py',62),
+  ('asignacion -> variables EQUAL factor','asignacion',3,'p_asignacion','sintactico.py',66),
+  ('asignacion -> variables EQUAL STRING','asignacion',3,'p_asignacion','sintactico.py',67),
+  ('asignacion -> variables EQUAL booleanos','asignacion',3,'p_asignacion','sintactico.py',68),
+  ('asignacion -> variables EQUAL comparacion_bool','asignacion',3,'p_asignacion','sintactico.py',69),
+  ('asignacion -> variables EQUAL struct','asignacion',3,'p_asignacion','sintactico.py',70),
+  ('struct -> conjunto','struct',1,'p_struct','sintactico.py',74),
+  ('conjunto -> SET LCOR repetirvalor RCOR','conjunto',4,'p_conjunto','sintactico.py',77),
+  ('conjunto -> SET LCOR RCOR','conjunto',3,'p_conjunto','sintactico.py',78),
+  ('valor -> INT','valor',1,'p_valor','sintactico.py',81),
+  ('valor -> ID','valor',1,'p_valor','sintactico.py',82),
+  ('valor -> STRING','valor',1,'p_valor','sintactico.py',83),
+  ('valor -> booleanos','valor',1,'p_valor','sintactico.py',84),
+  ('valor -> FLOAT','valor',1,'p_valor','sintactico.py',85),
+  ('repetirvalor -> valor','repetirvalor',1,'p_repetirvalor','sintactico.py',88),
+  ('repetirvalor -> valor COMMA repetirvalor','repetirvalor',3,'p_repetirvalor','sintactico.py',89),
 ]
