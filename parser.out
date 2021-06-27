@@ -1,0 +1,847 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ADD
+    ALIAS
+    BEGIN
+    BREAK
+    CASE
+    CHOMP
+    CLASS
+    CLEAR
+    COMMA
+    DEF
+    DEFINED
+    DELETE
+    DO
+    ELSE
+    ELSIF
+    END
+    ENSURE
+    EQUAL
+    FETCH
+    FIRST
+    FLECHA
+    FOR
+    GETS
+    IF
+    IN
+    LBRACE
+    LCOR
+    LENGTH
+    LPAREN
+    MERGE
+    MODULE
+    NEWLINE
+    NEXT
+    NIL
+    NOT
+    NUMERAL
+    PUNTO
+    RBRACE
+    RCOR
+    REDO
+    RESCUE
+    RETRY
+    RETURN
+    RPAREN
+    SAMPLE
+    SELF
+    SET
+    SIZE
+    SUPER
+    THEN
+    UNDEF
+    UNLESS
+    UNTIL
+    WHEN
+    WHILE
+    YIELD
+
+Grammar
+
+Rule 0     S' -> cuerpo
+Rule 1     cuerpo -> expression
+Rule 2     cuerpo -> impresion
+Rule 3     impresion -> PUTS factor
+Rule 4     impresion -> PUTS comparacion
+Rule 5     impresion -> PUTS comparacion_bool
+Rule 6     impresion -> PUTS STRING
+Rule 7     expression -> factor operadoresMat factor
+Rule 8     comparacion -> factor operadoresComp factor
+Rule 9     comparacion_bool -> booleanos operadoresBool booleanos
+Rule 10    operadoresComp -> MAYORQUE
+Rule 11    operadoresComp -> MENORQUE
+Rule 12    operadoresComp -> operadoresEquals
+Rule 13    operadoresMat -> PLUS
+Rule 14    operadoresMat -> MINUS
+Rule 15    operadoresMat -> TIMES
+Rule 16    operadoresMat -> DIVIDE
+Rule 17    operadoresMat -> MOD
+Rule 18    factor -> INT
+Rule 19    factor -> variables
+Rule 20    factor -> FLOAT
+Rule 21    factor -> booleanos
+Rule 22    factor -> expression
+Rule 23    booleanos -> TRUE
+Rule 24    booleanos -> FALSE
+Rule 25    operadoresBool -> AND
+Rule 26    operadoresBool -> OR
+Rule 27    operadoresBool -> operadoresEquals
+Rule 28    operadoresEquals -> EQUALSX2
+Rule 29    operadoresEquals -> NOTEQUALS
+Rule 30    variables -> ID
+Rule 31    variables -> CONSTANT
+Rule 32    variables -> GLOBAL
+
+Terminals, with rules where they appear
+
+ADD                  : 
+ALIAS                : 
+AND                  : 25
+BEGIN                : 
+BREAK                : 
+CASE                 : 
+CHOMP                : 
+CLASS                : 
+CLEAR                : 
+COMMA                : 
+CONSTANT             : 31
+DEF                  : 
+DEFINED              : 
+DELETE               : 
+DIVIDE               : 16
+DO                   : 
+ELSE                 : 
+ELSIF                : 
+END                  : 
+ENSURE               : 
+EQUAL                : 
+EQUALSX2             : 28
+FALSE                : 24
+FETCH                : 
+FIRST                : 
+FLECHA               : 
+FLOAT                : 20
+FOR                  : 
+GETS                 : 
+GLOBAL               : 32
+ID                   : 30
+IF                   : 
+IN                   : 
+INT                  : 18
+LBRACE               : 
+LCOR                 : 
+LENGTH               : 
+LPAREN               : 
+MAYORQUE             : 10
+MENORQUE             : 11
+MERGE                : 
+MINUS                : 14
+MOD                  : 17
+MODULE               : 
+NEWLINE              : 
+NEXT                 : 
+NIL                  : 
+NOT                  : 
+NOTEQUALS            : 29
+NUMERAL              : 
+OR                   : 26
+PLUS                 : 13
+PUNTO                : 
+PUTS                 : 3 4 5 6
+RBRACE               : 
+RCOR                 : 
+REDO                 : 
+RESCUE               : 
+RETRY                : 
+RETURN               : 
+RPAREN               : 
+SAMPLE               : 
+SELF                 : 
+SET                  : 
+SIZE                 : 
+STRING               : 6
+SUPER                : 
+THEN                 : 
+TIMES                : 15
+TRUE                 : 23
+UNDEF                : 
+UNLESS               : 
+UNTIL                : 
+WHEN                 : 
+WHILE                : 
+YIELD                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+booleanos            : 9 9 21
+comparacion          : 4
+comparacion_bool     : 5
+cuerpo               : 0
+expression           : 1 22
+factor               : 3 7 7 8 8
+impresion            : 2
+operadoresBool       : 9
+operadoresComp       : 8
+operadoresEquals     : 12 27
+operadoresMat        : 7
+variables            : 19
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . cuerpo
+    (1) cuerpo -> . expression
+    (2) cuerpo -> . impresion
+    (7) expression -> . factor operadoresMat factor
+    (3) impresion -> . PUTS factor
+    (4) impresion -> . PUTS comparacion
+    (5) impresion -> . PUTS comparacion_bool
+    (6) impresion -> . PUTS STRING
+    (18) factor -> . INT
+    (19) factor -> . variables
+    (20) factor -> . FLOAT
+    (21) factor -> . booleanos
+    (22) factor -> . expression
+    (30) variables -> . ID
+    (31) variables -> . CONSTANT
+    (32) variables -> . GLOBAL
+    (23) booleanos -> . TRUE
+    (24) booleanos -> . FALSE
+
+    PUTS            shift and go to state 5
+    INT             shift and go to state 6
+    FLOAT           shift and go to state 8
+    ID              shift and go to state 10
+    CONSTANT        shift and go to state 11
+    GLOBAL          shift and go to state 12
+    TRUE            shift and go to state 13
+    FALSE           shift and go to state 14
+
+    cuerpo                         shift and go to state 1
+    expression                     shift and go to state 2
+    impresion                      shift and go to state 3
+    factor                         shift and go to state 4
+    variables                      shift and go to state 7
+    booleanos                      shift and go to state 9
+
+state 1
+
+    (0) S' -> cuerpo .
+
+
+
+state 2
+
+    (1) cuerpo -> expression .
+    (22) factor -> expression .
+
+    $end            reduce using rule 1 (cuerpo -> expression .)
+    PLUS            reduce using rule 22 (factor -> expression .)
+    MINUS           reduce using rule 22 (factor -> expression .)
+    TIMES           reduce using rule 22 (factor -> expression .)
+    DIVIDE          reduce using rule 22 (factor -> expression .)
+    MOD             reduce using rule 22 (factor -> expression .)
+
+
+state 3
+
+    (2) cuerpo -> impresion .
+
+    $end            reduce using rule 2 (cuerpo -> impresion .)
+
+
+state 4
+
+    (7) expression -> factor . operadoresMat factor
+    (13) operadoresMat -> . PLUS
+    (14) operadoresMat -> . MINUS
+    (15) operadoresMat -> . TIMES
+    (16) operadoresMat -> . DIVIDE
+    (17) operadoresMat -> . MOD
+
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    MOD             shift and go to state 20
+
+    operadoresMat                  shift and go to state 15
+
+state 5
+
+    (3) impresion -> PUTS . factor
+    (4) impresion -> PUTS . comparacion
+    (5) impresion -> PUTS . comparacion_bool
+    (6) impresion -> PUTS . STRING
+    (18) factor -> . INT
+    (19) factor -> . variables
+    (20) factor -> . FLOAT
+    (21) factor -> . booleanos
+    (22) factor -> . expression
+    (8) comparacion -> . factor operadoresComp factor
+    (9) comparacion_bool -> . booleanos operadoresBool booleanos
+    (30) variables -> . ID
+    (31) variables -> . CONSTANT
+    (32) variables -> . GLOBAL
+    (23) booleanos -> . TRUE
+    (24) booleanos -> . FALSE
+    (7) expression -> . factor operadoresMat factor
+
+    STRING          shift and go to state 24
+    INT             shift and go to state 6
+    FLOAT           shift and go to state 8
+    ID              shift and go to state 10
+    CONSTANT        shift and go to state 11
+    GLOBAL          shift and go to state 12
+    TRUE            shift and go to state 13
+    FALSE           shift and go to state 14
+
+    factor                         shift and go to state 21
+    comparacion                    shift and go to state 22
+    comparacion_bool               shift and go to state 23
+    variables                      shift and go to state 7
+    booleanos                      shift and go to state 25
+    expression                     shift and go to state 26
+
+state 6
+
+    (18) factor -> INT .
+
+    PLUS            reduce using rule 18 (factor -> INT .)
+    MINUS           reduce using rule 18 (factor -> INT .)
+    TIMES           reduce using rule 18 (factor -> INT .)
+    DIVIDE          reduce using rule 18 (factor -> INT .)
+    MOD             reduce using rule 18 (factor -> INT .)
+    MAYORQUE        reduce using rule 18 (factor -> INT .)
+    MENORQUE        reduce using rule 18 (factor -> INT .)
+    EQUALSX2        reduce using rule 18 (factor -> INT .)
+    NOTEQUALS       reduce using rule 18 (factor -> INT .)
+    $end            reduce using rule 18 (factor -> INT .)
+
+
+state 7
+
+    (19) factor -> variables .
+
+    PLUS            reduce using rule 19 (factor -> variables .)
+    MINUS           reduce using rule 19 (factor -> variables .)
+    TIMES           reduce using rule 19 (factor -> variables .)
+    DIVIDE          reduce using rule 19 (factor -> variables .)
+    MOD             reduce using rule 19 (factor -> variables .)
+    MAYORQUE        reduce using rule 19 (factor -> variables .)
+    MENORQUE        reduce using rule 19 (factor -> variables .)
+    EQUALSX2        reduce using rule 19 (factor -> variables .)
+    NOTEQUALS       reduce using rule 19 (factor -> variables .)
+    $end            reduce using rule 19 (factor -> variables .)
+
+
+state 8
+
+    (20) factor -> FLOAT .
+
+    PLUS            reduce using rule 20 (factor -> FLOAT .)
+    MINUS           reduce using rule 20 (factor -> FLOAT .)
+    TIMES           reduce using rule 20 (factor -> FLOAT .)
+    DIVIDE          reduce using rule 20 (factor -> FLOAT .)
+    MOD             reduce using rule 20 (factor -> FLOAT .)
+    MAYORQUE        reduce using rule 20 (factor -> FLOAT .)
+    MENORQUE        reduce using rule 20 (factor -> FLOAT .)
+    EQUALSX2        reduce using rule 20 (factor -> FLOAT .)
+    NOTEQUALS       reduce using rule 20 (factor -> FLOAT .)
+    $end            reduce using rule 20 (factor -> FLOAT .)
+
+
+state 9
+
+    (21) factor -> booleanos .
+
+    PLUS            reduce using rule 21 (factor -> booleanos .)
+    MINUS           reduce using rule 21 (factor -> booleanos .)
+    TIMES           reduce using rule 21 (factor -> booleanos .)
+    DIVIDE          reduce using rule 21 (factor -> booleanos .)
+    MOD             reduce using rule 21 (factor -> booleanos .)
+    $end            reduce using rule 21 (factor -> booleanos .)
+    MAYORQUE        reduce using rule 21 (factor -> booleanos .)
+    MENORQUE        reduce using rule 21 (factor -> booleanos .)
+    EQUALSX2        reduce using rule 21 (factor -> booleanos .)
+    NOTEQUALS       reduce using rule 21 (factor -> booleanos .)
+
+
+state 10
+
+    (30) variables -> ID .
+
+    PLUS            reduce using rule 30 (variables -> ID .)
+    MINUS           reduce using rule 30 (variables -> ID .)
+    TIMES           reduce using rule 30 (variables -> ID .)
+    DIVIDE          reduce using rule 30 (variables -> ID .)
+    MOD             reduce using rule 30 (variables -> ID .)
+    MAYORQUE        reduce using rule 30 (variables -> ID .)
+    MENORQUE        reduce using rule 30 (variables -> ID .)
+    EQUALSX2        reduce using rule 30 (variables -> ID .)
+    NOTEQUALS       reduce using rule 30 (variables -> ID .)
+    $end            reduce using rule 30 (variables -> ID .)
+
+
+state 11
+
+    (31) variables -> CONSTANT .
+
+    PLUS            reduce using rule 31 (variables -> CONSTANT .)
+    MINUS           reduce using rule 31 (variables -> CONSTANT .)
+    TIMES           reduce using rule 31 (variables -> CONSTANT .)
+    DIVIDE          reduce using rule 31 (variables -> CONSTANT .)
+    MOD             reduce using rule 31 (variables -> CONSTANT .)
+    MAYORQUE        reduce using rule 31 (variables -> CONSTANT .)
+    MENORQUE        reduce using rule 31 (variables -> CONSTANT .)
+    EQUALSX2        reduce using rule 31 (variables -> CONSTANT .)
+    NOTEQUALS       reduce using rule 31 (variables -> CONSTANT .)
+    $end            reduce using rule 31 (variables -> CONSTANT .)
+
+
+state 12
+
+    (32) variables -> GLOBAL .
+
+    PLUS            reduce using rule 32 (variables -> GLOBAL .)
+    MINUS           reduce using rule 32 (variables -> GLOBAL .)
+    TIMES           reduce using rule 32 (variables -> GLOBAL .)
+    DIVIDE          reduce using rule 32 (variables -> GLOBAL .)
+    MOD             reduce using rule 32 (variables -> GLOBAL .)
+    MAYORQUE        reduce using rule 32 (variables -> GLOBAL .)
+    MENORQUE        reduce using rule 32 (variables -> GLOBAL .)
+    EQUALSX2        reduce using rule 32 (variables -> GLOBAL .)
+    NOTEQUALS       reduce using rule 32 (variables -> GLOBAL .)
+    $end            reduce using rule 32 (variables -> GLOBAL .)
+
+
+state 13
+
+    (23) booleanos -> TRUE .
+
+    PLUS            reduce using rule 23 (booleanos -> TRUE .)
+    MINUS           reduce using rule 23 (booleanos -> TRUE .)
+    TIMES           reduce using rule 23 (booleanos -> TRUE .)
+    DIVIDE          reduce using rule 23 (booleanos -> TRUE .)
+    MOD             reduce using rule 23 (booleanos -> TRUE .)
+    AND             reduce using rule 23 (booleanos -> TRUE .)
+    OR              reduce using rule 23 (booleanos -> TRUE .)
+    EQUALSX2        reduce using rule 23 (booleanos -> TRUE .)
+    NOTEQUALS       reduce using rule 23 (booleanos -> TRUE .)
+    MAYORQUE        reduce using rule 23 (booleanos -> TRUE .)
+    MENORQUE        reduce using rule 23 (booleanos -> TRUE .)
+    $end            reduce using rule 23 (booleanos -> TRUE .)
+
+
+state 14
+
+    (24) booleanos -> FALSE .
+
+    PLUS            reduce using rule 24 (booleanos -> FALSE .)
+    MINUS           reduce using rule 24 (booleanos -> FALSE .)
+    TIMES           reduce using rule 24 (booleanos -> FALSE .)
+    DIVIDE          reduce using rule 24 (booleanos -> FALSE .)
+    MOD             reduce using rule 24 (booleanos -> FALSE .)
+    AND             reduce using rule 24 (booleanos -> FALSE .)
+    OR              reduce using rule 24 (booleanos -> FALSE .)
+    EQUALSX2        reduce using rule 24 (booleanos -> FALSE .)
+    NOTEQUALS       reduce using rule 24 (booleanos -> FALSE .)
+    MAYORQUE        reduce using rule 24 (booleanos -> FALSE .)
+    MENORQUE        reduce using rule 24 (booleanos -> FALSE .)
+    $end            reduce using rule 24 (booleanos -> FALSE .)
+
+
+state 15
+
+    (7) expression -> factor operadoresMat . factor
+    (18) factor -> . INT
+    (19) factor -> . variables
+    (20) factor -> . FLOAT
+    (21) factor -> . booleanos
+    (22) factor -> . expression
+    (30) variables -> . ID
+    (31) variables -> . CONSTANT
+    (32) variables -> . GLOBAL
+    (23) booleanos -> . TRUE
+    (24) booleanos -> . FALSE
+    (7) expression -> . factor operadoresMat factor
+
+    INT             shift and go to state 6
+    FLOAT           shift and go to state 8
+    ID              shift and go to state 10
+    CONSTANT        shift and go to state 11
+    GLOBAL          shift and go to state 12
+    TRUE            shift and go to state 13
+    FALSE           shift and go to state 14
+
+    factor                         shift and go to state 27
+    variables                      shift and go to state 7
+    booleanos                      shift and go to state 9
+    expression                     shift and go to state 26
+
+state 16
+
+    (13) operadoresMat -> PLUS .
+
+    INT             reduce using rule 13 (operadoresMat -> PLUS .)
+    FLOAT           reduce using rule 13 (operadoresMat -> PLUS .)
+    ID              reduce using rule 13 (operadoresMat -> PLUS .)
+    CONSTANT        reduce using rule 13 (operadoresMat -> PLUS .)
+    GLOBAL          reduce using rule 13 (operadoresMat -> PLUS .)
+    TRUE            reduce using rule 13 (operadoresMat -> PLUS .)
+    FALSE           reduce using rule 13 (operadoresMat -> PLUS .)
+
+
+state 17
+
+    (14) operadoresMat -> MINUS .
+
+    INT             reduce using rule 14 (operadoresMat -> MINUS .)
+    FLOAT           reduce using rule 14 (operadoresMat -> MINUS .)
+    ID              reduce using rule 14 (operadoresMat -> MINUS .)
+    CONSTANT        reduce using rule 14 (operadoresMat -> MINUS .)
+    GLOBAL          reduce using rule 14 (operadoresMat -> MINUS .)
+    TRUE            reduce using rule 14 (operadoresMat -> MINUS .)
+    FALSE           reduce using rule 14 (operadoresMat -> MINUS .)
+
+
+state 18
+
+    (15) operadoresMat -> TIMES .
+
+    INT             reduce using rule 15 (operadoresMat -> TIMES .)
+    FLOAT           reduce using rule 15 (operadoresMat -> TIMES .)
+    ID              reduce using rule 15 (operadoresMat -> TIMES .)
+    CONSTANT        reduce using rule 15 (operadoresMat -> TIMES .)
+    GLOBAL          reduce using rule 15 (operadoresMat -> TIMES .)
+    TRUE            reduce using rule 15 (operadoresMat -> TIMES .)
+    FALSE           reduce using rule 15 (operadoresMat -> TIMES .)
+
+
+state 19
+
+    (16) operadoresMat -> DIVIDE .
+
+    INT             reduce using rule 16 (operadoresMat -> DIVIDE .)
+    FLOAT           reduce using rule 16 (operadoresMat -> DIVIDE .)
+    ID              reduce using rule 16 (operadoresMat -> DIVIDE .)
+    CONSTANT        reduce using rule 16 (operadoresMat -> DIVIDE .)
+    GLOBAL          reduce using rule 16 (operadoresMat -> DIVIDE .)
+    TRUE            reduce using rule 16 (operadoresMat -> DIVIDE .)
+    FALSE           reduce using rule 16 (operadoresMat -> DIVIDE .)
+
+
+state 20
+
+    (17) operadoresMat -> MOD .
+
+    INT             reduce using rule 17 (operadoresMat -> MOD .)
+    FLOAT           reduce using rule 17 (operadoresMat -> MOD .)
+    ID              reduce using rule 17 (operadoresMat -> MOD .)
+    CONSTANT        reduce using rule 17 (operadoresMat -> MOD .)
+    GLOBAL          reduce using rule 17 (operadoresMat -> MOD .)
+    TRUE            reduce using rule 17 (operadoresMat -> MOD .)
+    FALSE           reduce using rule 17 (operadoresMat -> MOD .)
+
+
+state 21
+
+    (3) impresion -> PUTS factor .
+    (8) comparacion -> factor . operadoresComp factor
+    (7) expression -> factor . operadoresMat factor
+    (10) operadoresComp -> . MAYORQUE
+    (11) operadoresComp -> . MENORQUE
+    (12) operadoresComp -> . operadoresEquals
+    (13) operadoresMat -> . PLUS
+    (14) operadoresMat -> . MINUS
+    (15) operadoresMat -> . TIMES
+    (16) operadoresMat -> . DIVIDE
+    (17) operadoresMat -> . MOD
+    (28) operadoresEquals -> . EQUALSX2
+    (29) operadoresEquals -> . NOTEQUALS
+
+    $end            reduce using rule 3 (impresion -> PUTS factor .)
+    MAYORQUE        shift and go to state 29
+    MENORQUE        shift and go to state 30
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    MOD             shift and go to state 20
+    EQUALSX2        shift and go to state 32
+    NOTEQUALS       shift and go to state 33
+
+    operadoresComp                 shift and go to state 28
+    operadoresMat                  shift and go to state 15
+    operadoresEquals               shift and go to state 31
+
+state 22
+
+    (4) impresion -> PUTS comparacion .
+
+    $end            reduce using rule 4 (impresion -> PUTS comparacion .)
+
+
+state 23
+
+    (5) impresion -> PUTS comparacion_bool .
+
+    $end            reduce using rule 5 (impresion -> PUTS comparacion_bool .)
+
+
+state 24
+
+    (6) impresion -> PUTS STRING .
+
+    $end            reduce using rule 6 (impresion -> PUTS STRING .)
+
+
+state 25
+
+    (21) factor -> booleanos .
+    (9) comparacion_bool -> booleanos . operadoresBool booleanos
+    (25) operadoresBool -> . AND
+    (26) operadoresBool -> . OR
+    (27) operadoresBool -> . operadoresEquals
+    (28) operadoresEquals -> . EQUALSX2
+    (29) operadoresEquals -> . NOTEQUALS
+
+  ! shift/reduce conflict for EQUALSX2 resolved as shift
+  ! shift/reduce conflict for NOTEQUALS resolved as shift
+    MAYORQUE        reduce using rule 21 (factor -> booleanos .)
+    MENORQUE        reduce using rule 21 (factor -> booleanos .)
+    PLUS            reduce using rule 21 (factor -> booleanos .)
+    MINUS           reduce using rule 21 (factor -> booleanos .)
+    TIMES           reduce using rule 21 (factor -> booleanos .)
+    DIVIDE          reduce using rule 21 (factor -> booleanos .)
+    MOD             reduce using rule 21 (factor -> booleanos .)
+    $end            reduce using rule 21 (factor -> booleanos .)
+    AND             shift and go to state 35
+    OR              shift and go to state 36
+    EQUALSX2        shift and go to state 32
+    NOTEQUALS       shift and go to state 33
+
+  ! EQUALSX2        [ reduce using rule 21 (factor -> booleanos .) ]
+  ! NOTEQUALS       [ reduce using rule 21 (factor -> booleanos .) ]
+
+    operadoresBool                 shift and go to state 34
+    operadoresEquals               shift and go to state 37
+
+state 26
+
+    (22) factor -> expression .
+
+    MAYORQUE        reduce using rule 22 (factor -> expression .)
+    MENORQUE        reduce using rule 22 (factor -> expression .)
+    PLUS            reduce using rule 22 (factor -> expression .)
+    MINUS           reduce using rule 22 (factor -> expression .)
+    TIMES           reduce using rule 22 (factor -> expression .)
+    DIVIDE          reduce using rule 22 (factor -> expression .)
+    MOD             reduce using rule 22 (factor -> expression .)
+    EQUALSX2        reduce using rule 22 (factor -> expression .)
+    NOTEQUALS       reduce using rule 22 (factor -> expression .)
+    $end            reduce using rule 22 (factor -> expression .)
+
+
+state 27
+
+    (7) expression -> factor operadoresMat factor .
+    (7) expression -> factor . operadoresMat factor
+    (13) operadoresMat -> . PLUS
+    (14) operadoresMat -> . MINUS
+    (15) operadoresMat -> . TIMES
+    (16) operadoresMat -> . DIVIDE
+    (17) operadoresMat -> . MOD
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+    $end            reduce using rule 7 (expression -> factor operadoresMat factor .)
+    MAYORQUE        reduce using rule 7 (expression -> factor operadoresMat factor .)
+    MENORQUE        reduce using rule 7 (expression -> factor operadoresMat factor .)
+    EQUALSX2        reduce using rule 7 (expression -> factor operadoresMat factor .)
+    NOTEQUALS       reduce using rule 7 (expression -> factor operadoresMat factor .)
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    MOD             shift and go to state 20
+
+  ! PLUS            [ reduce using rule 7 (expression -> factor operadoresMat factor .) ]
+  ! MINUS           [ reduce using rule 7 (expression -> factor operadoresMat factor .) ]
+  ! TIMES           [ reduce using rule 7 (expression -> factor operadoresMat factor .) ]
+  ! DIVIDE          [ reduce using rule 7 (expression -> factor operadoresMat factor .) ]
+  ! MOD             [ reduce using rule 7 (expression -> factor operadoresMat factor .) ]
+
+    operadoresMat                  shift and go to state 15
+
+state 28
+
+    (8) comparacion -> factor operadoresComp . factor
+    (18) factor -> . INT
+    (19) factor -> . variables
+    (20) factor -> . FLOAT
+    (21) factor -> . booleanos
+    (22) factor -> . expression
+    (30) variables -> . ID
+    (31) variables -> . CONSTANT
+    (32) variables -> . GLOBAL
+    (23) booleanos -> . TRUE
+    (24) booleanos -> . FALSE
+    (7) expression -> . factor operadoresMat factor
+
+    INT             shift and go to state 6
+    FLOAT           shift and go to state 8
+    ID              shift and go to state 10
+    CONSTANT        shift and go to state 11
+    GLOBAL          shift and go to state 12
+    TRUE            shift and go to state 13
+    FALSE           shift and go to state 14
+
+    factor                         shift and go to state 38
+    variables                      shift and go to state 7
+    booleanos                      shift and go to state 9
+    expression                     shift and go to state 26
+
+state 29
+
+    (10) operadoresComp -> MAYORQUE .
+
+    INT             reduce using rule 10 (operadoresComp -> MAYORQUE .)
+    FLOAT           reduce using rule 10 (operadoresComp -> MAYORQUE .)
+    ID              reduce using rule 10 (operadoresComp -> MAYORQUE .)
+    CONSTANT        reduce using rule 10 (operadoresComp -> MAYORQUE .)
+    GLOBAL          reduce using rule 10 (operadoresComp -> MAYORQUE .)
+    TRUE            reduce using rule 10 (operadoresComp -> MAYORQUE .)
+    FALSE           reduce using rule 10 (operadoresComp -> MAYORQUE .)
+
+
+state 30
+
+    (11) operadoresComp -> MENORQUE .
+
+    INT             reduce using rule 11 (operadoresComp -> MENORQUE .)
+    FLOAT           reduce using rule 11 (operadoresComp -> MENORQUE .)
+    ID              reduce using rule 11 (operadoresComp -> MENORQUE .)
+    CONSTANT        reduce using rule 11 (operadoresComp -> MENORQUE .)
+    GLOBAL          reduce using rule 11 (operadoresComp -> MENORQUE .)
+    TRUE            reduce using rule 11 (operadoresComp -> MENORQUE .)
+    FALSE           reduce using rule 11 (operadoresComp -> MENORQUE .)
+
+
+state 31
+
+    (12) operadoresComp -> operadoresEquals .
+
+    INT             reduce using rule 12 (operadoresComp -> operadoresEquals .)
+    FLOAT           reduce using rule 12 (operadoresComp -> operadoresEquals .)
+    ID              reduce using rule 12 (operadoresComp -> operadoresEquals .)
+    CONSTANT        reduce using rule 12 (operadoresComp -> operadoresEquals .)
+    GLOBAL          reduce using rule 12 (operadoresComp -> operadoresEquals .)
+    TRUE            reduce using rule 12 (operadoresComp -> operadoresEquals .)
+    FALSE           reduce using rule 12 (operadoresComp -> operadoresEquals .)
+
+
+state 32
+
+    (28) operadoresEquals -> EQUALSX2 .
+
+    INT             reduce using rule 28 (operadoresEquals -> EQUALSX2 .)
+    FLOAT           reduce using rule 28 (operadoresEquals -> EQUALSX2 .)
+    ID              reduce using rule 28 (operadoresEquals -> EQUALSX2 .)
+    CONSTANT        reduce using rule 28 (operadoresEquals -> EQUALSX2 .)
+    GLOBAL          reduce using rule 28 (operadoresEquals -> EQUALSX2 .)
+    TRUE            reduce using rule 28 (operadoresEquals -> EQUALSX2 .)
+    FALSE           reduce using rule 28 (operadoresEquals -> EQUALSX2 .)
+
+
+state 33
+
+    (29) operadoresEquals -> NOTEQUALS .
+
+    INT             reduce using rule 29 (operadoresEquals -> NOTEQUALS .)
+    FLOAT           reduce using rule 29 (operadoresEquals -> NOTEQUALS .)
+    ID              reduce using rule 29 (operadoresEquals -> NOTEQUALS .)
+    CONSTANT        reduce using rule 29 (operadoresEquals -> NOTEQUALS .)
+    GLOBAL          reduce using rule 29 (operadoresEquals -> NOTEQUALS .)
+    TRUE            reduce using rule 29 (operadoresEquals -> NOTEQUALS .)
+    FALSE           reduce using rule 29 (operadoresEquals -> NOTEQUALS .)
+
+
+state 34
+
+    (9) comparacion_bool -> booleanos operadoresBool . booleanos
+    (23) booleanos -> . TRUE
+    (24) booleanos -> . FALSE
+
+    TRUE            shift and go to state 13
+    FALSE           shift and go to state 14
+
+    booleanos                      shift and go to state 39
+
+state 35
+
+    (25) operadoresBool -> AND .
+
+    TRUE            reduce using rule 25 (operadoresBool -> AND .)
+    FALSE           reduce using rule 25 (operadoresBool -> AND .)
+
+
+state 36
+
+    (26) operadoresBool -> OR .
+
+    TRUE            reduce using rule 26 (operadoresBool -> OR .)
+    FALSE           reduce using rule 26 (operadoresBool -> OR .)
+
+
+state 37
+
+    (27) operadoresBool -> operadoresEquals .
+
+    TRUE            reduce using rule 27 (operadoresBool -> operadoresEquals .)
+    FALSE           reduce using rule 27 (operadoresBool -> operadoresEquals .)
+
+
+state 38
+
+    (8) comparacion -> factor operadoresComp factor .
+    (7) expression -> factor . operadoresMat factor
+    (13) operadoresMat -> . PLUS
+    (14) operadoresMat -> . MINUS
+    (15) operadoresMat -> . TIMES
+    (16) operadoresMat -> . DIVIDE
+    (17) operadoresMat -> . MOD
+
+    $end            reduce using rule 8 (comparacion -> factor operadoresComp factor .)
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    MOD             shift and go to state 20
+
+    operadoresMat                  shift and go to state 15
+
+state 39
+
+    (9) comparacion_bool -> booleanos operadoresBool booleanos .
+
+    $end            reduce using rule 9 (comparacion_bool -> booleanos operadoresBool booleanos .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for EQUALSX2 in state 25 resolved as shift
+WARNING: shift/reduce conflict for NOTEQUALS in state 25 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 27 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 27 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 27 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 27 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 27 resolved as shift

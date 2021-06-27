@@ -56,6 +56,8 @@ tokens = (
     'RCOR',
     'MAYORQUE',
     'MENORQUE',
+    'EQUALSX2',
+    'NOTEQUALS',
     'NUMERAL',
     'COMMA',
     'PUNTO',
@@ -83,6 +85,8 @@ t_LCOR = r'\['
 t_RCOR = r'\]'
 t_MAYORQUE = r'>'
 t_MENORQUE = r'<'
+t_EQUALSX2 = r'=='
+t_NOTEQUALS = r'!='
 t_EQUAL = r'='
 t_COMMA = r','
 t_PUNTO = r'\.'
@@ -131,6 +135,10 @@ def t_STRING(t):
     t.type = reserved.get(t.value,'STRING')    # Check for reserved words
     return t
 
+def t_COMMENT(t):
+    r'\#.*'
+    pass
+
 def t_error(t):
     print("illegal character '%s'" %t.value[0])
     t.lexer.skip(1)
@@ -143,6 +151,7 @@ def getTokens(lexer):
         print(tok)
 # Build the lexer
 lexer = lex.lex()
+"""
 linea=" "
 while linea!="":
     linea=input(">>")
@@ -150,3 +159,4 @@ while linea!="":
     getTokens(lexer)
 # Tokenize
 print("Succesfull")
+"""
