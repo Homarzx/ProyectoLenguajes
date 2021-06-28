@@ -5,7 +5,8 @@ from lexico import tokens
 def p_cuerpo(p):
     """cuerpo : expression
              | impresion
-             | asignacion"""
+             | asignacion
+             | funcionstruct"""
 def p_impresion(p):
     '''impresion : PUTS factor
                     | PUTS comparacion
@@ -74,7 +75,7 @@ def p_struct(p):
     'struct : conjunto'
 
 def p_conjunto(p):
-    '''conjunto : SET LCOR repetirvalor RCOR
+    '''conjunto : SET arr
                 | SET LCOR RCOR'''
 
 def p_valor(p):
@@ -87,6 +88,21 @@ def p_valor(p):
 def p_repetirvalor(p):
     '''repetirvalor : valor
                     | valor COMMA repetirvalor'''
+
+#Sirve para que me de un arreglo [1,"hola",34.5]
+def p_arr(p):
+    'arr : LCOR repetirvalor RCOR'
+
+def p_funcionstruct(p):
+    'funcionstruct : funcionsconjunto'
+
+def p_funcionsconjunto(p):
+    '''funcionsconjunto : variables PUNTO ADD LPAREN valor RPAREN
+                        | variables PUNTO ADD LPAREN arr RPAREN
+                        | variables PUNTO MERGE LPAREN variables RPAREN
+                        | variables PUNTO SIZE LPAREN RPAREN
+                        | variables PUNTO SIZE'''
+
 
 # Error rule for syntax errors
 def p_error(p):
