@@ -80,7 +80,8 @@ def p_asignacion(p):
 #AQUI PUEDEN DEFINIR LAS DEMAS ESTRUCTURAS
 def p_struct(p):
     '''struct : conjunto
-                | formacion'''
+                | formacion
+                | hash'''
 
 def p_conjunto(p):
     '''conjunto : SET arr
@@ -97,13 +98,15 @@ def p_repetirvalor(p):
     '''repetirvalor : valor
                     | valor COMMA repetirvalor'''
 
+
 #Sirve para que me de un arreglo [1,"hola",34.5]
 def p_arr(p):
     'arr : LCOR repetirvalor RCOR'
 
 def p_funcionstruct(p):
     '''funcionstruct : funcionsconjunto
-                        | funcionsformacion'''
+                        | funcionsformacion
+                        | funcionsHash'''
 
 def p_funcionsconjunto(p):
     '''funcionsconjunto : variables PUNTO ADD LPAREN valor RPAREN
@@ -146,8 +149,44 @@ def p_funcionsformacion(p):
                         | variables PUNTO FIRST
                         | variables PUNTO FIRST LPAREN RPAREN'''
 
+def p_hash(p):
+    'hash : LBRACE hash_content RBRACE'
 
+def p_hash_elements(p):
+    '''hash_elements : hash_element hash_more_elements'''
 
+def p_hash_content(p):
+    '''hash_content : hash_element 
+                    | hash_elements'''
+
+def p_hash_element(p):
+    'hash_element : clave FLECHA value'
+
+def p_hash_more_elements(p):
+    '''hash_more_elements : COMMA hash_element
+                            | COMMA hash_element hash_more_elements'''
+def p_clave(p):
+    '''clave : variables                                                     
+            | STRING
+            | INT
+            | FLOAT'''
+def p_value(p):
+    '''value : valor
+            | struct'''
+
+def p_hash_store(p):
+    'hash_add : variables PUNTO STORE LPAREN hash_element RPAREN'
+
+def p_hash_delete(p):
+    'hash_delete : variables PUNTO LPAREN clave RPAREN'
+
+def p_hash_key(p):
+    'hash_key : variables PUNTO KEY LPAREN value RPAREN'
+
+def p_funcionsHash(p):
+    '''funcionsHash : hash_add
+                    | hash_delete
+                    | hash_key'''
 # Error rule for syntax errors
 def p_error(p):
     if p:

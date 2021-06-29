@@ -71,7 +71,9 @@ tokens = (
     'SET',
     'ARRAY',
     'CONSTANT',
-    'GLOBAL'
+    'GLOBAL',
+    'STORE',
+    'KEY'
  ) + tuple(reserved.values())
 
 # Reglas de expresión regular para tokens simples
@@ -96,6 +98,16 @@ t_PUNTO = r'\.'
 t_FLECHA = r'=>'
 t_NUMERAL = r'\#'
 t_ignore = ' \t'
+
+def t_STORE(t):
+    r'store'
+    t.type = reserved.get(t.value, 'STORE')  # Check for reserved words
+    return t
+
+def t_KEY(t):
+    r'key'
+    t.type = reserved.get(t.value, 'key')  # Check for reserved words
+    return t
 
 def t_SET (t) :
    r'Set'
