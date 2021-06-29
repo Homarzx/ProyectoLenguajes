@@ -113,20 +113,22 @@ Rule 69    condicion -> comparacion_bool
 Rule 70    condicion -> booleanos
 Rule 71    condicion -> ARRAY PUNTO NEW LPAREN arr RPAREN
 Rule 72    sentenciawhile -> WHILE condicion DO repetircontenido END
-Rule 73    formacion -> LCOR arr RCOR
-Rule 74    formacion -> ARRAY PUNTO NEW LPAREN arr RPAREN
-Rule 75    funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN
-Rule 76    funcionsformacion -> variables PUNTO PUSH LPAREN arr RPAREN
-Rule 77    funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN
-Rule 78    funcionsformacion -> variables PUNTO FIRST
-Rule 79    funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN
+Rule 73    formacion -> LCOR repetirvalor RCOR
+Rule 74    formacion -> LCOR RCOR
+Rule 75    formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN
+Rule 76    formacion -> ARRAY PUNTO NEW LPAREN RPAREN
+Rule 77    funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN
+Rule 78    funcionsformacion -> variables PUNTO PUSH LPAREN arr RPAREN
+Rule 79    funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN
+Rule 80    funcionsformacion -> variables PUNTO FIRST
+Rule 81    funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN
 
 Terminals, with rules where they appear
 
 ADD                  : 57 58
 ALIAS                : 
 AND                  : 30
-ARRAY                : 71 74
+ARRAY                : 71 75 76
 BEGIN                : 
 BREAK                : 
 CASE                 : 
@@ -148,7 +150,7 @@ EQUAL                : 38 39 40 41 42
 EQUALSX2             : 33
 FALSE                : 29
 FETCH                : 
-FIRST                : 78 79
+FIRST                : 80 81
 FLECHA               : 
 FLOAT                : 26 51
 FOR                  : 67
@@ -157,18 +159,18 @@ GLOBAL               : 37
 ID                   : 35 48
 IF                   : 
 IN                   : 67
-INT                  : 24 47 67 67
+INT                  : 24 47 67 67 75
 LBRACE               : 
-LCOR                 : 46 54 73
-LENGTH               : 75
-LPAREN               : 57 58 59 60 67 71 74 75 76 77 79
+LCOR                 : 46 54 73 74
+LENGTH               : 77
+LPAREN               : 57 58 59 60 67 71 75 76 77 78 79 81
 MAYORQUE             : 16
 MENORQUE             : 17
 MERGE                : 59
 MINUS                : 20
 MOD                  : 23
 MODULE               : 
-NEW                  : 71 74
+NEW                  : 71 75 76
 NEWLINE              : 
 NEXT                 : 
 NIL                  : 
@@ -177,17 +179,17 @@ NOTEQUALS            : 34
 NUMERAL              : 
 OR                   : 31
 PLUS                 : 19
-PUNTO                : 12 57 58 59 60 61 67 67 71 74 75 76 77 78 79
-PUSH                 : 76
+PUNTO                : 12 57 58 59 60 61 67 67 71 75 76 77 78 79 80 81
+PUSH                 : 78
 PUTS                 : 8 9 10 11
 RBRACE               : 
-RCOR                 : 46 54 73
+RCOR                 : 46 54 73 74
 REDO                 : 
 RESCUE               : 
 RETRY                : 
 RETURN               : 
-RPAREN               : 57 58 59 60 67 71 74 75 76 77 79
-SAMPLE               : 77
+RPAREN               : 57 58 59 60 67 71 75 76 77 78 79 81
+SAMPLE               : 79
 SELF                 : 
 SET                  : 45 46
 SIZE                 : 60 61
@@ -206,7 +208,7 @@ error                :
 
 Nonterminals, with rules where they appear
 
-arr                  : 45 58 71 73 74 76
+arr                  : 45 58 71 78
 asignacion           : 3 63
 booleanos            : 15 15 40 50 70
 comparacion          : 9 68
@@ -228,12 +230,12 @@ operadoresComp       : 14
 operadoresEquals     : 18 32
 operadoresMat        : 13
 repetircontenido     : 66 67 72
-repetirvalor         : 53 54
+repetirvalor         : 53 54 73
 sentenciafor         : 6
 sentenciawhile       : 7
 struct               : 42
 valor                : 52 53 57
-variables            : 25 38 39 40 41 42 57 58 59 59 60 61 67 75 76 77 77 78 79
+variables            : 25 38 39 40 41 42 57 58 59 59 60 61 67 77 78 79 79 80 81
 
 Parsing method: LALR
 
@@ -274,11 +276,11 @@ state 0
     (59) funcionsconjunto -> . variables PUNTO MERGE LPAREN variables RPAREN
     (60) funcionsconjunto -> . variables PUNTO SIZE LPAREN RPAREN
     (61) funcionsconjunto -> . variables PUNTO SIZE
-    (75) funcionsformacion -> . variables PUNTO LENGTH LPAREN RPAREN
-    (76) funcionsformacion -> . variables PUNTO PUSH LPAREN arr RPAREN
-    (77) funcionsformacion -> . variables PUNTO SAMPLE LPAREN variables RPAREN
-    (78) funcionsformacion -> . variables PUNTO FIRST
-    (79) funcionsformacion -> . variables PUNTO FIRST LPAREN RPAREN
+    (77) funcionsformacion -> . variables PUNTO LENGTH LPAREN RPAREN
+    (78) funcionsformacion -> . variables PUNTO PUSH LPAREN arr RPAREN
+    (79) funcionsformacion -> . variables PUNTO SAMPLE LPAREN variables RPAREN
+    (80) funcionsformacion -> . variables PUNTO FIRST
+    (81) funcionsformacion -> . variables PUNTO FIRST LPAREN RPAREN
 
     PUTS            shift and go to state 10
     GETS            shift and go to state 12
@@ -429,11 +431,11 @@ state 11
     (59) funcionsconjunto -> variables . PUNTO MERGE LPAREN variables RPAREN
     (60) funcionsconjunto -> variables . PUNTO SIZE LPAREN RPAREN
     (61) funcionsconjunto -> variables . PUNTO SIZE
-    (75) funcionsformacion -> variables . PUNTO LENGTH LPAREN RPAREN
-    (76) funcionsformacion -> variables . PUNTO PUSH LPAREN arr RPAREN
-    (77) funcionsformacion -> variables . PUNTO SAMPLE LPAREN variables RPAREN
-    (78) funcionsformacion -> variables . PUNTO FIRST
-    (79) funcionsformacion -> variables . PUNTO FIRST LPAREN RPAREN
+    (77) funcionsformacion -> variables . PUNTO LENGTH LPAREN RPAREN
+    (78) funcionsformacion -> variables . PUNTO PUSH LPAREN arr RPAREN
+    (79) funcionsformacion -> variables . PUNTO SAMPLE LPAREN variables RPAREN
+    (80) funcionsformacion -> variables . PUNTO FIRST
+    (81) funcionsformacion -> variables . PUNTO FIRST LPAREN RPAREN
 
     EQUAL           shift and go to state 37
     PLUS            reduce using rule 25 (factor -> variables .)
@@ -919,8 +921,10 @@ state 37
     (13) expression -> . factor operadoresMat factor
     (45) conjunto -> . SET arr
     (46) conjunto -> . SET LCOR RCOR
-    (73) formacion -> . LCOR arr RCOR
-    (74) formacion -> . ARRAY PUNTO NEW LPAREN arr RPAREN
+    (73) formacion -> . LCOR repetirvalor RCOR
+    (74) formacion -> . LCOR RCOR
+    (75) formacion -> . ARRAY PUNTO NEW LPAREN INT RPAREN
+    (76) formacion -> . ARRAY PUNTO NEW LPAREN RPAREN
 
     STRING          shift and go to state 59
     INT             shift and go to state 16
@@ -950,11 +954,11 @@ state 38
     (59) funcionsconjunto -> variables PUNTO . MERGE LPAREN variables RPAREN
     (60) funcionsconjunto -> variables PUNTO . SIZE LPAREN RPAREN
     (61) funcionsconjunto -> variables PUNTO . SIZE
-    (75) funcionsformacion -> variables PUNTO . LENGTH LPAREN RPAREN
-    (76) funcionsformacion -> variables PUNTO . PUSH LPAREN arr RPAREN
-    (77) funcionsformacion -> variables PUNTO . SAMPLE LPAREN variables RPAREN
-    (78) funcionsformacion -> variables PUNTO . FIRST
-    (79) funcionsformacion -> variables PUNTO . FIRST LPAREN RPAREN
+    (77) funcionsformacion -> variables PUNTO . LENGTH LPAREN RPAREN
+    (78) funcionsformacion -> variables PUNTO . PUSH LPAREN arr RPAREN
+    (79) funcionsformacion -> variables PUNTO . SAMPLE LPAREN variables RPAREN
+    (80) funcionsformacion -> variables PUNTO . FIRST
+    (81) funcionsformacion -> variables PUNTO . FIRST LPAREN RPAREN
 
     ADD             shift and go to state 68
     MERGE           shift and go to state 69
@@ -1331,18 +1335,36 @@ state 65
 
 state 66
 
-    (73) formacion -> LCOR . arr RCOR
-    (54) arr -> . LCOR repetirvalor RCOR
+    (73) formacion -> LCOR . repetirvalor RCOR
+    (74) formacion -> LCOR . RCOR
+    (52) repetirvalor -> . valor
+    (53) repetirvalor -> . valor COMMA repetirvalor
+    (47) valor -> . INT
+    (48) valor -> . ID
+    (49) valor -> . STRING
+    (50) valor -> . booleanos
+    (51) valor -> . FLOAT
+    (28) booleanos -> . TRUE
+    (29) booleanos -> . FALSE
 
-    LCOR            shift and go to state 83
+    RCOR            shift and go to state 84
+    INT             shift and go to state 86
+    ID              shift and go to state 87
+    STRING          shift and go to state 88
+    FLOAT           shift and go to state 90
+    TRUE            shift and go to state 35
+    FALSE           shift and go to state 36
 
-    arr                            shift and go to state 84
+    repetirvalor                   shift and go to state 83
+    valor                          shift and go to state 85
+    booleanos                      shift and go to state 89
 
 state 67
 
-    (74) formacion -> ARRAY . PUNTO NEW LPAREN arr RPAREN
+    (75) formacion -> ARRAY . PUNTO NEW LPAREN INT RPAREN
+    (76) formacion -> ARRAY . PUNTO NEW LPAREN RPAREN
 
-    PUNTO           shift and go to state 85
+    PUNTO           shift and go to state 91
 
 
 state 68
@@ -1350,14 +1372,14 @@ state 68
     (57) funcionsconjunto -> variables PUNTO ADD . LPAREN valor RPAREN
     (58) funcionsconjunto -> variables PUNTO ADD . LPAREN arr RPAREN
 
-    LPAREN          shift and go to state 86
+    LPAREN          shift and go to state 92
 
 
 state 69
 
     (59) funcionsconjunto -> variables PUNTO MERGE . LPAREN variables RPAREN
 
-    LPAREN          shift and go to state 87
+    LPAREN          shift and go to state 93
 
 
 state 70
@@ -1365,7 +1387,7 @@ state 70
     (60) funcionsconjunto -> variables PUNTO SIZE . LPAREN RPAREN
     (61) funcionsconjunto -> variables PUNTO SIZE .
 
-    LPAREN          shift and go to state 88
+    LPAREN          shift and go to state 94
     $end            reduce using rule 61 (funcionsconjunto -> variables PUNTO SIZE .)
     PUTS            reduce using rule 61 (funcionsconjunto -> variables PUNTO SIZE .)
     ID              reduce using rule 61 (funcionsconjunto -> variables PUNTO SIZE .)
@@ -1376,37 +1398,37 @@ state 70
 
 state 71
 
-    (75) funcionsformacion -> variables PUNTO LENGTH . LPAREN RPAREN
+    (77) funcionsformacion -> variables PUNTO LENGTH . LPAREN RPAREN
 
-    LPAREN          shift and go to state 89
+    LPAREN          shift and go to state 95
 
 
 state 72
 
-    (76) funcionsformacion -> variables PUNTO PUSH . LPAREN arr RPAREN
+    (78) funcionsformacion -> variables PUNTO PUSH . LPAREN arr RPAREN
 
-    LPAREN          shift and go to state 90
+    LPAREN          shift and go to state 96
 
 
 state 73
 
-    (77) funcionsformacion -> variables PUNTO SAMPLE . LPAREN variables RPAREN
+    (79) funcionsformacion -> variables PUNTO SAMPLE . LPAREN variables RPAREN
 
-    LPAREN          shift and go to state 91
+    LPAREN          shift and go to state 97
 
 
 state 74
 
-    (78) funcionsformacion -> variables PUNTO FIRST .
-    (79) funcionsformacion -> variables PUNTO FIRST . LPAREN RPAREN
+    (80) funcionsformacion -> variables PUNTO FIRST .
+    (81) funcionsformacion -> variables PUNTO FIRST . LPAREN RPAREN
 
-    $end            reduce using rule 78 (funcionsformacion -> variables PUNTO FIRST .)
-    PUTS            reduce using rule 78 (funcionsformacion -> variables PUNTO FIRST .)
-    ID              reduce using rule 78 (funcionsformacion -> variables PUNTO FIRST .)
-    CONSTANT        reduce using rule 78 (funcionsformacion -> variables PUNTO FIRST .)
-    GLOBAL          reduce using rule 78 (funcionsformacion -> variables PUNTO FIRST .)
-    END             reduce using rule 78 (funcionsformacion -> variables PUNTO FIRST .)
-    LPAREN          shift and go to state 92
+    $end            reduce using rule 80 (funcionsformacion -> variables PUNTO FIRST .)
+    PUTS            reduce using rule 80 (funcionsformacion -> variables PUNTO FIRST .)
+    ID              reduce using rule 80 (funcionsformacion -> variables PUNTO FIRST .)
+    CONSTANT        reduce using rule 80 (funcionsformacion -> variables PUNTO FIRST .)
+    GLOBAL          reduce using rule 80 (funcionsformacion -> variables PUNTO FIRST .)
+    END             reduce using rule 80 (funcionsformacion -> variables PUNTO FIRST .)
+    LPAREN          shift and go to state 98
 
 
 state 75
@@ -1420,7 +1442,7 @@ state 76
 
     (67) sentenciafor -> FOR variables IN . LPAREN INT PUNTO PUNTO INT RPAREN repetircontenido END
 
-    LPAREN          shift and go to state 93
+    LPAREN          shift and go to state 99
 
 
 state 77
@@ -1450,23 +1472,23 @@ state 77
     (59) funcionsconjunto -> . variables PUNTO MERGE LPAREN variables RPAREN
     (60) funcionsconjunto -> . variables PUNTO SIZE LPAREN RPAREN
     (61) funcionsconjunto -> . variables PUNTO SIZE
-    (75) funcionsformacion -> . variables PUNTO LENGTH LPAREN RPAREN
-    (76) funcionsformacion -> . variables PUNTO PUSH LPAREN arr RPAREN
-    (77) funcionsformacion -> . variables PUNTO SAMPLE LPAREN variables RPAREN
-    (78) funcionsformacion -> . variables PUNTO FIRST
-    (79) funcionsformacion -> . variables PUNTO FIRST LPAREN RPAREN
+    (77) funcionsformacion -> . variables PUNTO LENGTH LPAREN RPAREN
+    (78) funcionsformacion -> . variables PUNTO PUSH LPAREN arr RPAREN
+    (79) funcionsformacion -> . variables PUNTO SAMPLE LPAREN variables RPAREN
+    (80) funcionsformacion -> . variables PUNTO FIRST
+    (81) funcionsformacion -> . variables PUNTO FIRST LPAREN RPAREN
 
     PUTS            shift and go to state 10
     ID              shift and go to state 19
     CONSTANT        shift and go to state 20
     GLOBAL          shift and go to state 21
 
-    repetircontenido               shift and go to state 94
-    contenido                      shift and go to state 95
-    impresion                      shift and go to state 96
-    asignacion                     shift and go to state 97
-    funcionstruct                  shift and go to state 98
-    variables                      shift and go to state 99
+    repetircontenido               shift and go to state 100
+    contenido                      shift and go to state 101
+    impresion                      shift and go to state 102
+    asignacion                     shift and go to state 103
+    funcionstruct                  shift and go to state 104
+    variables                      shift and go to state 105
     funcionsconjunto               shift and go to state 13
     funcionsformacion              shift and go to state 14
 
@@ -1474,7 +1496,7 @@ state 78
 
     (71) condicion -> ARRAY PUNTO . NEW LPAREN arr RPAREN
 
-    NEW             shift and go to state 100
+    NEW             shift and go to state 106
 
 
 state 79
@@ -1541,57 +1563,100 @@ state 82
     (28) booleanos -> . TRUE
     (29) booleanos -> . FALSE
 
-    RCOR            shift and go to state 101
-    INT             shift and go to state 104
-    ID              shift and go to state 105
-    STRING          shift and go to state 106
-    FLOAT           shift and go to state 108
+    RCOR            shift and go to state 107
+    INT             shift and go to state 86
+    ID              shift and go to state 87
+    STRING          shift and go to state 88
+    FLOAT           shift and go to state 90
     TRUE            shift and go to state 35
     FALSE           shift and go to state 36
 
-    repetirvalor                   shift and go to state 102
-    valor                          shift and go to state 103
-    booleanos                      shift and go to state 107
+    repetirvalor                   shift and go to state 108
+    valor                          shift and go to state 85
+    booleanos                      shift and go to state 89
 
 state 83
 
-    (54) arr -> LCOR . repetirvalor RCOR
-    (52) repetirvalor -> . valor
-    (53) repetirvalor -> . valor COMMA repetirvalor
-    (47) valor -> . INT
-    (48) valor -> . ID
-    (49) valor -> . STRING
-    (50) valor -> . booleanos
-    (51) valor -> . FLOAT
-    (28) booleanos -> . TRUE
-    (29) booleanos -> . FALSE
-
-    INT             shift and go to state 104
-    ID              shift and go to state 105
-    STRING          shift and go to state 106
-    FLOAT           shift and go to state 108
-    TRUE            shift and go to state 35
-    FALSE           shift and go to state 36
-
-    repetirvalor                   shift and go to state 102
-    valor                          shift and go to state 103
-    booleanos                      shift and go to state 107
-
-state 84
-
-    (73) formacion -> LCOR arr . RCOR
+    (73) formacion -> LCOR repetirvalor . RCOR
 
     RCOR            shift and go to state 109
 
 
+state 84
+
+    (74) formacion -> LCOR RCOR .
+
+    $end            reduce using rule 74 (formacion -> LCOR RCOR .)
+    PUTS            reduce using rule 74 (formacion -> LCOR RCOR .)
+    ID              reduce using rule 74 (formacion -> LCOR RCOR .)
+    CONSTANT        reduce using rule 74 (formacion -> LCOR RCOR .)
+    GLOBAL          reduce using rule 74 (formacion -> LCOR RCOR .)
+    END             reduce using rule 74 (formacion -> LCOR RCOR .)
+
+
 state 85
 
-    (74) formacion -> ARRAY PUNTO . NEW LPAREN arr RPAREN
+    (52) repetirvalor -> valor .
+    (53) repetirvalor -> valor . COMMA repetirvalor
 
-    NEW             shift and go to state 110
+    RCOR            reduce using rule 52 (repetirvalor -> valor .)
+    COMMA           shift and go to state 110
 
 
 state 86
+
+    (47) valor -> INT .
+
+    COMMA           reduce using rule 47 (valor -> INT .)
+    RCOR            reduce using rule 47 (valor -> INT .)
+    RPAREN          reduce using rule 47 (valor -> INT .)
+
+
+state 87
+
+    (48) valor -> ID .
+
+    COMMA           reduce using rule 48 (valor -> ID .)
+    RCOR            reduce using rule 48 (valor -> ID .)
+    RPAREN          reduce using rule 48 (valor -> ID .)
+
+
+state 88
+
+    (49) valor -> STRING .
+
+    COMMA           reduce using rule 49 (valor -> STRING .)
+    RCOR            reduce using rule 49 (valor -> STRING .)
+    RPAREN          reduce using rule 49 (valor -> STRING .)
+
+
+state 89
+
+    (50) valor -> booleanos .
+
+    COMMA           reduce using rule 50 (valor -> booleanos .)
+    RCOR            reduce using rule 50 (valor -> booleanos .)
+    RPAREN          reduce using rule 50 (valor -> booleanos .)
+
+
+state 90
+
+    (51) valor -> FLOAT .
+
+    COMMA           reduce using rule 51 (valor -> FLOAT .)
+    RCOR            reduce using rule 51 (valor -> FLOAT .)
+    RPAREN          reduce using rule 51 (valor -> FLOAT .)
+
+
+state 91
+
+    (75) formacion -> ARRAY PUNTO . NEW LPAREN INT RPAREN
+    (76) formacion -> ARRAY PUNTO . NEW LPAREN RPAREN
+
+    NEW             shift and go to state 111
+
+
+state 92
 
     (57) funcionsconjunto -> variables PUNTO ADD LPAREN . valor RPAREN
     (58) funcionsconjunto -> variables PUNTO ADD LPAREN . arr RPAREN
@@ -1604,19 +1669,19 @@ state 86
     (28) booleanos -> . TRUE
     (29) booleanos -> . FALSE
 
-    INT             shift and go to state 104
-    ID              shift and go to state 105
-    STRING          shift and go to state 106
-    FLOAT           shift and go to state 108
-    LCOR            shift and go to state 83
+    INT             shift and go to state 86
+    ID              shift and go to state 87
+    STRING          shift and go to state 88
+    FLOAT           shift and go to state 90
+    LCOR            shift and go to state 114
     TRUE            shift and go to state 35
     FALSE           shift and go to state 36
 
-    valor                          shift and go to state 111
-    arr                            shift and go to state 112
-    booleanos                      shift and go to state 107
+    valor                          shift and go to state 112
+    arr                            shift and go to state 113
+    booleanos                      shift and go to state 89
 
-state 87
+state 93
 
     (59) funcionsconjunto -> variables PUNTO MERGE LPAREN . variables RPAREN
     (35) variables -> . ID
@@ -1627,34 +1692,34 @@ state 87
     CONSTANT        shift and go to state 20
     GLOBAL          shift and go to state 21
 
-    variables                      shift and go to state 113
+    variables                      shift and go to state 115
 
-state 88
+state 94
 
     (60) funcionsconjunto -> variables PUNTO SIZE LPAREN . RPAREN
 
-    RPAREN          shift and go to state 114
+    RPAREN          shift and go to state 116
 
 
-state 89
+state 95
 
-    (75) funcionsformacion -> variables PUNTO LENGTH LPAREN . RPAREN
+    (77) funcionsformacion -> variables PUNTO LENGTH LPAREN . RPAREN
 
-    RPAREN          shift and go to state 115
+    RPAREN          shift and go to state 117
 
 
-state 90
+state 96
 
-    (76) funcionsformacion -> variables PUNTO PUSH LPAREN . arr RPAREN
+    (78) funcionsformacion -> variables PUNTO PUSH LPAREN . arr RPAREN
     (54) arr -> . LCOR repetirvalor RCOR
 
-    LCOR            shift and go to state 83
+    LCOR            shift and go to state 114
 
-    arr                            shift and go to state 116
+    arr                            shift and go to state 118
 
-state 91
+state 97
 
-    (77) funcionsformacion -> variables PUNTO SAMPLE LPAREN . variables RPAREN
+    (79) funcionsformacion -> variables PUNTO SAMPLE LPAREN . variables RPAREN
     (35) variables -> . ID
     (36) variables -> . CONSTANT
     (37) variables -> . GLOBAL
@@ -1663,30 +1728,30 @@ state 91
     CONSTANT        shift and go to state 20
     GLOBAL          shift and go to state 21
 
-    variables                      shift and go to state 117
+    variables                      shift and go to state 119
 
-state 92
+state 98
 
-    (79) funcionsformacion -> variables PUNTO FIRST LPAREN . RPAREN
+    (81) funcionsformacion -> variables PUNTO FIRST LPAREN . RPAREN
 
-    RPAREN          shift and go to state 118
+    RPAREN          shift and go to state 120
 
 
-state 93
+state 99
 
     (67) sentenciafor -> FOR variables IN LPAREN . INT PUNTO PUNTO INT RPAREN repetircontenido END
 
-    INT             shift and go to state 119
+    INT             shift and go to state 121
 
 
-state 94
+state 100
 
     (72) sentenciawhile -> WHILE condicion DO repetircontenido . END
 
-    END             shift and go to state 120
+    END             shift and go to state 122
 
 
-state 95
+state 101
 
     (65) repetircontenido -> contenido .
     (66) repetircontenido -> contenido . repetircontenido
@@ -1714,11 +1779,11 @@ state 95
     (59) funcionsconjunto -> . variables PUNTO MERGE LPAREN variables RPAREN
     (60) funcionsconjunto -> . variables PUNTO SIZE LPAREN RPAREN
     (61) funcionsconjunto -> . variables PUNTO SIZE
-    (75) funcionsformacion -> . variables PUNTO LENGTH LPAREN RPAREN
-    (76) funcionsformacion -> . variables PUNTO PUSH LPAREN arr RPAREN
-    (77) funcionsformacion -> . variables PUNTO SAMPLE LPAREN variables RPAREN
-    (78) funcionsformacion -> . variables PUNTO FIRST
-    (79) funcionsformacion -> . variables PUNTO FIRST LPAREN RPAREN
+    (77) funcionsformacion -> . variables PUNTO LENGTH LPAREN RPAREN
+    (78) funcionsformacion -> . variables PUNTO PUSH LPAREN arr RPAREN
+    (79) funcionsformacion -> . variables PUNTO SAMPLE LPAREN variables RPAREN
+    (80) funcionsformacion -> . variables PUNTO FIRST
+    (81) funcionsformacion -> . variables PUNTO FIRST LPAREN RPAREN
 
     END             reduce using rule 65 (repetircontenido -> contenido .)
     PUTS            shift and go to state 10
@@ -1726,16 +1791,16 @@ state 95
     CONSTANT        shift and go to state 20
     GLOBAL          shift and go to state 21
 
-    contenido                      shift and go to state 95
-    repetircontenido               shift and go to state 121
-    impresion                      shift and go to state 96
-    asignacion                     shift and go to state 97
-    funcionstruct                  shift and go to state 98
-    variables                      shift and go to state 99
+    contenido                      shift and go to state 101
+    repetircontenido               shift and go to state 123
+    impresion                      shift and go to state 102
+    asignacion                     shift and go to state 103
+    funcionstruct                  shift and go to state 104
+    variables                      shift and go to state 105
     funcionsconjunto               shift and go to state 13
     funcionsformacion              shift and go to state 14
 
-state 96
+state 102
 
     (62) contenido -> impresion .
 
@@ -1746,7 +1811,7 @@ state 96
     END             reduce using rule 62 (contenido -> impresion .)
 
 
-state 97
+state 103
 
     (63) contenido -> asignacion .
 
@@ -1757,7 +1822,7 @@ state 97
     END             reduce using rule 63 (contenido -> asignacion .)
 
 
-state 98
+state 104
 
     (64) contenido -> funcionstruct .
 
@@ -1768,7 +1833,7 @@ state 98
     END             reduce using rule 64 (contenido -> funcionstruct .)
 
 
-state 99
+state 105
 
     (38) asignacion -> variables . EQUAL factor
     (39) asignacion -> variables . EQUAL STRING
@@ -1780,24 +1845,24 @@ state 99
     (59) funcionsconjunto -> variables . PUNTO MERGE LPAREN variables RPAREN
     (60) funcionsconjunto -> variables . PUNTO SIZE LPAREN RPAREN
     (61) funcionsconjunto -> variables . PUNTO SIZE
-    (75) funcionsformacion -> variables . PUNTO LENGTH LPAREN RPAREN
-    (76) funcionsformacion -> variables . PUNTO PUSH LPAREN arr RPAREN
-    (77) funcionsformacion -> variables . PUNTO SAMPLE LPAREN variables RPAREN
-    (78) funcionsformacion -> variables . PUNTO FIRST
-    (79) funcionsformacion -> variables . PUNTO FIRST LPAREN RPAREN
+    (77) funcionsformacion -> variables . PUNTO LENGTH LPAREN RPAREN
+    (78) funcionsformacion -> variables . PUNTO PUSH LPAREN arr RPAREN
+    (79) funcionsformacion -> variables . PUNTO SAMPLE LPAREN variables RPAREN
+    (80) funcionsformacion -> variables . PUNTO FIRST
+    (81) funcionsformacion -> variables . PUNTO FIRST LPAREN RPAREN
 
     EQUAL           shift and go to state 37
     PUNTO           shift and go to state 38
 
 
-state 100
+state 106
 
     (71) condicion -> ARRAY PUNTO NEW . LPAREN arr RPAREN
 
-    LPAREN          shift and go to state 122
+    LPAREN          shift and go to state 124
 
 
-state 101
+state 107
 
     (46) conjunto -> SET LCOR RCOR .
 
@@ -1809,202 +1874,26 @@ state 101
     END             reduce using rule 46 (conjunto -> SET LCOR RCOR .)
 
 
-state 102
+state 108
 
     (54) arr -> LCOR repetirvalor . RCOR
 
-    RCOR            shift and go to state 123
-
-
-state 103
-
-    (52) repetirvalor -> valor .
-    (53) repetirvalor -> valor . COMMA repetirvalor
-
-    RCOR            reduce using rule 52 (repetirvalor -> valor .)
-    COMMA           shift and go to state 124
-
-
-state 104
-
-    (47) valor -> INT .
-
-    COMMA           reduce using rule 47 (valor -> INT .)
-    RCOR            reduce using rule 47 (valor -> INT .)
-    RPAREN          reduce using rule 47 (valor -> INT .)
-
-
-state 105
-
-    (48) valor -> ID .
-
-    COMMA           reduce using rule 48 (valor -> ID .)
-    RCOR            reduce using rule 48 (valor -> ID .)
-    RPAREN          reduce using rule 48 (valor -> ID .)
-
-
-state 106
-
-    (49) valor -> STRING .
-
-    COMMA           reduce using rule 49 (valor -> STRING .)
-    RCOR            reduce using rule 49 (valor -> STRING .)
-    RPAREN          reduce using rule 49 (valor -> STRING .)
-
-
-state 107
-
-    (50) valor -> booleanos .
-
-    COMMA           reduce using rule 50 (valor -> booleanos .)
-    RCOR            reduce using rule 50 (valor -> booleanos .)
-    RPAREN          reduce using rule 50 (valor -> booleanos .)
-
-
-state 108
-
-    (51) valor -> FLOAT .
-
-    COMMA           reduce using rule 51 (valor -> FLOAT .)
-    RCOR            reduce using rule 51 (valor -> FLOAT .)
-    RPAREN          reduce using rule 51 (valor -> FLOAT .)
+    RCOR            shift and go to state 125
 
 
 state 109
 
-    (73) formacion -> LCOR arr RCOR .
+    (73) formacion -> LCOR repetirvalor RCOR .
 
-    $end            reduce using rule 73 (formacion -> LCOR arr RCOR .)
-    PUTS            reduce using rule 73 (formacion -> LCOR arr RCOR .)
-    ID              reduce using rule 73 (formacion -> LCOR arr RCOR .)
-    CONSTANT        reduce using rule 73 (formacion -> LCOR arr RCOR .)
-    GLOBAL          reduce using rule 73 (formacion -> LCOR arr RCOR .)
-    END             reduce using rule 73 (formacion -> LCOR arr RCOR .)
+    $end            reduce using rule 73 (formacion -> LCOR repetirvalor RCOR .)
+    PUTS            reduce using rule 73 (formacion -> LCOR repetirvalor RCOR .)
+    ID              reduce using rule 73 (formacion -> LCOR repetirvalor RCOR .)
+    CONSTANT        reduce using rule 73 (formacion -> LCOR repetirvalor RCOR .)
+    GLOBAL          reduce using rule 73 (formacion -> LCOR repetirvalor RCOR .)
+    END             reduce using rule 73 (formacion -> LCOR repetirvalor RCOR .)
 
 
 state 110
-
-    (74) formacion -> ARRAY PUNTO NEW . LPAREN arr RPAREN
-
-    LPAREN          shift and go to state 125
-
-
-state 111
-
-    (57) funcionsconjunto -> variables PUNTO ADD LPAREN valor . RPAREN
-
-    RPAREN          shift and go to state 126
-
-
-state 112
-
-    (58) funcionsconjunto -> variables PUNTO ADD LPAREN arr . RPAREN
-
-    RPAREN          shift and go to state 127
-
-
-state 113
-
-    (59) funcionsconjunto -> variables PUNTO MERGE LPAREN variables . RPAREN
-
-    RPAREN          shift and go to state 128
-
-
-state 114
-
-    (60) funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .
-
-    $end            reduce using rule 60 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
-    PUTS            reduce using rule 60 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
-    ID              reduce using rule 60 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
-    CONSTANT        reduce using rule 60 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
-    GLOBAL          reduce using rule 60 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
-    END             reduce using rule 60 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
-
-
-state 115
-
-    (75) funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .
-
-    $end            reduce using rule 75 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
-    PUTS            reduce using rule 75 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
-    ID              reduce using rule 75 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
-    CONSTANT        reduce using rule 75 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
-    GLOBAL          reduce using rule 75 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
-    END             reduce using rule 75 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
-
-
-state 116
-
-    (76) funcionsformacion -> variables PUNTO PUSH LPAREN arr . RPAREN
-
-    RPAREN          shift and go to state 129
-
-
-state 117
-
-    (77) funcionsformacion -> variables PUNTO SAMPLE LPAREN variables . RPAREN
-
-    RPAREN          shift and go to state 130
-
-
-state 118
-
-    (79) funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .
-
-    $end            reduce using rule 79 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
-    PUTS            reduce using rule 79 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
-    ID              reduce using rule 79 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
-    CONSTANT        reduce using rule 79 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
-    GLOBAL          reduce using rule 79 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
-    END             reduce using rule 79 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
-
-
-state 119
-
-    (67) sentenciafor -> FOR variables IN LPAREN INT . PUNTO PUNTO INT RPAREN repetircontenido END
-
-    PUNTO           shift and go to state 131
-
-
-state 120
-
-    (72) sentenciawhile -> WHILE condicion DO repetircontenido END .
-
-    $end            reduce using rule 72 (sentenciawhile -> WHILE condicion DO repetircontenido END .)
-
-
-state 121
-
-    (66) repetircontenido -> contenido repetircontenido .
-
-    END             reduce using rule 66 (repetircontenido -> contenido repetircontenido .)
-
-
-state 122
-
-    (71) condicion -> ARRAY PUNTO NEW LPAREN . arr RPAREN
-    (54) arr -> . LCOR repetirvalor RCOR
-
-    LCOR            shift and go to state 83
-
-    arr                            shift and go to state 132
-
-state 123
-
-    (54) arr -> LCOR repetirvalor RCOR .
-
-    $end            reduce using rule 54 (arr -> LCOR repetirvalor RCOR .)
-    PUTS            reduce using rule 54 (arr -> LCOR repetirvalor RCOR .)
-    ID              reduce using rule 54 (arr -> LCOR repetirvalor RCOR .)
-    CONSTANT        reduce using rule 54 (arr -> LCOR repetirvalor RCOR .)
-    GLOBAL          reduce using rule 54 (arr -> LCOR repetirvalor RCOR .)
-    END             reduce using rule 54 (arr -> LCOR repetirvalor RCOR .)
-    RCOR            reduce using rule 54 (arr -> LCOR repetirvalor RCOR .)
-    RPAREN          reduce using rule 54 (arr -> LCOR repetirvalor RCOR .)
-
-
-state 124
 
     (53) repetirvalor -> valor COMMA . repetirvalor
     (52) repetirvalor -> . valor
@@ -2017,27 +1906,180 @@ state 124
     (28) booleanos -> . TRUE
     (29) booleanos -> . FALSE
 
-    INT             shift and go to state 104
-    ID              shift and go to state 105
-    STRING          shift and go to state 106
-    FLOAT           shift and go to state 108
+    INT             shift and go to state 86
+    ID              shift and go to state 87
+    STRING          shift and go to state 88
+    FLOAT           shift and go to state 90
     TRUE            shift and go to state 35
     FALSE           shift and go to state 36
 
-    valor                          shift and go to state 103
-    repetirvalor                   shift and go to state 133
-    booleanos                      shift and go to state 107
+    valor                          shift and go to state 85
+    repetirvalor                   shift and go to state 126
+    booleanos                      shift and go to state 89
 
-state 125
+state 111
 
-    (74) formacion -> ARRAY PUNTO NEW LPAREN . arr RPAREN
+    (75) formacion -> ARRAY PUNTO NEW . LPAREN INT RPAREN
+    (76) formacion -> ARRAY PUNTO NEW . LPAREN RPAREN
+
+    LPAREN          shift and go to state 127
+
+
+state 112
+
+    (57) funcionsconjunto -> variables PUNTO ADD LPAREN valor . RPAREN
+
+    RPAREN          shift and go to state 128
+
+
+state 113
+
+    (58) funcionsconjunto -> variables PUNTO ADD LPAREN arr . RPAREN
+
+    RPAREN          shift and go to state 129
+
+
+state 114
+
+    (54) arr -> LCOR . repetirvalor RCOR
+    (52) repetirvalor -> . valor
+    (53) repetirvalor -> . valor COMMA repetirvalor
+    (47) valor -> . INT
+    (48) valor -> . ID
+    (49) valor -> . STRING
+    (50) valor -> . booleanos
+    (51) valor -> . FLOAT
+    (28) booleanos -> . TRUE
+    (29) booleanos -> . FALSE
+
+    INT             shift and go to state 86
+    ID              shift and go to state 87
+    STRING          shift and go to state 88
+    FLOAT           shift and go to state 90
+    TRUE            shift and go to state 35
+    FALSE           shift and go to state 36
+
+    repetirvalor                   shift and go to state 108
+    valor                          shift and go to state 85
+    booleanos                      shift and go to state 89
+
+state 115
+
+    (59) funcionsconjunto -> variables PUNTO MERGE LPAREN variables . RPAREN
+
+    RPAREN          shift and go to state 130
+
+
+state 116
+
+    (60) funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .
+
+    $end            reduce using rule 60 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
+    PUTS            reduce using rule 60 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
+    ID              reduce using rule 60 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
+    CONSTANT        reduce using rule 60 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
+    GLOBAL          reduce using rule 60 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
+    END             reduce using rule 60 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
+
+
+state 117
+
+    (77) funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .
+
+    $end            reduce using rule 77 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
+    PUTS            reduce using rule 77 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
+    ID              reduce using rule 77 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
+    CONSTANT        reduce using rule 77 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
+    GLOBAL          reduce using rule 77 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
+    END             reduce using rule 77 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
+
+
+state 118
+
+    (78) funcionsformacion -> variables PUNTO PUSH LPAREN arr . RPAREN
+
+    RPAREN          shift and go to state 131
+
+
+state 119
+
+    (79) funcionsformacion -> variables PUNTO SAMPLE LPAREN variables . RPAREN
+
+    RPAREN          shift and go to state 132
+
+
+state 120
+
+    (81) funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .
+
+    $end            reduce using rule 81 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
+    PUTS            reduce using rule 81 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
+    ID              reduce using rule 81 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
+    CONSTANT        reduce using rule 81 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
+    GLOBAL          reduce using rule 81 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
+    END             reduce using rule 81 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
+
+
+state 121
+
+    (67) sentenciafor -> FOR variables IN LPAREN INT . PUNTO PUNTO INT RPAREN repetircontenido END
+
+    PUNTO           shift and go to state 133
+
+
+state 122
+
+    (72) sentenciawhile -> WHILE condicion DO repetircontenido END .
+
+    $end            reduce using rule 72 (sentenciawhile -> WHILE condicion DO repetircontenido END .)
+
+
+state 123
+
+    (66) repetircontenido -> contenido repetircontenido .
+
+    END             reduce using rule 66 (repetircontenido -> contenido repetircontenido .)
+
+
+state 124
+
+    (71) condicion -> ARRAY PUNTO NEW LPAREN . arr RPAREN
     (54) arr -> . LCOR repetirvalor RCOR
 
-    LCOR            shift and go to state 83
+    LCOR            shift and go to state 114
 
     arr                            shift and go to state 134
 
+state 125
+
+    (54) arr -> LCOR repetirvalor RCOR .
+
+    $end            reduce using rule 54 (arr -> LCOR repetirvalor RCOR .)
+    PUTS            reduce using rule 54 (arr -> LCOR repetirvalor RCOR .)
+    ID              reduce using rule 54 (arr -> LCOR repetirvalor RCOR .)
+    CONSTANT        reduce using rule 54 (arr -> LCOR repetirvalor RCOR .)
+    GLOBAL          reduce using rule 54 (arr -> LCOR repetirvalor RCOR .)
+    END             reduce using rule 54 (arr -> LCOR repetirvalor RCOR .)
+    RPAREN          reduce using rule 54 (arr -> LCOR repetirvalor RCOR .)
+
+
 state 126
+
+    (53) repetirvalor -> valor COMMA repetirvalor .
+
+    RCOR            reduce using rule 53 (repetirvalor -> valor COMMA repetirvalor .)
+
+
+state 127
+
+    (75) formacion -> ARRAY PUNTO NEW LPAREN . INT RPAREN
+    (76) formacion -> ARRAY PUNTO NEW LPAREN . RPAREN
+
+    INT             shift and go to state 135
+    RPAREN          shift and go to state 136
+
+
+state 128
 
     (57) funcionsconjunto -> variables PUNTO ADD LPAREN valor RPAREN .
 
@@ -2049,7 +2091,7 @@ state 126
     END             reduce using rule 57 (funcionsconjunto -> variables PUNTO ADD LPAREN valor RPAREN .)
 
 
-state 127
+state 129
 
     (58) funcionsconjunto -> variables PUNTO ADD LPAREN arr RPAREN .
 
@@ -2061,7 +2103,7 @@ state 127
     END             reduce using rule 58 (funcionsconjunto -> variables PUNTO ADD LPAREN arr RPAREN .)
 
 
-state 128
+state 130
 
     (59) funcionsconjunto -> variables PUNTO MERGE LPAREN variables RPAREN .
 
@@ -2073,92 +2115,97 @@ state 128
     END             reduce using rule 59 (funcionsconjunto -> variables PUNTO MERGE LPAREN variables RPAREN .)
 
 
-state 129
-
-    (76) funcionsformacion -> variables PUNTO PUSH LPAREN arr RPAREN .
-
-    $end            reduce using rule 76 (funcionsformacion -> variables PUNTO PUSH LPAREN arr RPAREN .)
-    PUTS            reduce using rule 76 (funcionsformacion -> variables PUNTO PUSH LPAREN arr RPAREN .)
-    ID              reduce using rule 76 (funcionsformacion -> variables PUNTO PUSH LPAREN arr RPAREN .)
-    CONSTANT        reduce using rule 76 (funcionsformacion -> variables PUNTO PUSH LPAREN arr RPAREN .)
-    GLOBAL          reduce using rule 76 (funcionsformacion -> variables PUNTO PUSH LPAREN arr RPAREN .)
-    END             reduce using rule 76 (funcionsformacion -> variables PUNTO PUSH LPAREN arr RPAREN .)
-
-
-state 130
-
-    (77) funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .
-
-    $end            reduce using rule 77 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
-    PUTS            reduce using rule 77 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
-    ID              reduce using rule 77 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
-    CONSTANT        reduce using rule 77 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
-    GLOBAL          reduce using rule 77 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
-    END             reduce using rule 77 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
-
-
 state 131
 
-    (67) sentenciafor -> FOR variables IN LPAREN INT PUNTO . PUNTO INT RPAREN repetircontenido END
+    (78) funcionsformacion -> variables PUNTO PUSH LPAREN arr RPAREN .
 
-    PUNTO           shift and go to state 135
+    $end            reduce using rule 78 (funcionsformacion -> variables PUNTO PUSH LPAREN arr RPAREN .)
+    PUTS            reduce using rule 78 (funcionsformacion -> variables PUNTO PUSH LPAREN arr RPAREN .)
+    ID              reduce using rule 78 (funcionsformacion -> variables PUNTO PUSH LPAREN arr RPAREN .)
+    CONSTANT        reduce using rule 78 (funcionsformacion -> variables PUNTO PUSH LPAREN arr RPAREN .)
+    GLOBAL          reduce using rule 78 (funcionsformacion -> variables PUNTO PUSH LPAREN arr RPAREN .)
+    END             reduce using rule 78 (funcionsformacion -> variables PUNTO PUSH LPAREN arr RPAREN .)
 
 
 state 132
 
-    (71) condicion -> ARRAY PUNTO NEW LPAREN arr . RPAREN
+    (79) funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .
 
-    RPAREN          shift and go to state 136
+    $end            reduce using rule 79 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
+    PUTS            reduce using rule 79 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
+    ID              reduce using rule 79 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
+    CONSTANT        reduce using rule 79 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
+    GLOBAL          reduce using rule 79 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
+    END             reduce using rule 79 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
 
 
 state 133
 
-    (53) repetirvalor -> valor COMMA repetirvalor .
+    (67) sentenciafor -> FOR variables IN LPAREN INT PUNTO . PUNTO INT RPAREN repetircontenido END
 
-    RCOR            reduce using rule 53 (repetirvalor -> valor COMMA repetirvalor .)
+    PUNTO           shift and go to state 137
 
 
 state 134
 
-    (74) formacion -> ARRAY PUNTO NEW LPAREN arr . RPAREN
+    (71) condicion -> ARRAY PUNTO NEW LPAREN arr . RPAREN
 
-    RPAREN          shift and go to state 137
+    RPAREN          shift and go to state 138
 
 
 state 135
 
-    (67) sentenciafor -> FOR variables IN LPAREN INT PUNTO PUNTO . INT RPAREN repetircontenido END
+    (75) formacion -> ARRAY PUNTO NEW LPAREN INT . RPAREN
 
-    INT             shift and go to state 138
+    RPAREN          shift and go to state 139
 
 
 state 136
+
+    (76) formacion -> ARRAY PUNTO NEW LPAREN RPAREN .
+
+    $end            reduce using rule 76 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
+    PUTS            reduce using rule 76 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
+    ID              reduce using rule 76 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
+    CONSTANT        reduce using rule 76 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
+    GLOBAL          reduce using rule 76 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
+    END             reduce using rule 76 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
+
+
+state 137
+
+    (67) sentenciafor -> FOR variables IN LPAREN INT PUNTO PUNTO . INT RPAREN repetircontenido END
+
+    INT             shift and go to state 140
+
+
+state 138
 
     (71) condicion -> ARRAY PUNTO NEW LPAREN arr RPAREN .
 
     DO              reduce using rule 71 (condicion -> ARRAY PUNTO NEW LPAREN arr RPAREN .)
 
 
-state 137
+state 139
 
-    (74) formacion -> ARRAY PUNTO NEW LPAREN arr RPAREN .
+    (75) formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .
 
-    $end            reduce using rule 74 (formacion -> ARRAY PUNTO NEW LPAREN arr RPAREN .)
-    PUTS            reduce using rule 74 (formacion -> ARRAY PUNTO NEW LPAREN arr RPAREN .)
-    ID              reduce using rule 74 (formacion -> ARRAY PUNTO NEW LPAREN arr RPAREN .)
-    CONSTANT        reduce using rule 74 (formacion -> ARRAY PUNTO NEW LPAREN arr RPAREN .)
-    GLOBAL          reduce using rule 74 (formacion -> ARRAY PUNTO NEW LPAREN arr RPAREN .)
-    END             reduce using rule 74 (formacion -> ARRAY PUNTO NEW LPAREN arr RPAREN .)
+    $end            reduce using rule 75 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    PUTS            reduce using rule 75 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    ID              reduce using rule 75 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    CONSTANT        reduce using rule 75 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    GLOBAL          reduce using rule 75 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    END             reduce using rule 75 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
 
 
-state 138
+state 140
 
     (67) sentenciafor -> FOR variables IN LPAREN INT PUNTO PUNTO INT . RPAREN repetircontenido END
 
-    RPAREN          shift and go to state 139
+    RPAREN          shift and go to state 141
 
 
-state 139
+state 141
 
     (67) sentenciafor -> FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN . repetircontenido END
     (65) repetircontenido -> . contenido
@@ -2185,34 +2232,34 @@ state 139
     (59) funcionsconjunto -> . variables PUNTO MERGE LPAREN variables RPAREN
     (60) funcionsconjunto -> . variables PUNTO SIZE LPAREN RPAREN
     (61) funcionsconjunto -> . variables PUNTO SIZE
-    (75) funcionsformacion -> . variables PUNTO LENGTH LPAREN RPAREN
-    (76) funcionsformacion -> . variables PUNTO PUSH LPAREN arr RPAREN
-    (77) funcionsformacion -> . variables PUNTO SAMPLE LPAREN variables RPAREN
-    (78) funcionsformacion -> . variables PUNTO FIRST
-    (79) funcionsformacion -> . variables PUNTO FIRST LPAREN RPAREN
+    (77) funcionsformacion -> . variables PUNTO LENGTH LPAREN RPAREN
+    (78) funcionsformacion -> . variables PUNTO PUSH LPAREN arr RPAREN
+    (79) funcionsformacion -> . variables PUNTO SAMPLE LPAREN variables RPAREN
+    (80) funcionsformacion -> . variables PUNTO FIRST
+    (81) funcionsformacion -> . variables PUNTO FIRST LPAREN RPAREN
 
     PUTS            shift and go to state 10
     ID              shift and go to state 19
     CONSTANT        shift and go to state 20
     GLOBAL          shift and go to state 21
 
-    variables                      shift and go to state 99
-    repetircontenido               shift and go to state 140
-    contenido                      shift and go to state 95
-    impresion                      shift and go to state 96
-    asignacion                     shift and go to state 97
-    funcionstruct                  shift and go to state 98
+    variables                      shift and go to state 105
+    repetircontenido               shift and go to state 142
+    contenido                      shift and go to state 101
+    impresion                      shift and go to state 102
+    asignacion                     shift and go to state 103
+    funcionstruct                  shift and go to state 104
     funcionsconjunto               shift and go to state 13
     funcionsformacion              shift and go to state 14
 
-state 140
+state 142
 
     (67) sentenciafor -> FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN repetircontenido . END
 
-    END             shift and go to state 141
+    END             shift and go to state 143
 
 
-state 141
+state 143
 
     (67) sentenciafor -> FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN repetircontenido END .
 

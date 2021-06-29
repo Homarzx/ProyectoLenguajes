@@ -134,12 +134,14 @@ def p_sentenciawhile(p):
     'sentenciawhile : WHILE condicion  DO repetircontenido END'
 
 def p_formacion(p):
-    '''formacion : LCOR arr RCOR
-                | ARRAY PUNTO NEW LPAREN arr RPAREN'''
+    '''formacion : LCOR repetirvalor RCOR
+                | LCOR RCOR
+                | ARRAY PUNTO NEW LPAREN INT RPAREN
+                | ARRAY PUNTO NEW LPAREN  RPAREN'''
 
 def p_funcionsformacion(p):
     '''funcionsformacion : variables PUNTO LENGTH LPAREN RPAREN
-                        | variables PUNTO PUSH LPAREN arr RPAREN
+                        | variables PUNTO PUSH LPAREN repetirvalor RPAREN
                         | variables PUNTO SAMPLE LPAREN variables RPAREN
                         | variables PUNTO FIRST
                         | variables PUNTO FIRST LPAREN RPAREN'''
