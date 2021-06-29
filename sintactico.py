@@ -119,6 +119,21 @@ def p_repetircontenido(p):
 def p_sentenciafor(p):
     'sentenciafor : FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN repetircontenido END'
 
+def p_sentenciawhile(p):
+    'sentenciawhile : FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN repetircontenido END'
+
+def p_array(p):
+    '''array : LCOR arr RCOR
+                | ARRAY PUNTO NEW LPAREN arr RPAREN'''
+
+def p_funcionsarray(p):
+    '''funcionsarray : variables PUNTO LENGHT LPAREN RPAREN
+                        | variables PUNTO PUSH LPAREN arr RPAREN
+                        | variables PUNTO SAMPLE LPAREN variables RPAREN
+                        | variables PUNTO FIRST
+                        | variables PUNTO FIRST LPAREN RPAREN'''
+
+
 
 # Error rule for syntax errors
 def p_error(p):

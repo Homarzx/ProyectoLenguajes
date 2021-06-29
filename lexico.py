@@ -37,7 +37,9 @@ reserved = {
     'size':'SIZE',
     'clear':'CLEAR',
     'fetch':'FETCH',
-    'delete':'DELETE'
+    'delete':'DELETE',
+    'Array': 'ARRAY',
+    'new' : 'NEW'
 }
 
 tokens = (
