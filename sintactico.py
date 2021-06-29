@@ -6,12 +6,17 @@ def p_cuerpo(p):
     """cuerpo : expression
              | impresion
              | asignacion
-             | funcionstruct"""
+             | leer
+             | funcionstruct
+             | sentenciafor"""
 def p_impresion(p):
     '''impresion : PUTS factor
                     | PUTS comparacion
                     | PUTS comparacion_bool
                     | PUTS STRING'''
+
+def p_leer(p):
+    'leer : GETS PUNTO CHOMP'
 
 def p_expression_mat(p):
     'expression : factor operadoresMat factor'
@@ -103,6 +108,17 @@ def p_funcionsconjunto(p):
                         | variables PUNTO SIZE LPAREN RPAREN
                         | variables PUNTO SIZE'''
 
+def p_contenido(p):
+    '''contenido : impresion
+                 | asignacion
+                 | funcionstruct'''
+def p_repetircontenido(p):
+    '''repetircontenido : contenido
+                        | contenido repetircontenido'''
+
+def p_sentenciafor(p):
+    'sentenciafor : FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN repetircontenido END'
+
 
 # Error rule for syntax errors
 def p_error(p):
@@ -120,4 +136,3 @@ while True:
         break
     if not s: continue
     result = parser.parse(s)
-    print(result)
