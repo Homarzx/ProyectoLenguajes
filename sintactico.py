@@ -9,7 +9,8 @@ def p_cuerpo(p):
              | leer
              | funcionstruct
              | sentenciafor
-             | sentenciawhile"""
+             | sentenciawhile
+             | sentenciaElsif"""
 
 def p_impresion(p):
     '''impresion : PUTS factor
@@ -187,6 +188,12 @@ def p_funcionsHash(p):
     '''funcionsHash : hash_add
                     | hash_delete
                     | hash_key'''
+def p_sentenciaElsif(p):
+    'sentenciaElsif : IF condicion repetircontenido mas_sentencias END'
+
+def p_mas_sentencias(p):
+    '''mas_sentencias : ELSIF repetircontenido 
+                        | ELSIF repetircontenido mas_sentencias'''
 # Error rule for syntax errors
 def p_error(p):
     if p:
