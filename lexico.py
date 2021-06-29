@@ -38,8 +38,8 @@ reserved = {
     'clear':'CLEAR',
     'fetch':'FETCH',
     'delete':'DELETE',
-    'Array': 'ARRAY',
-    'new' : 'NEW'
+    'new' : 'NEW',
+    'push' : 'PUSH'
 }
 
 tokens = (
@@ -69,6 +69,7 @@ tokens = (
     'ID',
     'NEWLINE',
     'SET',
+    'ARRAY',
     'CONSTANT',
     'GLOBAL'
  ) + tuple(reserved.values())
@@ -99,6 +100,11 @@ t_ignore = ' \t'
 def t_SET (t) :
    r'Set'
    t.type = reserved.get(t.value, 'SET')  # Check for reserved words
+   return t
+
+def t_ARRAY (t) :
+   r'Array'
+   t.type = reserved.get(t.value, 'ARRAY')  # Check for reserved words
    return t
 
 

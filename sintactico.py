@@ -8,7 +8,9 @@ def p_cuerpo(p):
              | asignacion
              | leer
              | funcionstruct
-             | sentenciafor"""
+             | sentenciafor
+             | sentenciawhile"""
+
 def p_impresion(p):
     '''impresion : PUTS factor
                     | PUTS comparacion
@@ -77,7 +79,8 @@ def p_asignacion(p):
 
 #AQUI PUEDEN DEFINIR LAS DEMAS ESTRUCTURAS
 def p_struct(p):
-    'struct : conjunto'
+    '''struct : conjunto
+                | formacion'''
 
 def p_conjunto(p):
     '''conjunto : SET arr
@@ -99,7 +102,8 @@ def p_arr(p):
     'arr : LCOR repetirvalor RCOR'
 
 def p_funcionstruct(p):
-    'funcionstruct : funcionsconjunto'
+    '''funcionstruct : funcionsconjunto
+                        | funcionsformacion'''
 
 def p_funcionsconjunto(p):
     '''funcionsconjunto : variables PUNTO ADD LPAREN valor RPAREN
@@ -119,15 +123,22 @@ def p_repetircontenido(p):
 def p_sentenciafor(p):
     'sentenciafor : FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN repetircontenido END'
 
-def p_sentenciawhile(p):
-    'sentenciawhile : FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN repetircontenido END'
 
-def p_array(p):
-    '''array : LCOR arr RCOR
+def p_condicion(p):
+    '''condicion : comparacion
+                | comparacion_bool
+                | booleanos
                 | ARRAY PUNTO NEW LPAREN arr RPAREN'''
 
-def p_funcionsarray(p):
-    '''funcionsarray : variables PUNTO LENGHT LPAREN RPAREN
+def p_sentenciawhile(p):
+    'sentenciawhile : WHILE condicion  DO repetircontenido END'
+
+def p_formacion(p):
+    '''formacion : LCOR arr RCOR
+                | ARRAY PUNTO NEW LPAREN arr RPAREN'''
+
+def p_funcionsformacion(p):
+    '''funcionsformacion : variables PUNTO LENGTH LPAREN RPAREN
                         | variables PUNTO PUSH LPAREN arr RPAREN
                         | variables PUNTO SAMPLE LPAREN variables RPAREN
                         | variables PUNTO FIRST
