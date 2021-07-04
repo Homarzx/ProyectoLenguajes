@@ -1,5 +1,7 @@
 import ply.lex as lex
 
+lexresult=""
+
 reserved = {
     'if' : 'IF',
     'elsif' : 'ELSIF',
@@ -160,23 +162,20 @@ def t_COMMENT(t):
     pass
 
 def t_error(t):
+    global lexresult
     print("illegal character '%s'" %t.value[0])
+    lexresult += "\nCaracter Ilegal " + t.value[0]
     t.lexer.skip(1)
 
-def getTokens(lexer):
+def getTokens(linea):
+    global lexresult
+    lexresult = ""
+    lexer = lex.lex()
+    lexer.input(linea)
     while True:
         tok = lexer.token()
         if not tok:
             break  # No more input
         print(tok)
-# Build the lexer
-lexer = lex.lex()
-"""
-linea=" "
-while linea!="":
-    linea=input(">>")
-    lexer.input(linea)
-    getTokens(lexer)
-# Tokenize
-print("Succesfull")
-"""
+        lexresult += "\n" + str(tok)
+    return lexresult
