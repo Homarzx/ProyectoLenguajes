@@ -2,6 +2,8 @@ import ply.yacc as yacc
 
 from lexico import tokens
 
+sinresult = ""
+
 def p_cuerpo(p):
     """cuerpo : expression
              | impresion
@@ -196,17 +198,35 @@ def p_mas_sentencias(p):
                         | ELSIF repetircontenido mas_sentencias'''
 # Error rule for syntax errors
 def p_error(p):
+    global sinresult
     if p:
         print("Syntax error at token", p.type)
+        sinresult += ("Syntax error at token " + p.type)
         # Just discard the token and tell the parser it's okay.
     else:
+        sinresult += ("Syntax error at EOF")
         print("Syntax error at EOF")
 # Build the parser
+
 parser = yacc.yacc()
-while True:
+def getSintatic(linea):
+    global sinresult
+    sinresult = ""
+    while True:
+        try:
+            s = linea
+        except EOFError:
+            break
+        if not s: continue
+        result = parser.parse(s)
+
+        break
+    return sinresult
+
+"""while True:
     try:
         s = input('calc > ')
     except EOFError:
         break
     if not s: continue
-    result = parser.parse(s)
+    result = parser.parse(s)"""

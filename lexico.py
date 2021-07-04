@@ -167,7 +167,7 @@ def t_error(t):
     lexresult += "\nCaracter Ilegal " + t.value[0]
     t.lexer.skip(1)
 
-def getTokens(linea):
+def getTokensLexer(linea):
     global lexresult
     lexresult = ""
     lexer = lex.lex()
@@ -179,3 +179,12 @@ def getTokens(linea):
         print(tok)
         lexresult += "\n" + str(tok)
     return lexresult
+
+def getTokens(lexer):
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break  # No more input
+        print(tok)
+# Build the lexer
+lexer = lex.lex()

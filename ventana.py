@@ -2,8 +2,8 @@ from PyQt5.QtWidgets import*
 import sys
 from PyQt5 import QtGui
 from PyQt5 import QtCore
-from lexico import getTokens
-
+from lexico import getTokensLexer
+from sintactico import getSintatic
 
 
 class Window(QWidget):
@@ -70,9 +70,9 @@ class Window(QWidget):
         self.button2 = QPushButton("Sintactico y Semantico")
         self.button2.setMinimumHeight(40)
         self.button.clicked.connect(self.showLexer)
+        self.button2.clicked.connect(self.showSintatic)
         self.hbox2.addWidget(self.button)
         self.hbox2.addWidget(self.button2)
-
         self.groupBox.setLayout(self.hbox2)
 
 
@@ -80,13 +80,22 @@ class Window(QWidget):
     def showLexer(self):
         self.textEditLex.clear()
         self.textEditLex.insertPlainText("TOKENS\n")
-
-        self.textEditLex.insertPlainText(getTokens(self.textEdit.toPlainText()))
+        self.textEditLex.insertPlainText(getTokensLexer(self.textEdit.toPlainText()))
 
 
     def clear(self):#borrar
         self.textEdit.clear()
         self.textEditLex.clear()
+
+    def showSintatic(self):
+        self.textEditSint.clear()
+        #
+        sin = getSintatic(self.textEdit.toPlainText())
+        print(sin)
+        if (len(sin)>0):
+            self.textEditSint.insertPlainText(sin)
+        else:
+            self.textEditSint.insertPlainText("No existe error")
 
 
 if __name__ == "__main__":
