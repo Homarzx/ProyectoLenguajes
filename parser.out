@@ -95,11 +95,11 @@ Rule 56    arr -> LCOR repetirvalor RCOR
 Rule 57    funcionstruct -> funcionsconjunto
 Rule 58    funcionstruct -> funcionsformacion
 Rule 59    funcionstruct -> funcionsHash
-Rule 60    funcionsconjunto -> variables PUNTO ADD LPAREN valor RPAREN
-Rule 61    funcionsconjunto -> variables PUNTO ADD LPAREN arr RPAREN
-Rule 62    funcionsconjunto -> variables PUNTO MERGE LPAREN variables RPAREN
-Rule 63    funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN
-Rule 64    funcionsconjunto -> variables PUNTO SIZE
+Rule 60    funcionsconjunto -> conjunto PUNTO ADD LPAREN valor RPAREN
+Rule 61    funcionsconjunto -> conjunto PUNTO ADD LPAREN arr RPAREN
+Rule 62    funcionsconjunto -> conjunto PUNTO MERGE LPAREN variables RPAREN
+Rule 63    funcionsconjunto -> conjunto PUNTO SIZE LPAREN RPAREN
+Rule 64    funcionsconjunto -> conjunto PUNTO SIZE
 Rule 65    contenido -> impresion
 Rule 66    contenido -> asignacion
 Rule 67    contenido -> funcionstruct
@@ -115,11 +115,11 @@ Rule 76    formacion -> LCOR repetirvalor RCOR
 Rule 77    formacion -> LCOR RCOR
 Rule 78    formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN
 Rule 79    formacion -> ARRAY PUNTO NEW LPAREN RPAREN
-Rule 80    funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN
-Rule 81    funcionsformacion -> variables PUNTO PUSH LPAREN repetirvalor RPAREN
-Rule 82    funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN
-Rule 83    funcionsformacion -> variables PUNTO FIRST
-Rule 84    funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN
+Rule 80    funcionsformacion -> formacion PUNTO LENGTH LPAREN RPAREN
+Rule 81    funcionsformacion -> formacion PUNTO PUSH LPAREN repetirvalor RPAREN
+Rule 82    funcionsformacion -> formacion PUNTO SAMPLE LPAREN variables RPAREN
+Rule 83    funcionsformacion -> formacion PUNTO FIRST
+Rule 84    funcionsformacion -> formacion PUNTO FIRST LPAREN RPAREN
 Rule 85    hash -> LBRACE hash_content RBRACE
 Rule 86    hash_elements -> hash_element hash_more_elements
 Rule 87    hash_content -> hash_element
@@ -133,9 +133,9 @@ Rule 94    clave -> INT
 Rule 95    clave -> FLOAT
 Rule 96    value -> valor
 Rule 97    value -> struct
-Rule 98    hash_add -> variables PUNTO STORE LPAREN hash_element RPAREN
-Rule 99    hash_delete -> variables PUNTO LPAREN clave RPAREN
-Rule 100   hash_key -> variables PUNTO KEY LPAREN value RPAREN
+Rule 98    hash_add -> hash PUNTO STORE LPAREN hash_element RPAREN
+Rule 99    hash_delete -> hash PUNTO LPAREN clave RPAREN
+Rule 100   hash_key -> hash PUNTO KEY LPAREN value RPAREN
 Rule 101   funcionsHash -> hash_add
 Rule 102   funcionsHash -> hash_delete
 Rule 103   funcionsHash -> hash_key
@@ -237,17 +237,17 @@ clave                : 89 99
 comparacion          : 10 71
 comparacion_bool     : 11 42 72
 condicion            : 75 104
-conjunto             : 44
+conjunto             : 44 60 61 62 63 64
 contenido            : 68 69
 cuerpo               : 0
 expression           : 1 28
 factor               : 9 14 14 15 15 39
-formacion            : 45
+formacion            : 45 80 81 82 83 84
 funcionsHash         : 59
 funcionsconjunto     : 57
 funcionsformacion    : 58
 funcionstruct        : 5 67
-hash                 : 46
+hash                 : 46 98 99 100
 hash_add             : 101
 hash_content         : 85
 hash_delete          : 102
@@ -270,7 +270,7 @@ sentenciawhile       : 7
 struct               : 43 97
 valor                : 54 55 60 96
 value                : 89 100
-variables            : 26 39 40 41 42 43 60 61 62 62 63 64 70 80 81 82 82 83 84 92 98 99 100
+variables            : 26 39 40 41 42 43 62 70 82 92
 
 Parsing method: LALR
 
@@ -309,22 +309,29 @@ state 0
     (36) variables -> . ID
     (37) variables -> . CONSTANT
     (38) variables -> . GLOBAL
-    (60) funcionsconjunto -> . variables PUNTO ADD LPAREN valor RPAREN
-    (61) funcionsconjunto -> . variables PUNTO ADD LPAREN arr RPAREN
-    (62) funcionsconjunto -> . variables PUNTO MERGE LPAREN variables RPAREN
-    (63) funcionsconjunto -> . variables PUNTO SIZE LPAREN RPAREN
-    (64) funcionsconjunto -> . variables PUNTO SIZE
-    (80) funcionsformacion -> . variables PUNTO LENGTH LPAREN RPAREN
-    (81) funcionsformacion -> . variables PUNTO PUSH LPAREN repetirvalor RPAREN
-    (82) funcionsformacion -> . variables PUNTO SAMPLE LPAREN variables RPAREN
-    (83) funcionsformacion -> . variables PUNTO FIRST
-    (84) funcionsformacion -> . variables PUNTO FIRST LPAREN RPAREN
+    (60) funcionsconjunto -> . conjunto PUNTO ADD LPAREN valor RPAREN
+    (61) funcionsconjunto -> . conjunto PUNTO ADD LPAREN arr RPAREN
+    (62) funcionsconjunto -> . conjunto PUNTO MERGE LPAREN variables RPAREN
+    (63) funcionsconjunto -> . conjunto PUNTO SIZE LPAREN RPAREN
+    (64) funcionsconjunto -> . conjunto PUNTO SIZE
+    (80) funcionsformacion -> . formacion PUNTO LENGTH LPAREN RPAREN
+    (81) funcionsformacion -> . formacion PUNTO PUSH LPAREN repetirvalor RPAREN
+    (82) funcionsformacion -> . formacion PUNTO SAMPLE LPAREN variables RPAREN
+    (83) funcionsformacion -> . formacion PUNTO FIRST
+    (84) funcionsformacion -> . formacion PUNTO FIRST LPAREN RPAREN
     (101) funcionsHash -> . hash_add
     (102) funcionsHash -> . hash_delete
     (103) funcionsHash -> . hash_key
-    (98) hash_add -> . variables PUNTO STORE LPAREN hash_element RPAREN
-    (99) hash_delete -> . variables PUNTO LPAREN clave RPAREN
-    (100) hash_key -> . variables PUNTO KEY LPAREN value RPAREN
+    (47) conjunto -> . SET arr
+    (48) conjunto -> . SET LCOR RCOR
+    (76) formacion -> . LCOR repetirvalor RCOR
+    (77) formacion -> . LCOR RCOR
+    (78) formacion -> . ARRAY PUNTO NEW LPAREN INT RPAREN
+    (79) formacion -> . ARRAY PUNTO NEW LPAREN RPAREN
+    (98) hash_add -> . hash PUNTO STORE LPAREN hash_element RPAREN
+    (99) hash_delete -> . hash PUNTO LPAREN clave RPAREN
+    (100) hash_key -> . hash PUNTO KEY LPAREN value RPAREN
+    (85) hash -> . LBRACE hash_content RBRACE
 
     PUTS            shift and go to state 11
     GETS            shift and go to state 13
@@ -336,6 +343,10 @@ state 0
     ID              shift and go to state 22
     CONSTANT        shift and go to state 23
     GLOBAL          shift and go to state 24
+    SET             shift and go to state 30
+    LCOR            shift and go to state 31
+    ARRAY           shift and go to state 32
+    LBRACE          shift and go to state 34
 
     cuerpo                         shift and go to state 1
     expression                     shift and go to state 2
@@ -351,9 +362,12 @@ state 0
     funcionsconjunto               shift and go to state 14
     funcionsformacion              shift and go to state 15
     funcionsHash                   shift and go to state 16
-    hash_add                       shift and go to state 25
-    hash_delete                    shift and go to state 26
-    hash_key                       shift and go to state 27
+    conjunto                       shift and go to state 25
+    formacion                      shift and go to state 26
+    hash_add                       shift and go to state 27
+    hash_delete                    shift and go to state 28
+    hash_key                       shift and go to state 29
+    hash                           shift and go to state 33
 
 state 1
 
@@ -432,13 +446,13 @@ state 10
     (23) operadoresMat -> . DIVIDE
     (24) operadoresMat -> . MOD
 
-    PLUS            shift and go to state 29
-    MINUS           shift and go to state 30
-    TIMES           shift and go to state 31
-    DIVIDE          shift and go to state 32
-    MOD             shift and go to state 33
+    PLUS            shift and go to state 36
+    MINUS           shift and go to state 37
+    TIMES           shift and go to state 38
+    DIVIDE          shift and go to state 39
+    MOD             shift and go to state 40
 
-    operadoresMat                  shift and go to state 28
+    operadoresMat                  shift and go to state 35
 
 state 11
 
@@ -459,21 +473,21 @@ state 11
     (29) booleanos -> . TRUE
     (30) booleanos -> . FALSE
 
-    STRING          shift and go to state 37
+    STRING          shift and go to state 44
     INT             shift and go to state 18
     FLOAT           shift and go to state 21
     ID              shift and go to state 22
     CONSTANT        shift and go to state 23
     GLOBAL          shift and go to state 24
-    TRUE            shift and go to state 41
-    FALSE           shift and go to state 42
+    TRUE            shift and go to state 48
+    FALSE           shift and go to state 49
 
-    factor                         shift and go to state 34
-    comparacion                    shift and go to state 35
-    comparacion_bool               shift and go to state 36
-    variables                      shift and go to state 38
-    expression                     shift and go to state 39
-    booleanos                      shift and go to state 40
+    factor                         shift and go to state 41
+    comparacion                    shift and go to state 42
+    comparacion_bool               shift and go to state 43
+    variables                      shift and go to state 45
+    expression                     shift and go to state 46
+    booleanos                      shift and go to state 47
 
 state 12
 
@@ -483,34 +497,20 @@ state 12
     (42) asignacion -> variables . EQUAL comparacion_bool
     (43) asignacion -> variables . EQUAL struct
     (26) factor -> variables .
-    (60) funcionsconjunto -> variables . PUNTO ADD LPAREN valor RPAREN
-    (61) funcionsconjunto -> variables . PUNTO ADD LPAREN arr RPAREN
-    (62) funcionsconjunto -> variables . PUNTO MERGE LPAREN variables RPAREN
-    (63) funcionsconjunto -> variables . PUNTO SIZE LPAREN RPAREN
-    (64) funcionsconjunto -> variables . PUNTO SIZE
-    (80) funcionsformacion -> variables . PUNTO LENGTH LPAREN RPAREN
-    (81) funcionsformacion -> variables . PUNTO PUSH LPAREN repetirvalor RPAREN
-    (82) funcionsformacion -> variables . PUNTO SAMPLE LPAREN variables RPAREN
-    (83) funcionsformacion -> variables . PUNTO FIRST
-    (84) funcionsformacion -> variables . PUNTO FIRST LPAREN RPAREN
-    (98) hash_add -> variables . PUNTO STORE LPAREN hash_element RPAREN
-    (99) hash_delete -> variables . PUNTO LPAREN clave RPAREN
-    (100) hash_key -> variables . PUNTO KEY LPAREN value RPAREN
 
-    EQUAL           shift and go to state 43
+    EQUAL           shift and go to state 50
     PLUS            reduce using rule 26 (factor -> variables .)
     MINUS           reduce using rule 26 (factor -> variables .)
     TIMES           reduce using rule 26 (factor -> variables .)
     DIVIDE          reduce using rule 26 (factor -> variables .)
     MOD             reduce using rule 26 (factor -> variables .)
-    PUNTO           shift and go to state 44
 
 
 state 13
 
     (13) leer -> GETS . PUNTO CHOMP
 
-    PUNTO           shift and go to state 45
+    PUNTO           shift and go to state 51
 
 
 state 14
@@ -522,6 +522,10 @@ state 14
     ID              reduce using rule 57 (funcionstruct -> funcionsconjunto .)
     CONSTANT        reduce using rule 57 (funcionstruct -> funcionsconjunto .)
     GLOBAL          reduce using rule 57 (funcionstruct -> funcionsconjunto .)
+    SET             reduce using rule 57 (funcionstruct -> funcionsconjunto .)
+    LCOR            reduce using rule 57 (funcionstruct -> funcionsconjunto .)
+    ARRAY           reduce using rule 57 (funcionstruct -> funcionsconjunto .)
+    LBRACE          reduce using rule 57 (funcionstruct -> funcionsconjunto .)
     ELSIF           reduce using rule 57 (funcionstruct -> funcionsconjunto .)
     END             reduce using rule 57 (funcionstruct -> funcionsconjunto .)
 
@@ -535,6 +539,10 @@ state 15
     ID              reduce using rule 58 (funcionstruct -> funcionsformacion .)
     CONSTANT        reduce using rule 58 (funcionstruct -> funcionsformacion .)
     GLOBAL          reduce using rule 58 (funcionstruct -> funcionsformacion .)
+    SET             reduce using rule 58 (funcionstruct -> funcionsformacion .)
+    LCOR            reduce using rule 58 (funcionstruct -> funcionsformacion .)
+    ARRAY           reduce using rule 58 (funcionstruct -> funcionsformacion .)
+    LBRACE          reduce using rule 58 (funcionstruct -> funcionsformacion .)
     ELSIF           reduce using rule 58 (funcionstruct -> funcionsformacion .)
     END             reduce using rule 58 (funcionstruct -> funcionsformacion .)
 
@@ -548,6 +556,10 @@ state 16
     ID              reduce using rule 59 (funcionstruct -> funcionsHash .)
     CONSTANT        reduce using rule 59 (funcionstruct -> funcionsHash .)
     GLOBAL          reduce using rule 59 (funcionstruct -> funcionsHash .)
+    SET             reduce using rule 59 (funcionstruct -> funcionsHash .)
+    LCOR            reduce using rule 59 (funcionstruct -> funcionsHash .)
+    ARRAY           reduce using rule 59 (funcionstruct -> funcionsHash .)
+    LBRACE          reduce using rule 59 (funcionstruct -> funcionsHash .)
     ELSIF           reduce using rule 59 (funcionstruct -> funcionsHash .)
     END             reduce using rule 59 (funcionstruct -> funcionsHash .)
 
@@ -563,7 +575,7 @@ state 17
     CONSTANT        shift and go to state 23
     GLOBAL          shift and go to state 24
 
-    variables                      shift and go to state 46
+    variables                      shift and go to state 52
 
 state 18
 
@@ -583,6 +595,10 @@ state 18
     ID              reduce using rule 25 (factor -> INT .)
     CONSTANT        reduce using rule 25 (factor -> INT .)
     GLOBAL          reduce using rule 25 (factor -> INT .)
+    SET             reduce using rule 25 (factor -> INT .)
+    LCOR            reduce using rule 25 (factor -> INT .)
+    ARRAY           reduce using rule 25 (factor -> INT .)
+    LBRACE          reduce using rule 25 (factor -> INT .)
     ELSIF           reduce using rule 25 (factor -> INT .)
     END             reduce using rule 25 (factor -> INT .)
     DO              reduce using rule 25 (factor -> INT .)
@@ -608,22 +624,22 @@ state 19
     (38) variables -> . GLOBAL
     (14) expression -> . factor operadoresMat factor
 
-    ARRAY           shift and go to state 51
-    TRUE            shift and go to state 41
-    FALSE           shift and go to state 42
+    ARRAY           shift and go to state 57
+    TRUE            shift and go to state 48
+    FALSE           shift and go to state 49
     INT             shift and go to state 18
     FLOAT           shift and go to state 21
     ID              shift and go to state 22
     CONSTANT        shift and go to state 23
     GLOBAL          shift and go to state 24
 
-    condicion                      shift and go to state 47
-    comparacion                    shift and go to state 48
-    comparacion_bool               shift and go to state 49
-    booleanos                      shift and go to state 50
-    factor                         shift and go to state 52
-    variables                      shift and go to state 38
-    expression                     shift and go to state 39
+    condicion                      shift and go to state 53
+    comparacion                    shift and go to state 54
+    comparacion_bool               shift and go to state 55
+    booleanos                      shift and go to state 56
+    factor                         shift and go to state 58
+    variables                      shift and go to state 45
+    expression                     shift and go to state 46
 
 state 20
 
@@ -645,22 +661,22 @@ state 20
     (38) variables -> . GLOBAL
     (14) expression -> . factor operadoresMat factor
 
-    ARRAY           shift and go to state 51
-    TRUE            shift and go to state 41
-    FALSE           shift and go to state 42
+    ARRAY           shift and go to state 57
+    TRUE            shift and go to state 48
+    FALSE           shift and go to state 49
     INT             shift and go to state 18
     FLOAT           shift and go to state 21
     ID              shift and go to state 22
     CONSTANT        shift and go to state 23
     GLOBAL          shift and go to state 24
 
-    condicion                      shift and go to state 53
-    comparacion                    shift and go to state 48
-    comparacion_bool               shift and go to state 49
-    booleanos                      shift and go to state 50
-    factor                         shift and go to state 52
-    variables                      shift and go to state 38
-    expression                     shift and go to state 39
+    condicion                      shift and go to state 59
+    comparacion                    shift and go to state 54
+    comparacion_bool               shift and go to state 55
+    booleanos                      shift and go to state 56
+    factor                         shift and go to state 58
+    variables                      shift and go to state 45
+    expression                     shift and go to state 46
 
 state 21
 
@@ -680,6 +696,10 @@ state 21
     ID              reduce using rule 27 (factor -> FLOAT .)
     CONSTANT        reduce using rule 27 (factor -> FLOAT .)
     GLOBAL          reduce using rule 27 (factor -> FLOAT .)
+    SET             reduce using rule 27 (factor -> FLOAT .)
+    LCOR            reduce using rule 27 (factor -> FLOAT .)
+    ARRAY           reduce using rule 27 (factor -> FLOAT .)
+    LBRACE          reduce using rule 27 (factor -> FLOAT .)
     ELSIF           reduce using rule 27 (factor -> FLOAT .)
     END             reduce using rule 27 (factor -> FLOAT .)
     DO              reduce using rule 27 (factor -> FLOAT .)
@@ -690,7 +710,6 @@ state 22
     (36) variables -> ID .
 
     EQUAL           reduce using rule 36 (variables -> ID .)
-    PUNTO           reduce using rule 36 (variables -> ID .)
     PLUS            reduce using rule 36 (variables -> ID .)
     MINUS           reduce using rule 36 (variables -> ID .)
     TIMES           reduce using rule 36 (variables -> ID .)
@@ -705,11 +724,15 @@ state 22
     ID              reduce using rule 36 (variables -> ID .)
     CONSTANT        reduce using rule 36 (variables -> ID .)
     GLOBAL          reduce using rule 36 (variables -> ID .)
+    SET             reduce using rule 36 (variables -> ID .)
+    LCOR            reduce using rule 36 (variables -> ID .)
+    ARRAY           reduce using rule 36 (variables -> ID .)
+    LBRACE          reduce using rule 36 (variables -> ID .)
     ELSIF           reduce using rule 36 (variables -> ID .)
     END             reduce using rule 36 (variables -> ID .)
     IN              reduce using rule 36 (variables -> ID .)
-    DO              reduce using rule 36 (variables -> ID .)
     FLECHA          reduce using rule 36 (variables -> ID .)
+    DO              reduce using rule 36 (variables -> ID .)
     RPAREN          reduce using rule 36 (variables -> ID .)
 
 
@@ -718,7 +741,6 @@ state 23
     (37) variables -> CONSTANT .
 
     EQUAL           reduce using rule 37 (variables -> CONSTANT .)
-    PUNTO           reduce using rule 37 (variables -> CONSTANT .)
     PLUS            reduce using rule 37 (variables -> CONSTANT .)
     MINUS           reduce using rule 37 (variables -> CONSTANT .)
     TIMES           reduce using rule 37 (variables -> CONSTANT .)
@@ -733,11 +755,15 @@ state 23
     ID              reduce using rule 37 (variables -> CONSTANT .)
     CONSTANT        reduce using rule 37 (variables -> CONSTANT .)
     GLOBAL          reduce using rule 37 (variables -> CONSTANT .)
+    SET             reduce using rule 37 (variables -> CONSTANT .)
+    LCOR            reduce using rule 37 (variables -> CONSTANT .)
+    ARRAY           reduce using rule 37 (variables -> CONSTANT .)
+    LBRACE          reduce using rule 37 (variables -> CONSTANT .)
     ELSIF           reduce using rule 37 (variables -> CONSTANT .)
     END             reduce using rule 37 (variables -> CONSTANT .)
     IN              reduce using rule 37 (variables -> CONSTANT .)
-    DO              reduce using rule 37 (variables -> CONSTANT .)
     FLECHA          reduce using rule 37 (variables -> CONSTANT .)
+    DO              reduce using rule 37 (variables -> CONSTANT .)
     RPAREN          reduce using rule 37 (variables -> CONSTANT .)
 
 
@@ -746,7 +772,6 @@ state 24
     (38) variables -> GLOBAL .
 
     EQUAL           reduce using rule 38 (variables -> GLOBAL .)
-    PUNTO           reduce using rule 38 (variables -> GLOBAL .)
     PLUS            reduce using rule 38 (variables -> GLOBAL .)
     MINUS           reduce using rule 38 (variables -> GLOBAL .)
     TIMES           reduce using rule 38 (variables -> GLOBAL .)
@@ -761,15 +786,41 @@ state 24
     ID              reduce using rule 38 (variables -> GLOBAL .)
     CONSTANT        reduce using rule 38 (variables -> GLOBAL .)
     GLOBAL          reduce using rule 38 (variables -> GLOBAL .)
+    SET             reduce using rule 38 (variables -> GLOBAL .)
+    LCOR            reduce using rule 38 (variables -> GLOBAL .)
+    ARRAY           reduce using rule 38 (variables -> GLOBAL .)
+    LBRACE          reduce using rule 38 (variables -> GLOBAL .)
     ELSIF           reduce using rule 38 (variables -> GLOBAL .)
     END             reduce using rule 38 (variables -> GLOBAL .)
     IN              reduce using rule 38 (variables -> GLOBAL .)
-    DO              reduce using rule 38 (variables -> GLOBAL .)
     FLECHA          reduce using rule 38 (variables -> GLOBAL .)
+    DO              reduce using rule 38 (variables -> GLOBAL .)
     RPAREN          reduce using rule 38 (variables -> GLOBAL .)
 
 
 state 25
+
+    (60) funcionsconjunto -> conjunto . PUNTO ADD LPAREN valor RPAREN
+    (61) funcionsconjunto -> conjunto . PUNTO ADD LPAREN arr RPAREN
+    (62) funcionsconjunto -> conjunto . PUNTO MERGE LPAREN variables RPAREN
+    (63) funcionsconjunto -> conjunto . PUNTO SIZE LPAREN RPAREN
+    (64) funcionsconjunto -> conjunto . PUNTO SIZE
+
+    PUNTO           shift and go to state 60
+
+
+state 26
+
+    (80) funcionsformacion -> formacion . PUNTO LENGTH LPAREN RPAREN
+    (81) funcionsformacion -> formacion . PUNTO PUSH LPAREN repetirvalor RPAREN
+    (82) funcionsformacion -> formacion . PUNTO SAMPLE LPAREN variables RPAREN
+    (83) funcionsformacion -> formacion . PUNTO FIRST
+    (84) funcionsformacion -> formacion . PUNTO FIRST LPAREN RPAREN
+
+    PUNTO           shift and go to state 61
+
+
+state 27
 
     (101) funcionsHash -> hash_add .
 
@@ -778,11 +829,15 @@ state 25
     ID              reduce using rule 101 (funcionsHash -> hash_add .)
     CONSTANT        reduce using rule 101 (funcionsHash -> hash_add .)
     GLOBAL          reduce using rule 101 (funcionsHash -> hash_add .)
+    SET             reduce using rule 101 (funcionsHash -> hash_add .)
+    LCOR            reduce using rule 101 (funcionsHash -> hash_add .)
+    ARRAY           reduce using rule 101 (funcionsHash -> hash_add .)
+    LBRACE          reduce using rule 101 (funcionsHash -> hash_add .)
     ELSIF           reduce using rule 101 (funcionsHash -> hash_add .)
     END             reduce using rule 101 (funcionsHash -> hash_add .)
 
 
-state 26
+state 28
 
     (102) funcionsHash -> hash_delete .
 
@@ -791,11 +846,15 @@ state 26
     ID              reduce using rule 102 (funcionsHash -> hash_delete .)
     CONSTANT        reduce using rule 102 (funcionsHash -> hash_delete .)
     GLOBAL          reduce using rule 102 (funcionsHash -> hash_delete .)
+    SET             reduce using rule 102 (funcionsHash -> hash_delete .)
+    LCOR            reduce using rule 102 (funcionsHash -> hash_delete .)
+    ARRAY           reduce using rule 102 (funcionsHash -> hash_delete .)
+    LBRACE          reduce using rule 102 (funcionsHash -> hash_delete .)
     ELSIF           reduce using rule 102 (funcionsHash -> hash_delete .)
     END             reduce using rule 102 (funcionsHash -> hash_delete .)
 
 
-state 27
+state 29
 
     (103) funcionsHash -> hash_key .
 
@@ -804,11 +863,96 @@ state 27
     ID              reduce using rule 103 (funcionsHash -> hash_key .)
     CONSTANT        reduce using rule 103 (funcionsHash -> hash_key .)
     GLOBAL          reduce using rule 103 (funcionsHash -> hash_key .)
+    SET             reduce using rule 103 (funcionsHash -> hash_key .)
+    LCOR            reduce using rule 103 (funcionsHash -> hash_key .)
+    ARRAY           reduce using rule 103 (funcionsHash -> hash_key .)
+    LBRACE          reduce using rule 103 (funcionsHash -> hash_key .)
     ELSIF           reduce using rule 103 (funcionsHash -> hash_key .)
     END             reduce using rule 103 (funcionsHash -> hash_key .)
 
 
-state 28
+state 30
+
+    (47) conjunto -> SET . arr
+    (48) conjunto -> SET . LCOR RCOR
+    (56) arr -> . LCOR repetirvalor RCOR
+
+    LCOR            shift and go to state 63
+
+    arr                            shift and go to state 62
+
+state 31
+
+    (76) formacion -> LCOR . repetirvalor RCOR
+    (77) formacion -> LCOR . RCOR
+    (54) repetirvalor -> . valor
+    (55) repetirvalor -> . valor COMMA repetirvalor
+    (49) valor -> . INT
+    (50) valor -> . ID
+    (51) valor -> . STRING
+    (52) valor -> . booleanos
+    (53) valor -> . FLOAT
+    (29) booleanos -> . TRUE
+    (30) booleanos -> . FALSE
+
+    RCOR            shift and go to state 65
+    INT             shift and go to state 67
+    ID              shift and go to state 68
+    STRING          shift and go to state 69
+    FLOAT           shift and go to state 71
+    TRUE            shift and go to state 48
+    FALSE           shift and go to state 49
+
+    repetirvalor                   shift and go to state 64
+    valor                          shift and go to state 66
+    booleanos                      shift and go to state 70
+
+state 32
+
+    (78) formacion -> ARRAY . PUNTO NEW LPAREN INT RPAREN
+    (79) formacion -> ARRAY . PUNTO NEW LPAREN RPAREN
+
+    PUNTO           shift and go to state 72
+
+
+state 33
+
+    (98) hash_add -> hash . PUNTO STORE LPAREN hash_element RPAREN
+    (99) hash_delete -> hash . PUNTO LPAREN clave RPAREN
+    (100) hash_key -> hash . PUNTO KEY LPAREN value RPAREN
+
+    PUNTO           shift and go to state 73
+
+
+state 34
+
+    (85) hash -> LBRACE . hash_content RBRACE
+    (87) hash_content -> . hash_element
+    (88) hash_content -> . hash_elements
+    (89) hash_element -> . clave FLECHA value
+    (86) hash_elements -> . hash_element hash_more_elements
+    (92) clave -> . variables
+    (93) clave -> . STRING
+    (94) clave -> . INT
+    (95) clave -> . FLOAT
+    (36) variables -> . ID
+    (37) variables -> . CONSTANT
+    (38) variables -> . GLOBAL
+
+    STRING          shift and go to state 79
+    INT             shift and go to state 80
+    FLOAT           shift and go to state 81
+    ID              shift and go to state 22
+    CONSTANT        shift and go to state 23
+    GLOBAL          shift and go to state 24
+
+    hash_content                   shift and go to state 74
+    hash_element                   shift and go to state 75
+    hash_elements                  shift and go to state 76
+    clave                          shift and go to state 77
+    variables                      shift and go to state 78
+
+state 35
 
     (14) expression -> factor operadoresMat . factor
     (25) factor -> . INT
@@ -826,11 +970,11 @@ state 28
     CONSTANT        shift and go to state 23
     GLOBAL          shift and go to state 24
 
-    factor                         shift and go to state 54
-    variables                      shift and go to state 38
-    expression                     shift and go to state 39
+    factor                         shift and go to state 82
+    variables                      shift and go to state 45
+    expression                     shift and go to state 46
 
-state 29
+state 36
 
     (20) operadoresMat -> PLUS .
 
@@ -841,7 +985,7 @@ state 29
     GLOBAL          reduce using rule 20 (operadoresMat -> PLUS .)
 
 
-state 30
+state 37
 
     (21) operadoresMat -> MINUS .
 
@@ -852,7 +996,7 @@ state 30
     GLOBAL          reduce using rule 21 (operadoresMat -> MINUS .)
 
 
-state 31
+state 38
 
     (22) operadoresMat -> TIMES .
 
@@ -863,7 +1007,7 @@ state 31
     GLOBAL          reduce using rule 22 (operadoresMat -> TIMES .)
 
 
-state 32
+state 39
 
     (23) operadoresMat -> DIVIDE .
 
@@ -874,7 +1018,7 @@ state 32
     GLOBAL          reduce using rule 23 (operadoresMat -> DIVIDE .)
 
 
-state 33
+state 40
 
     (24) operadoresMat -> MOD .
 
@@ -885,7 +1029,7 @@ state 33
     GLOBAL          reduce using rule 24 (operadoresMat -> MOD .)
 
 
-state 34
+state 41
 
     (9) impresion -> PUTS factor .
     (15) comparacion -> factor . operadoresComp factor
@@ -906,23 +1050,27 @@ state 34
     ID              reduce using rule 9 (impresion -> PUTS factor .)
     CONSTANT        reduce using rule 9 (impresion -> PUTS factor .)
     GLOBAL          reduce using rule 9 (impresion -> PUTS factor .)
+    SET             reduce using rule 9 (impresion -> PUTS factor .)
+    LCOR            reduce using rule 9 (impresion -> PUTS factor .)
+    ARRAY           reduce using rule 9 (impresion -> PUTS factor .)
+    LBRACE          reduce using rule 9 (impresion -> PUTS factor .)
     ELSIF           reduce using rule 9 (impresion -> PUTS factor .)
     END             reduce using rule 9 (impresion -> PUTS factor .)
-    MAYORQUE        shift and go to state 56
-    MENORQUE        shift and go to state 57
-    PLUS            shift and go to state 29
-    MINUS           shift and go to state 30
-    TIMES           shift and go to state 31
-    DIVIDE          shift and go to state 32
-    MOD             shift and go to state 33
-    EQUALSX2        shift and go to state 59
-    NOTEQUALS       shift and go to state 60
+    MAYORQUE        shift and go to state 84
+    MENORQUE        shift and go to state 85
+    PLUS            shift and go to state 36
+    MINUS           shift and go to state 37
+    TIMES           shift and go to state 38
+    DIVIDE          shift and go to state 39
+    MOD             shift and go to state 40
+    EQUALSX2        shift and go to state 87
+    NOTEQUALS       shift and go to state 88
 
-    operadoresComp                 shift and go to state 55
-    operadoresMat                  shift and go to state 28
-    operadoresEquals               shift and go to state 58
+    operadoresComp                 shift and go to state 83
+    operadoresMat                  shift and go to state 35
+    operadoresEquals               shift and go to state 86
 
-state 35
+state 42
 
     (10) impresion -> PUTS comparacion .
 
@@ -931,11 +1079,15 @@ state 35
     ID              reduce using rule 10 (impresion -> PUTS comparacion .)
     CONSTANT        reduce using rule 10 (impresion -> PUTS comparacion .)
     GLOBAL          reduce using rule 10 (impresion -> PUTS comparacion .)
+    SET             reduce using rule 10 (impresion -> PUTS comparacion .)
+    LCOR            reduce using rule 10 (impresion -> PUTS comparacion .)
+    ARRAY           reduce using rule 10 (impresion -> PUTS comparacion .)
+    LBRACE          reduce using rule 10 (impresion -> PUTS comparacion .)
     ELSIF           reduce using rule 10 (impresion -> PUTS comparacion .)
     END             reduce using rule 10 (impresion -> PUTS comparacion .)
 
 
-state 36
+state 43
 
     (11) impresion -> PUTS comparacion_bool .
 
@@ -944,11 +1096,15 @@ state 36
     ID              reduce using rule 11 (impresion -> PUTS comparacion_bool .)
     CONSTANT        reduce using rule 11 (impresion -> PUTS comparacion_bool .)
     GLOBAL          reduce using rule 11 (impresion -> PUTS comparacion_bool .)
+    SET             reduce using rule 11 (impresion -> PUTS comparacion_bool .)
+    LCOR            reduce using rule 11 (impresion -> PUTS comparacion_bool .)
+    ARRAY           reduce using rule 11 (impresion -> PUTS comparacion_bool .)
+    LBRACE          reduce using rule 11 (impresion -> PUTS comparacion_bool .)
     ELSIF           reduce using rule 11 (impresion -> PUTS comparacion_bool .)
     END             reduce using rule 11 (impresion -> PUTS comparacion_bool .)
 
 
-state 37
+state 44
 
     (12) impresion -> PUTS STRING .
 
@@ -957,11 +1113,15 @@ state 37
     ID              reduce using rule 12 (impresion -> PUTS STRING .)
     CONSTANT        reduce using rule 12 (impresion -> PUTS STRING .)
     GLOBAL          reduce using rule 12 (impresion -> PUTS STRING .)
+    SET             reduce using rule 12 (impresion -> PUTS STRING .)
+    LCOR            reduce using rule 12 (impresion -> PUTS STRING .)
+    ARRAY           reduce using rule 12 (impresion -> PUTS STRING .)
+    LBRACE          reduce using rule 12 (impresion -> PUTS STRING .)
     ELSIF           reduce using rule 12 (impresion -> PUTS STRING .)
     END             reduce using rule 12 (impresion -> PUTS STRING .)
 
 
-state 38
+state 45
 
     (26) factor -> variables .
 
@@ -979,12 +1139,16 @@ state 38
     ID              reduce using rule 26 (factor -> variables .)
     CONSTANT        reduce using rule 26 (factor -> variables .)
     GLOBAL          reduce using rule 26 (factor -> variables .)
+    SET             reduce using rule 26 (factor -> variables .)
+    LCOR            reduce using rule 26 (factor -> variables .)
+    ARRAY           reduce using rule 26 (factor -> variables .)
+    LBRACE          reduce using rule 26 (factor -> variables .)
     ELSIF           reduce using rule 26 (factor -> variables .)
     END             reduce using rule 26 (factor -> variables .)
     DO              reduce using rule 26 (factor -> variables .)
 
 
-state 39
+state 46
 
     (28) factor -> expression .
 
@@ -1002,12 +1166,16 @@ state 39
     ID              reduce using rule 28 (factor -> expression .)
     CONSTANT        reduce using rule 28 (factor -> expression .)
     GLOBAL          reduce using rule 28 (factor -> expression .)
+    SET             reduce using rule 28 (factor -> expression .)
+    LCOR            reduce using rule 28 (factor -> expression .)
+    ARRAY           reduce using rule 28 (factor -> expression .)
+    LBRACE          reduce using rule 28 (factor -> expression .)
     ELSIF           reduce using rule 28 (factor -> expression .)
     END             reduce using rule 28 (factor -> expression .)
     DO              reduce using rule 28 (factor -> expression .)
 
 
-state 40
+state 47
 
     (16) comparacion_bool -> booleanos . operadoresBool booleanos
     (31) operadoresBool -> . AND
@@ -1016,15 +1184,15 @@ state 40
     (34) operadoresEquals -> . EQUALSX2
     (35) operadoresEquals -> . NOTEQUALS
 
-    AND             shift and go to state 62
-    OR              shift and go to state 63
-    EQUALSX2        shift and go to state 59
-    NOTEQUALS       shift and go to state 60
+    AND             shift and go to state 90
+    OR              shift and go to state 91
+    EQUALSX2        shift and go to state 87
+    NOTEQUALS       shift and go to state 88
 
-    operadoresBool                 shift and go to state 61
-    operadoresEquals               shift and go to state 64
+    operadoresBool                 shift and go to state 89
+    operadoresEquals               shift and go to state 92
 
-state 41
+state 48
 
     (29) booleanos -> TRUE .
 
@@ -1037,16 +1205,20 @@ state 41
     ID              reduce using rule 29 (booleanos -> TRUE .)
     CONSTANT        reduce using rule 29 (booleanos -> TRUE .)
     GLOBAL          reduce using rule 29 (booleanos -> TRUE .)
+    SET             reduce using rule 29 (booleanos -> TRUE .)
+    LCOR            reduce using rule 29 (booleanos -> TRUE .)
+    ARRAY           reduce using rule 29 (booleanos -> TRUE .)
+    LBRACE          reduce using rule 29 (booleanos -> TRUE .)
+    COMMA           reduce using rule 29 (booleanos -> TRUE .)
+    RCOR            reduce using rule 29 (booleanos -> TRUE .)
     $end            reduce using rule 29 (booleanos -> TRUE .)
     ELSIF           reduce using rule 29 (booleanos -> TRUE .)
     END             reduce using rule 29 (booleanos -> TRUE .)
-    COMMA           reduce using rule 29 (booleanos -> TRUE .)
-    RCOR            reduce using rule 29 (booleanos -> TRUE .)
     RPAREN          reduce using rule 29 (booleanos -> TRUE .)
     RBRACE          reduce using rule 29 (booleanos -> TRUE .)
 
 
-state 42
+state 49
 
     (30) booleanos -> FALSE .
 
@@ -1059,16 +1231,20 @@ state 42
     ID              reduce using rule 30 (booleanos -> FALSE .)
     CONSTANT        reduce using rule 30 (booleanos -> FALSE .)
     GLOBAL          reduce using rule 30 (booleanos -> FALSE .)
+    SET             reduce using rule 30 (booleanos -> FALSE .)
+    LCOR            reduce using rule 30 (booleanos -> FALSE .)
+    ARRAY           reduce using rule 30 (booleanos -> FALSE .)
+    LBRACE          reduce using rule 30 (booleanos -> FALSE .)
+    COMMA           reduce using rule 30 (booleanos -> FALSE .)
+    RCOR            reduce using rule 30 (booleanos -> FALSE .)
     $end            reduce using rule 30 (booleanos -> FALSE .)
     ELSIF           reduce using rule 30 (booleanos -> FALSE .)
     END             reduce using rule 30 (booleanos -> FALSE .)
-    COMMA           reduce using rule 30 (booleanos -> FALSE .)
-    RCOR            reduce using rule 30 (booleanos -> FALSE .)
     RPAREN          reduce using rule 30 (booleanos -> FALSE .)
     RBRACE          reduce using rule 30 (booleanos -> FALSE .)
 
 
-state 43
+state 50
 
     (39) asignacion -> variables EQUAL . factor
     (40) asignacion -> variables EQUAL . STRING
@@ -1097,79 +1273,51 @@ state 43
     (79) formacion -> . ARRAY PUNTO NEW LPAREN RPAREN
     (85) hash -> . LBRACE hash_content RBRACE
 
-    STRING          shift and go to state 66
+    STRING          shift and go to state 94
     INT             shift and go to state 18
     FLOAT           shift and go to state 21
-    TRUE            shift and go to state 41
-    FALSE           shift and go to state 42
+    TRUE            shift and go to state 48
+    FALSE           shift and go to state 49
     ID              shift and go to state 22
     CONSTANT        shift and go to state 23
     GLOBAL          shift and go to state 24
-    SET             shift and go to state 73
-    LCOR            shift and go to state 74
-    ARRAY           shift and go to state 75
-    LBRACE          shift and go to state 76
+    SET             shift and go to state 30
+    LCOR            shift and go to state 31
+    ARRAY           shift and go to state 32
+    LBRACE          shift and go to state 34
 
-    variables                      shift and go to state 38
-    factor                         shift and go to state 65
-    booleanos                      shift and go to state 67
-    comparacion_bool               shift and go to state 68
-    struct                         shift and go to state 69
-    expression                     shift and go to state 39
-    conjunto                       shift and go to state 70
-    formacion                      shift and go to state 71
-    hash                           shift and go to state 72
+    variables                      shift and go to state 45
+    factor                         shift and go to state 93
+    booleanos                      shift and go to state 95
+    comparacion_bool               shift and go to state 96
+    struct                         shift and go to state 97
+    expression                     shift and go to state 46
+    conjunto                       shift and go to state 98
+    formacion                      shift and go to state 99
+    hash                           shift and go to state 100
 
-state 44
-
-    (60) funcionsconjunto -> variables PUNTO . ADD LPAREN valor RPAREN
-    (61) funcionsconjunto -> variables PUNTO . ADD LPAREN arr RPAREN
-    (62) funcionsconjunto -> variables PUNTO . MERGE LPAREN variables RPAREN
-    (63) funcionsconjunto -> variables PUNTO . SIZE LPAREN RPAREN
-    (64) funcionsconjunto -> variables PUNTO . SIZE
-    (80) funcionsformacion -> variables PUNTO . LENGTH LPAREN RPAREN
-    (81) funcionsformacion -> variables PUNTO . PUSH LPAREN repetirvalor RPAREN
-    (82) funcionsformacion -> variables PUNTO . SAMPLE LPAREN variables RPAREN
-    (83) funcionsformacion -> variables PUNTO . FIRST
-    (84) funcionsformacion -> variables PUNTO . FIRST LPAREN RPAREN
-    (98) hash_add -> variables PUNTO . STORE LPAREN hash_element RPAREN
-    (99) hash_delete -> variables PUNTO . LPAREN clave RPAREN
-    (100) hash_key -> variables PUNTO . KEY LPAREN value RPAREN
-
-    ADD             shift and go to state 77
-    MERGE           shift and go to state 79
-    SIZE            shift and go to state 80
-    LENGTH          shift and go to state 81
-    PUSH            shift and go to state 82
-    SAMPLE          shift and go to state 83
-    FIRST           shift and go to state 84
-    STORE           shift and go to state 85
-    LPAREN          shift and go to state 78
-    KEY             shift and go to state 86
-
-
-state 45
+state 51
 
     (13) leer -> GETS PUNTO . CHOMP
 
-    CHOMP           shift and go to state 87
+    CHOMP           shift and go to state 101
 
 
-state 46
+state 52
 
     (70) sentenciafor -> FOR variables . IN LPAREN INT PUNTO PUNTO INT RPAREN repetircontenido END
 
-    IN              shift and go to state 88
+    IN              shift and go to state 102
 
 
-state 47
+state 53
 
     (75) sentenciawhile -> WHILE condicion . DO repetircontenido END
 
-    DO              shift and go to state 89
+    DO              shift and go to state 103
 
 
-state 48
+state 54
 
     (71) condicion -> comparacion .
 
@@ -1178,9 +1326,13 @@ state 48
     ID              reduce using rule 71 (condicion -> comparacion .)
     CONSTANT        reduce using rule 71 (condicion -> comparacion .)
     GLOBAL          reduce using rule 71 (condicion -> comparacion .)
+    SET             reduce using rule 71 (condicion -> comparacion .)
+    LCOR            reduce using rule 71 (condicion -> comparacion .)
+    ARRAY           reduce using rule 71 (condicion -> comparacion .)
+    LBRACE          reduce using rule 71 (condicion -> comparacion .)
 
 
-state 49
+state 55
 
     (72) condicion -> comparacion_bool .
 
@@ -1189,9 +1341,13 @@ state 49
     ID              reduce using rule 72 (condicion -> comparacion_bool .)
     CONSTANT        reduce using rule 72 (condicion -> comparacion_bool .)
     GLOBAL          reduce using rule 72 (condicion -> comparacion_bool .)
+    SET             reduce using rule 72 (condicion -> comparacion_bool .)
+    LCOR            reduce using rule 72 (condicion -> comparacion_bool .)
+    ARRAY           reduce using rule 72 (condicion -> comparacion_bool .)
+    LBRACE          reduce using rule 72 (condicion -> comparacion_bool .)
 
 
-state 50
+state 56
 
     (73) condicion -> booleanos .
     (16) comparacion_bool -> booleanos . operadoresBool booleanos
@@ -1206,22 +1362,26 @@ state 50
     ID              reduce using rule 73 (condicion -> booleanos .)
     CONSTANT        reduce using rule 73 (condicion -> booleanos .)
     GLOBAL          reduce using rule 73 (condicion -> booleanos .)
-    AND             shift and go to state 62
-    OR              shift and go to state 63
-    EQUALSX2        shift and go to state 59
-    NOTEQUALS       shift and go to state 60
+    SET             reduce using rule 73 (condicion -> booleanos .)
+    LCOR            reduce using rule 73 (condicion -> booleanos .)
+    ARRAY           reduce using rule 73 (condicion -> booleanos .)
+    LBRACE          reduce using rule 73 (condicion -> booleanos .)
+    AND             shift and go to state 90
+    OR              shift and go to state 91
+    EQUALSX2        shift and go to state 87
+    NOTEQUALS       shift and go to state 88
 
-    operadoresBool                 shift and go to state 61
-    operadoresEquals               shift and go to state 64
+    operadoresBool                 shift and go to state 89
+    operadoresEquals               shift and go to state 92
 
-state 51
+state 57
 
     (74) condicion -> ARRAY . PUNTO NEW LPAREN arr RPAREN
 
-    PUNTO           shift and go to state 90
+    PUNTO           shift and go to state 104
 
 
-state 52
+state 58
 
     (15) comparacion -> factor . operadoresComp factor
     (14) expression -> factor . operadoresMat factor
@@ -1236,21 +1396,21 @@ state 52
     (34) operadoresEquals -> . EQUALSX2
     (35) operadoresEquals -> . NOTEQUALS
 
-    MAYORQUE        shift and go to state 56
-    MENORQUE        shift and go to state 57
-    PLUS            shift and go to state 29
-    MINUS           shift and go to state 30
-    TIMES           shift and go to state 31
-    DIVIDE          shift and go to state 32
-    MOD             shift and go to state 33
-    EQUALSX2        shift and go to state 59
-    NOTEQUALS       shift and go to state 60
+    MAYORQUE        shift and go to state 84
+    MENORQUE        shift and go to state 85
+    PLUS            shift and go to state 36
+    MINUS           shift and go to state 37
+    TIMES           shift and go to state 38
+    DIVIDE          shift and go to state 39
+    MOD             shift and go to state 40
+    EQUALSX2        shift and go to state 87
+    NOTEQUALS       shift and go to state 88
 
-    operadoresComp                 shift and go to state 55
-    operadoresMat                  shift and go to state 28
-    operadoresEquals               shift and go to state 58
+    operadoresComp                 shift and go to state 83
+    operadoresMat                  shift and go to state 35
+    operadoresEquals               shift and go to state 86
 
-state 53
+state 59
 
     (104) sentenciaElsif -> IF condicion . repetircontenido mas_sentencias END
     (68) repetircontenido -> . contenido
@@ -1273,42 +1433,302 @@ state 53
     (36) variables -> . ID
     (37) variables -> . CONSTANT
     (38) variables -> . GLOBAL
-    (60) funcionsconjunto -> . variables PUNTO ADD LPAREN valor RPAREN
-    (61) funcionsconjunto -> . variables PUNTO ADD LPAREN arr RPAREN
-    (62) funcionsconjunto -> . variables PUNTO MERGE LPAREN variables RPAREN
-    (63) funcionsconjunto -> . variables PUNTO SIZE LPAREN RPAREN
-    (64) funcionsconjunto -> . variables PUNTO SIZE
-    (80) funcionsformacion -> . variables PUNTO LENGTH LPAREN RPAREN
-    (81) funcionsformacion -> . variables PUNTO PUSH LPAREN repetirvalor RPAREN
-    (82) funcionsformacion -> . variables PUNTO SAMPLE LPAREN variables RPAREN
-    (83) funcionsformacion -> . variables PUNTO FIRST
-    (84) funcionsformacion -> . variables PUNTO FIRST LPAREN RPAREN
+    (60) funcionsconjunto -> . conjunto PUNTO ADD LPAREN valor RPAREN
+    (61) funcionsconjunto -> . conjunto PUNTO ADD LPAREN arr RPAREN
+    (62) funcionsconjunto -> . conjunto PUNTO MERGE LPAREN variables RPAREN
+    (63) funcionsconjunto -> . conjunto PUNTO SIZE LPAREN RPAREN
+    (64) funcionsconjunto -> . conjunto PUNTO SIZE
+    (80) funcionsformacion -> . formacion PUNTO LENGTH LPAREN RPAREN
+    (81) funcionsformacion -> . formacion PUNTO PUSH LPAREN repetirvalor RPAREN
+    (82) funcionsformacion -> . formacion PUNTO SAMPLE LPAREN variables RPAREN
+    (83) funcionsformacion -> . formacion PUNTO FIRST
+    (84) funcionsformacion -> . formacion PUNTO FIRST LPAREN RPAREN
     (101) funcionsHash -> . hash_add
     (102) funcionsHash -> . hash_delete
     (103) funcionsHash -> . hash_key
-    (98) hash_add -> . variables PUNTO STORE LPAREN hash_element RPAREN
-    (99) hash_delete -> . variables PUNTO LPAREN clave RPAREN
-    (100) hash_key -> . variables PUNTO KEY LPAREN value RPAREN
+    (47) conjunto -> . SET arr
+    (48) conjunto -> . SET LCOR RCOR
+    (76) formacion -> . LCOR repetirvalor RCOR
+    (77) formacion -> . LCOR RCOR
+    (78) formacion -> . ARRAY PUNTO NEW LPAREN INT RPAREN
+    (79) formacion -> . ARRAY PUNTO NEW LPAREN RPAREN
+    (98) hash_add -> . hash PUNTO STORE LPAREN hash_element RPAREN
+    (99) hash_delete -> . hash PUNTO LPAREN clave RPAREN
+    (100) hash_key -> . hash PUNTO KEY LPAREN value RPAREN
+    (85) hash -> . LBRACE hash_content RBRACE
 
     PUTS            shift and go to state 11
     ID              shift and go to state 22
     CONSTANT        shift and go to state 23
     GLOBAL          shift and go to state 24
+    SET             shift and go to state 30
+    LCOR            shift and go to state 31
+    ARRAY           shift and go to state 32
+    LBRACE          shift and go to state 34
 
-    repetircontenido               shift and go to state 91
-    contenido                      shift and go to state 92
-    impresion                      shift and go to state 93
-    asignacion                     shift and go to state 94
-    funcionstruct                  shift and go to state 95
-    variables                      shift and go to state 96
+    repetircontenido               shift and go to state 105
+    contenido                      shift and go to state 106
+    impresion                      shift and go to state 107
+    asignacion                     shift and go to state 108
+    funcionstruct                  shift and go to state 109
+    variables                      shift and go to state 110
     funcionsconjunto               shift and go to state 14
     funcionsformacion              shift and go to state 15
     funcionsHash                   shift and go to state 16
-    hash_add                       shift and go to state 25
-    hash_delete                    shift and go to state 26
-    hash_key                       shift and go to state 27
+    conjunto                       shift and go to state 25
+    formacion                      shift and go to state 26
+    hash_add                       shift and go to state 27
+    hash_delete                    shift and go to state 28
+    hash_key                       shift and go to state 29
+    hash                           shift and go to state 33
 
-state 54
+state 60
+
+    (60) funcionsconjunto -> conjunto PUNTO . ADD LPAREN valor RPAREN
+    (61) funcionsconjunto -> conjunto PUNTO . ADD LPAREN arr RPAREN
+    (62) funcionsconjunto -> conjunto PUNTO . MERGE LPAREN variables RPAREN
+    (63) funcionsconjunto -> conjunto PUNTO . SIZE LPAREN RPAREN
+    (64) funcionsconjunto -> conjunto PUNTO . SIZE
+
+    ADD             shift and go to state 111
+    MERGE           shift and go to state 112
+    SIZE            shift and go to state 113
+
+
+state 61
+
+    (80) funcionsformacion -> formacion PUNTO . LENGTH LPAREN RPAREN
+    (81) funcionsformacion -> formacion PUNTO . PUSH LPAREN repetirvalor RPAREN
+    (82) funcionsformacion -> formacion PUNTO . SAMPLE LPAREN variables RPAREN
+    (83) funcionsformacion -> formacion PUNTO . FIRST
+    (84) funcionsformacion -> formacion PUNTO . FIRST LPAREN RPAREN
+
+    LENGTH          shift and go to state 114
+    PUSH            shift and go to state 115
+    SAMPLE          shift and go to state 116
+    FIRST           shift and go to state 117
+
+
+state 62
+
+    (47) conjunto -> SET arr .
+
+    PUNTO           reduce using rule 47 (conjunto -> SET arr .)
+    $end            reduce using rule 47 (conjunto -> SET arr .)
+    PUTS            reduce using rule 47 (conjunto -> SET arr .)
+    ID              reduce using rule 47 (conjunto -> SET arr .)
+    CONSTANT        reduce using rule 47 (conjunto -> SET arr .)
+    GLOBAL          reduce using rule 47 (conjunto -> SET arr .)
+    SET             reduce using rule 47 (conjunto -> SET arr .)
+    LCOR            reduce using rule 47 (conjunto -> SET arr .)
+    ARRAY           reduce using rule 47 (conjunto -> SET arr .)
+    LBRACE          reduce using rule 47 (conjunto -> SET arr .)
+    ELSIF           reduce using rule 47 (conjunto -> SET arr .)
+    END             reduce using rule 47 (conjunto -> SET arr .)
+    COMMA           reduce using rule 47 (conjunto -> SET arr .)
+    RBRACE          reduce using rule 47 (conjunto -> SET arr .)
+    RPAREN          reduce using rule 47 (conjunto -> SET arr .)
+
+
+state 63
+
+    (48) conjunto -> SET LCOR . RCOR
+    (56) arr -> LCOR . repetirvalor RCOR
+    (54) repetirvalor -> . valor
+    (55) repetirvalor -> . valor COMMA repetirvalor
+    (49) valor -> . INT
+    (50) valor -> . ID
+    (51) valor -> . STRING
+    (52) valor -> . booleanos
+    (53) valor -> . FLOAT
+    (29) booleanos -> . TRUE
+    (30) booleanos -> . FALSE
+
+    RCOR            shift and go to state 118
+    INT             shift and go to state 67
+    ID              shift and go to state 68
+    STRING          shift and go to state 69
+    FLOAT           shift and go to state 71
+    TRUE            shift and go to state 48
+    FALSE           shift and go to state 49
+
+    repetirvalor                   shift and go to state 119
+    valor                          shift and go to state 66
+    booleanos                      shift and go to state 70
+
+state 64
+
+    (76) formacion -> LCOR repetirvalor . RCOR
+
+    RCOR            shift and go to state 120
+
+
+state 65
+
+    (77) formacion -> LCOR RCOR .
+
+    PUNTO           reduce using rule 77 (formacion -> LCOR RCOR .)
+    $end            reduce using rule 77 (formacion -> LCOR RCOR .)
+    PUTS            reduce using rule 77 (formacion -> LCOR RCOR .)
+    ID              reduce using rule 77 (formacion -> LCOR RCOR .)
+    CONSTANT        reduce using rule 77 (formacion -> LCOR RCOR .)
+    GLOBAL          reduce using rule 77 (formacion -> LCOR RCOR .)
+    SET             reduce using rule 77 (formacion -> LCOR RCOR .)
+    LCOR            reduce using rule 77 (formacion -> LCOR RCOR .)
+    ARRAY           reduce using rule 77 (formacion -> LCOR RCOR .)
+    LBRACE          reduce using rule 77 (formacion -> LCOR RCOR .)
+    ELSIF           reduce using rule 77 (formacion -> LCOR RCOR .)
+    END             reduce using rule 77 (formacion -> LCOR RCOR .)
+    COMMA           reduce using rule 77 (formacion -> LCOR RCOR .)
+    RBRACE          reduce using rule 77 (formacion -> LCOR RCOR .)
+    RPAREN          reduce using rule 77 (formacion -> LCOR RCOR .)
+
+
+state 66
+
+    (54) repetirvalor -> valor .
+    (55) repetirvalor -> valor . COMMA repetirvalor
+
+    RCOR            reduce using rule 54 (repetirvalor -> valor .)
+    RPAREN          reduce using rule 54 (repetirvalor -> valor .)
+    COMMA           shift and go to state 121
+
+
+state 67
+
+    (49) valor -> INT .
+
+    COMMA           reduce using rule 49 (valor -> INT .)
+    RCOR            reduce using rule 49 (valor -> INT .)
+    RPAREN          reduce using rule 49 (valor -> INT .)
+    RBRACE          reduce using rule 49 (valor -> INT .)
+
+
+state 68
+
+    (50) valor -> ID .
+
+    COMMA           reduce using rule 50 (valor -> ID .)
+    RCOR            reduce using rule 50 (valor -> ID .)
+    RPAREN          reduce using rule 50 (valor -> ID .)
+    RBRACE          reduce using rule 50 (valor -> ID .)
+
+
+state 69
+
+    (51) valor -> STRING .
+
+    COMMA           reduce using rule 51 (valor -> STRING .)
+    RCOR            reduce using rule 51 (valor -> STRING .)
+    RPAREN          reduce using rule 51 (valor -> STRING .)
+    RBRACE          reduce using rule 51 (valor -> STRING .)
+
+
+state 70
+
+    (52) valor -> booleanos .
+
+    COMMA           reduce using rule 52 (valor -> booleanos .)
+    RCOR            reduce using rule 52 (valor -> booleanos .)
+    RPAREN          reduce using rule 52 (valor -> booleanos .)
+    RBRACE          reduce using rule 52 (valor -> booleanos .)
+
+
+state 71
+
+    (53) valor -> FLOAT .
+
+    COMMA           reduce using rule 53 (valor -> FLOAT .)
+    RCOR            reduce using rule 53 (valor -> FLOAT .)
+    RPAREN          reduce using rule 53 (valor -> FLOAT .)
+    RBRACE          reduce using rule 53 (valor -> FLOAT .)
+
+
+state 72
+
+    (78) formacion -> ARRAY PUNTO . NEW LPAREN INT RPAREN
+    (79) formacion -> ARRAY PUNTO . NEW LPAREN RPAREN
+
+    NEW             shift and go to state 122
+
+
+state 73
+
+    (98) hash_add -> hash PUNTO . STORE LPAREN hash_element RPAREN
+    (99) hash_delete -> hash PUNTO . LPAREN clave RPAREN
+    (100) hash_key -> hash PUNTO . KEY LPAREN value RPAREN
+
+    STORE           shift and go to state 123
+    LPAREN          shift and go to state 124
+    KEY             shift and go to state 125
+
+
+state 74
+
+    (85) hash -> LBRACE hash_content . RBRACE
+
+    RBRACE          shift and go to state 126
+
+
+state 75
+
+    (87) hash_content -> hash_element .
+    (86) hash_elements -> hash_element . hash_more_elements
+    (90) hash_more_elements -> . COMMA hash_element
+    (91) hash_more_elements -> . COMMA hash_element hash_more_elements
+
+    RBRACE          reduce using rule 87 (hash_content -> hash_element .)
+    COMMA           shift and go to state 128
+
+    hash_more_elements             shift and go to state 127
+
+state 76
+
+    (88) hash_content -> hash_elements .
+
+    RBRACE          reduce using rule 88 (hash_content -> hash_elements .)
+
+
+state 77
+
+    (89) hash_element -> clave . FLECHA value
+
+    FLECHA          shift and go to state 129
+
+
+state 78
+
+    (92) clave -> variables .
+
+    FLECHA          reduce using rule 92 (clave -> variables .)
+    RPAREN          reduce using rule 92 (clave -> variables .)
+
+
+state 79
+
+    (93) clave -> STRING .
+
+    FLECHA          reduce using rule 93 (clave -> STRING .)
+    RPAREN          reduce using rule 93 (clave -> STRING .)
+
+
+state 80
+
+    (94) clave -> INT .
+
+    FLECHA          reduce using rule 94 (clave -> INT .)
+    RPAREN          reduce using rule 94 (clave -> INT .)
+
+
+state 81
+
+    (95) clave -> FLOAT .
+
+    FLECHA          reduce using rule 95 (clave -> FLOAT .)
+    RPAREN          reduce using rule 95 (clave -> FLOAT .)
+
+
+state 82
 
     (14) expression -> factor operadoresMat factor .
     (14) expression -> factor . operadoresMat factor
@@ -1332,14 +1752,18 @@ state 54
     ID              reduce using rule 14 (expression -> factor operadoresMat factor .)
     CONSTANT        reduce using rule 14 (expression -> factor operadoresMat factor .)
     GLOBAL          reduce using rule 14 (expression -> factor operadoresMat factor .)
+    SET             reduce using rule 14 (expression -> factor operadoresMat factor .)
+    LCOR            reduce using rule 14 (expression -> factor operadoresMat factor .)
+    ARRAY           reduce using rule 14 (expression -> factor operadoresMat factor .)
+    LBRACE          reduce using rule 14 (expression -> factor operadoresMat factor .)
     ELSIF           reduce using rule 14 (expression -> factor operadoresMat factor .)
     END             reduce using rule 14 (expression -> factor operadoresMat factor .)
     DO              reduce using rule 14 (expression -> factor operadoresMat factor .)
-    PLUS            shift and go to state 29
-    MINUS           shift and go to state 30
-    TIMES           shift and go to state 31
-    DIVIDE          shift and go to state 32
-    MOD             shift and go to state 33
+    PLUS            shift and go to state 36
+    MINUS           shift and go to state 37
+    TIMES           shift and go to state 38
+    DIVIDE          shift and go to state 39
+    MOD             shift and go to state 40
 
   ! PLUS            [ reduce using rule 14 (expression -> factor operadoresMat factor .) ]
   ! MINUS           [ reduce using rule 14 (expression -> factor operadoresMat factor .) ]
@@ -1347,9 +1771,9 @@ state 54
   ! DIVIDE          [ reduce using rule 14 (expression -> factor operadoresMat factor .) ]
   ! MOD             [ reduce using rule 14 (expression -> factor operadoresMat factor .) ]
 
-    operadoresMat                  shift and go to state 28
+    operadoresMat                  shift and go to state 35
 
-state 55
+state 83
 
     (15) comparacion -> factor operadoresComp . factor
     (25) factor -> . INT
@@ -1367,11 +1791,11 @@ state 55
     CONSTANT        shift and go to state 23
     GLOBAL          shift and go to state 24
 
-    factor                         shift and go to state 97
-    variables                      shift and go to state 38
-    expression                     shift and go to state 39
+    factor                         shift and go to state 130
+    variables                      shift and go to state 45
+    expression                     shift and go to state 46
 
-state 56
+state 84
 
     (17) operadoresComp -> MAYORQUE .
 
@@ -1382,7 +1806,7 @@ state 56
     GLOBAL          reduce using rule 17 (operadoresComp -> MAYORQUE .)
 
 
-state 57
+state 85
 
     (18) operadoresComp -> MENORQUE .
 
@@ -1393,7 +1817,7 @@ state 57
     GLOBAL          reduce using rule 18 (operadoresComp -> MENORQUE .)
 
 
-state 58
+state 86
 
     (19) operadoresComp -> operadoresEquals .
 
@@ -1404,7 +1828,7 @@ state 58
     GLOBAL          reduce using rule 19 (operadoresComp -> operadoresEquals .)
 
 
-state 59
+state 87
 
     (34) operadoresEquals -> EQUALSX2 .
 
@@ -1417,7 +1841,7 @@ state 59
     FALSE           reduce using rule 34 (operadoresEquals -> EQUALSX2 .)
 
 
-state 60
+state 88
 
     (35) operadoresEquals -> NOTEQUALS .
 
@@ -1430,18 +1854,18 @@ state 60
     FALSE           reduce using rule 35 (operadoresEquals -> NOTEQUALS .)
 
 
-state 61
+state 89
 
     (16) comparacion_bool -> booleanos operadoresBool . booleanos
     (29) booleanos -> . TRUE
     (30) booleanos -> . FALSE
 
-    TRUE            shift and go to state 41
-    FALSE           shift and go to state 42
+    TRUE            shift and go to state 48
+    FALSE           shift and go to state 49
 
-    booleanos                      shift and go to state 98
+    booleanos                      shift and go to state 131
 
-state 62
+state 90
 
     (31) operadoresBool -> AND .
 
@@ -1449,7 +1873,7 @@ state 62
     FALSE           reduce using rule 31 (operadoresBool -> AND .)
 
 
-state 63
+state 91
 
     (32) operadoresBool -> OR .
 
@@ -1457,7 +1881,7 @@ state 63
     FALSE           reduce using rule 32 (operadoresBool -> OR .)
 
 
-state 64
+state 92
 
     (33) operadoresBool -> operadoresEquals .
 
@@ -1465,7 +1889,7 @@ state 64
     FALSE           reduce using rule 33 (operadoresBool -> operadoresEquals .)
 
 
-state 65
+state 93
 
     (39) asignacion -> variables EQUAL factor .
     (14) expression -> factor . operadoresMat factor
@@ -1480,17 +1904,21 @@ state 65
     ID              reduce using rule 39 (asignacion -> variables EQUAL factor .)
     CONSTANT        reduce using rule 39 (asignacion -> variables EQUAL factor .)
     GLOBAL          reduce using rule 39 (asignacion -> variables EQUAL factor .)
+    SET             reduce using rule 39 (asignacion -> variables EQUAL factor .)
+    LCOR            reduce using rule 39 (asignacion -> variables EQUAL factor .)
+    ARRAY           reduce using rule 39 (asignacion -> variables EQUAL factor .)
+    LBRACE          reduce using rule 39 (asignacion -> variables EQUAL factor .)
     ELSIF           reduce using rule 39 (asignacion -> variables EQUAL factor .)
     END             reduce using rule 39 (asignacion -> variables EQUAL factor .)
-    PLUS            shift and go to state 29
-    MINUS           shift and go to state 30
-    TIMES           shift and go to state 31
-    DIVIDE          shift and go to state 32
-    MOD             shift and go to state 33
+    PLUS            shift and go to state 36
+    MINUS           shift and go to state 37
+    TIMES           shift and go to state 38
+    DIVIDE          shift and go to state 39
+    MOD             shift and go to state 40
 
-    operadoresMat                  shift and go to state 28
+    operadoresMat                  shift and go to state 35
 
-state 66
+state 94
 
     (40) asignacion -> variables EQUAL STRING .
 
@@ -1499,11 +1927,15 @@ state 66
     ID              reduce using rule 40 (asignacion -> variables EQUAL STRING .)
     CONSTANT        reduce using rule 40 (asignacion -> variables EQUAL STRING .)
     GLOBAL          reduce using rule 40 (asignacion -> variables EQUAL STRING .)
+    SET             reduce using rule 40 (asignacion -> variables EQUAL STRING .)
+    LCOR            reduce using rule 40 (asignacion -> variables EQUAL STRING .)
+    ARRAY           reduce using rule 40 (asignacion -> variables EQUAL STRING .)
+    LBRACE          reduce using rule 40 (asignacion -> variables EQUAL STRING .)
     ELSIF           reduce using rule 40 (asignacion -> variables EQUAL STRING .)
     END             reduce using rule 40 (asignacion -> variables EQUAL STRING .)
 
 
-state 67
+state 95
 
     (41) asignacion -> variables EQUAL booleanos .
     (16) comparacion_bool -> booleanos . operadoresBool booleanos
@@ -1518,17 +1950,21 @@ state 67
     ID              reduce using rule 41 (asignacion -> variables EQUAL booleanos .)
     CONSTANT        reduce using rule 41 (asignacion -> variables EQUAL booleanos .)
     GLOBAL          reduce using rule 41 (asignacion -> variables EQUAL booleanos .)
+    SET             reduce using rule 41 (asignacion -> variables EQUAL booleanos .)
+    LCOR            reduce using rule 41 (asignacion -> variables EQUAL booleanos .)
+    ARRAY           reduce using rule 41 (asignacion -> variables EQUAL booleanos .)
+    LBRACE          reduce using rule 41 (asignacion -> variables EQUAL booleanos .)
     ELSIF           reduce using rule 41 (asignacion -> variables EQUAL booleanos .)
     END             reduce using rule 41 (asignacion -> variables EQUAL booleanos .)
-    AND             shift and go to state 62
-    OR              shift and go to state 63
-    EQUALSX2        shift and go to state 59
-    NOTEQUALS       shift and go to state 60
+    AND             shift and go to state 90
+    OR              shift and go to state 91
+    EQUALSX2        shift and go to state 87
+    NOTEQUALS       shift and go to state 88
 
-    operadoresBool                 shift and go to state 61
-    operadoresEquals               shift and go to state 64
+    operadoresBool                 shift and go to state 89
+    operadoresEquals               shift and go to state 92
 
-state 68
+state 96
 
     (42) asignacion -> variables EQUAL comparacion_bool .
 
@@ -1537,11 +1973,15 @@ state 68
     ID              reduce using rule 42 (asignacion -> variables EQUAL comparacion_bool .)
     CONSTANT        reduce using rule 42 (asignacion -> variables EQUAL comparacion_bool .)
     GLOBAL          reduce using rule 42 (asignacion -> variables EQUAL comparacion_bool .)
+    SET             reduce using rule 42 (asignacion -> variables EQUAL comparacion_bool .)
+    LCOR            reduce using rule 42 (asignacion -> variables EQUAL comparacion_bool .)
+    ARRAY           reduce using rule 42 (asignacion -> variables EQUAL comparacion_bool .)
+    LBRACE          reduce using rule 42 (asignacion -> variables EQUAL comparacion_bool .)
     ELSIF           reduce using rule 42 (asignacion -> variables EQUAL comparacion_bool .)
     END             reduce using rule 42 (asignacion -> variables EQUAL comparacion_bool .)
 
 
-state 69
+state 97
 
     (43) asignacion -> variables EQUAL struct .
 
@@ -1550,11 +1990,15 @@ state 69
     ID              reduce using rule 43 (asignacion -> variables EQUAL struct .)
     CONSTANT        reduce using rule 43 (asignacion -> variables EQUAL struct .)
     GLOBAL          reduce using rule 43 (asignacion -> variables EQUAL struct .)
+    SET             reduce using rule 43 (asignacion -> variables EQUAL struct .)
+    LCOR            reduce using rule 43 (asignacion -> variables EQUAL struct .)
+    ARRAY           reduce using rule 43 (asignacion -> variables EQUAL struct .)
+    LBRACE          reduce using rule 43 (asignacion -> variables EQUAL struct .)
     ELSIF           reduce using rule 43 (asignacion -> variables EQUAL struct .)
     END             reduce using rule 43 (asignacion -> variables EQUAL struct .)
 
 
-state 70
+state 98
 
     (44) struct -> conjunto .
 
@@ -1563,14 +2007,18 @@ state 70
     ID              reduce using rule 44 (struct -> conjunto .)
     CONSTANT        reduce using rule 44 (struct -> conjunto .)
     GLOBAL          reduce using rule 44 (struct -> conjunto .)
+    SET             reduce using rule 44 (struct -> conjunto .)
+    LCOR            reduce using rule 44 (struct -> conjunto .)
+    ARRAY           reduce using rule 44 (struct -> conjunto .)
+    LBRACE          reduce using rule 44 (struct -> conjunto .)
     ELSIF           reduce using rule 44 (struct -> conjunto .)
     END             reduce using rule 44 (struct -> conjunto .)
-    RPAREN          reduce using rule 44 (struct -> conjunto .)
     COMMA           reduce using rule 44 (struct -> conjunto .)
     RBRACE          reduce using rule 44 (struct -> conjunto .)
+    RPAREN          reduce using rule 44 (struct -> conjunto .)
 
 
-state 71
+state 99
 
     (45) struct -> formacion .
 
@@ -1579,14 +2027,18 @@ state 71
     ID              reduce using rule 45 (struct -> formacion .)
     CONSTANT        reduce using rule 45 (struct -> formacion .)
     GLOBAL          reduce using rule 45 (struct -> formacion .)
+    SET             reduce using rule 45 (struct -> formacion .)
+    LCOR            reduce using rule 45 (struct -> formacion .)
+    ARRAY           reduce using rule 45 (struct -> formacion .)
+    LBRACE          reduce using rule 45 (struct -> formacion .)
     ELSIF           reduce using rule 45 (struct -> formacion .)
     END             reduce using rule 45 (struct -> formacion .)
-    RPAREN          reduce using rule 45 (struct -> formacion .)
     COMMA           reduce using rule 45 (struct -> formacion .)
     RBRACE          reduce using rule 45 (struct -> formacion .)
+    RPAREN          reduce using rule 45 (struct -> formacion .)
 
 
-state 72
+state 100
 
     (46) struct -> hash .
 
@@ -1595,201 +2047,32 @@ state 72
     ID              reduce using rule 46 (struct -> hash .)
     CONSTANT        reduce using rule 46 (struct -> hash .)
     GLOBAL          reduce using rule 46 (struct -> hash .)
+    SET             reduce using rule 46 (struct -> hash .)
+    LCOR            reduce using rule 46 (struct -> hash .)
+    ARRAY           reduce using rule 46 (struct -> hash .)
+    LBRACE          reduce using rule 46 (struct -> hash .)
     ELSIF           reduce using rule 46 (struct -> hash .)
     END             reduce using rule 46 (struct -> hash .)
-    RPAREN          reduce using rule 46 (struct -> hash .)
     COMMA           reduce using rule 46 (struct -> hash .)
     RBRACE          reduce using rule 46 (struct -> hash .)
+    RPAREN          reduce using rule 46 (struct -> hash .)
 
 
-state 73
-
-    (47) conjunto -> SET . arr
-    (48) conjunto -> SET . LCOR RCOR
-    (56) arr -> . LCOR repetirvalor RCOR
-
-    LCOR            shift and go to state 100
-
-    arr                            shift and go to state 99
-
-state 74
-
-    (76) formacion -> LCOR . repetirvalor RCOR
-    (77) formacion -> LCOR . RCOR
-    (54) repetirvalor -> . valor
-    (55) repetirvalor -> . valor COMMA repetirvalor
-    (49) valor -> . INT
-    (50) valor -> . ID
-    (51) valor -> . STRING
-    (52) valor -> . booleanos
-    (53) valor -> . FLOAT
-    (29) booleanos -> . TRUE
-    (30) booleanos -> . FALSE
-
-    RCOR            shift and go to state 102
-    INT             shift and go to state 104
-    ID              shift and go to state 105
-    STRING          shift and go to state 106
-    FLOAT           shift and go to state 108
-    TRUE            shift and go to state 41
-    FALSE           shift and go to state 42
-
-    repetirvalor                   shift and go to state 101
-    valor                          shift and go to state 103
-    booleanos                      shift and go to state 107
-
-state 75
-
-    (78) formacion -> ARRAY . PUNTO NEW LPAREN INT RPAREN
-    (79) formacion -> ARRAY . PUNTO NEW LPAREN RPAREN
-
-    PUNTO           shift and go to state 109
-
-
-state 76
-
-    (85) hash -> LBRACE . hash_content RBRACE
-    (87) hash_content -> . hash_element
-    (88) hash_content -> . hash_elements
-    (89) hash_element -> . clave FLECHA value
-    (86) hash_elements -> . hash_element hash_more_elements
-    (92) clave -> . variables
-    (93) clave -> . STRING
-    (94) clave -> . INT
-    (95) clave -> . FLOAT
-    (36) variables -> . ID
-    (37) variables -> . CONSTANT
-    (38) variables -> . GLOBAL
-
-    STRING          shift and go to state 115
-    INT             shift and go to state 116
-    FLOAT           shift and go to state 117
-    ID              shift and go to state 22
-    CONSTANT        shift and go to state 23
-    GLOBAL          shift and go to state 24
-
-    hash_content                   shift and go to state 110
-    hash_element                   shift and go to state 111
-    hash_elements                  shift and go to state 112
-    clave                          shift and go to state 113
-    variables                      shift and go to state 114
-
-state 77
-
-    (60) funcionsconjunto -> variables PUNTO ADD . LPAREN valor RPAREN
-    (61) funcionsconjunto -> variables PUNTO ADD . LPAREN arr RPAREN
-
-    LPAREN          shift and go to state 118
-
-
-state 78
-
-    (99) hash_delete -> variables PUNTO LPAREN . clave RPAREN
-    (92) clave -> . variables
-    (93) clave -> . STRING
-    (94) clave -> . INT
-    (95) clave -> . FLOAT
-    (36) variables -> . ID
-    (37) variables -> . CONSTANT
-    (38) variables -> . GLOBAL
-
-    STRING          shift and go to state 115
-    INT             shift and go to state 116
-    FLOAT           shift and go to state 117
-    ID              shift and go to state 22
-    CONSTANT        shift and go to state 23
-    GLOBAL          shift and go to state 24
-
-    variables                      shift and go to state 114
-    clave                          shift and go to state 119
-
-state 79
-
-    (62) funcionsconjunto -> variables PUNTO MERGE . LPAREN variables RPAREN
-
-    LPAREN          shift and go to state 120
-
-
-state 80
-
-    (63) funcionsconjunto -> variables PUNTO SIZE . LPAREN RPAREN
-    (64) funcionsconjunto -> variables PUNTO SIZE .
-
-    LPAREN          shift and go to state 121
-    $end            reduce using rule 64 (funcionsconjunto -> variables PUNTO SIZE .)
-    PUTS            reduce using rule 64 (funcionsconjunto -> variables PUNTO SIZE .)
-    ID              reduce using rule 64 (funcionsconjunto -> variables PUNTO SIZE .)
-    CONSTANT        reduce using rule 64 (funcionsconjunto -> variables PUNTO SIZE .)
-    GLOBAL          reduce using rule 64 (funcionsconjunto -> variables PUNTO SIZE .)
-    ELSIF           reduce using rule 64 (funcionsconjunto -> variables PUNTO SIZE .)
-    END             reduce using rule 64 (funcionsconjunto -> variables PUNTO SIZE .)
-
-
-state 81
-
-    (80) funcionsformacion -> variables PUNTO LENGTH . LPAREN RPAREN
-
-    LPAREN          shift and go to state 122
-
-
-state 82
-
-    (81) funcionsformacion -> variables PUNTO PUSH . LPAREN repetirvalor RPAREN
-
-    LPAREN          shift and go to state 123
-
-
-state 83
-
-    (82) funcionsformacion -> variables PUNTO SAMPLE . LPAREN variables RPAREN
-
-    LPAREN          shift and go to state 124
-
-
-state 84
-
-    (83) funcionsformacion -> variables PUNTO FIRST .
-    (84) funcionsformacion -> variables PUNTO FIRST . LPAREN RPAREN
-
-    $end            reduce using rule 83 (funcionsformacion -> variables PUNTO FIRST .)
-    PUTS            reduce using rule 83 (funcionsformacion -> variables PUNTO FIRST .)
-    ID              reduce using rule 83 (funcionsformacion -> variables PUNTO FIRST .)
-    CONSTANT        reduce using rule 83 (funcionsformacion -> variables PUNTO FIRST .)
-    GLOBAL          reduce using rule 83 (funcionsformacion -> variables PUNTO FIRST .)
-    ELSIF           reduce using rule 83 (funcionsformacion -> variables PUNTO FIRST .)
-    END             reduce using rule 83 (funcionsformacion -> variables PUNTO FIRST .)
-    LPAREN          shift and go to state 125
-
-
-state 85
-
-    (98) hash_add -> variables PUNTO STORE . LPAREN hash_element RPAREN
-
-    LPAREN          shift and go to state 126
-
-
-state 86
-
-    (100) hash_key -> variables PUNTO KEY . LPAREN value RPAREN
-
-    LPAREN          shift and go to state 127
-
-
-state 87
+state 101
 
     (13) leer -> GETS PUNTO CHOMP .
 
     $end            reduce using rule 13 (leer -> GETS PUNTO CHOMP .)
 
 
-state 88
+state 102
 
     (70) sentenciafor -> FOR variables IN . LPAREN INT PUNTO PUNTO INT RPAREN repetircontenido END
 
-    LPAREN          shift and go to state 128
+    LPAREN          shift and go to state 132
 
 
-state 89
+state 103
 
     (75) sentenciawhile -> WHILE condicion DO . repetircontenido END
     (68) repetircontenido -> . contenido
@@ -1812,59 +2095,73 @@ state 89
     (36) variables -> . ID
     (37) variables -> . CONSTANT
     (38) variables -> . GLOBAL
-    (60) funcionsconjunto -> . variables PUNTO ADD LPAREN valor RPAREN
-    (61) funcionsconjunto -> . variables PUNTO ADD LPAREN arr RPAREN
-    (62) funcionsconjunto -> . variables PUNTO MERGE LPAREN variables RPAREN
-    (63) funcionsconjunto -> . variables PUNTO SIZE LPAREN RPAREN
-    (64) funcionsconjunto -> . variables PUNTO SIZE
-    (80) funcionsformacion -> . variables PUNTO LENGTH LPAREN RPAREN
-    (81) funcionsformacion -> . variables PUNTO PUSH LPAREN repetirvalor RPAREN
-    (82) funcionsformacion -> . variables PUNTO SAMPLE LPAREN variables RPAREN
-    (83) funcionsformacion -> . variables PUNTO FIRST
-    (84) funcionsformacion -> . variables PUNTO FIRST LPAREN RPAREN
+    (60) funcionsconjunto -> . conjunto PUNTO ADD LPAREN valor RPAREN
+    (61) funcionsconjunto -> . conjunto PUNTO ADD LPAREN arr RPAREN
+    (62) funcionsconjunto -> . conjunto PUNTO MERGE LPAREN variables RPAREN
+    (63) funcionsconjunto -> . conjunto PUNTO SIZE LPAREN RPAREN
+    (64) funcionsconjunto -> . conjunto PUNTO SIZE
+    (80) funcionsformacion -> . formacion PUNTO LENGTH LPAREN RPAREN
+    (81) funcionsformacion -> . formacion PUNTO PUSH LPAREN repetirvalor RPAREN
+    (82) funcionsformacion -> . formacion PUNTO SAMPLE LPAREN variables RPAREN
+    (83) funcionsformacion -> . formacion PUNTO FIRST
+    (84) funcionsformacion -> . formacion PUNTO FIRST LPAREN RPAREN
     (101) funcionsHash -> . hash_add
     (102) funcionsHash -> . hash_delete
     (103) funcionsHash -> . hash_key
-    (98) hash_add -> . variables PUNTO STORE LPAREN hash_element RPAREN
-    (99) hash_delete -> . variables PUNTO LPAREN clave RPAREN
-    (100) hash_key -> . variables PUNTO KEY LPAREN value RPAREN
+    (47) conjunto -> . SET arr
+    (48) conjunto -> . SET LCOR RCOR
+    (76) formacion -> . LCOR repetirvalor RCOR
+    (77) formacion -> . LCOR RCOR
+    (78) formacion -> . ARRAY PUNTO NEW LPAREN INT RPAREN
+    (79) formacion -> . ARRAY PUNTO NEW LPAREN RPAREN
+    (98) hash_add -> . hash PUNTO STORE LPAREN hash_element RPAREN
+    (99) hash_delete -> . hash PUNTO LPAREN clave RPAREN
+    (100) hash_key -> . hash PUNTO KEY LPAREN value RPAREN
+    (85) hash -> . LBRACE hash_content RBRACE
 
     PUTS            shift and go to state 11
     ID              shift and go to state 22
     CONSTANT        shift and go to state 23
     GLOBAL          shift and go to state 24
+    SET             shift and go to state 30
+    LCOR            shift and go to state 31
+    ARRAY           shift and go to state 32
+    LBRACE          shift and go to state 34
 
-    repetircontenido               shift and go to state 129
-    contenido                      shift and go to state 92
-    impresion                      shift and go to state 93
-    asignacion                     shift and go to state 94
-    funcionstruct                  shift and go to state 95
-    variables                      shift and go to state 96
+    repetircontenido               shift and go to state 133
+    contenido                      shift and go to state 106
+    impresion                      shift and go to state 107
+    asignacion                     shift and go to state 108
+    funcionstruct                  shift and go to state 109
+    variables                      shift and go to state 110
     funcionsconjunto               shift and go to state 14
     funcionsformacion              shift and go to state 15
     funcionsHash                   shift and go to state 16
-    hash_add                       shift and go to state 25
-    hash_delete                    shift and go to state 26
-    hash_key                       shift and go to state 27
+    conjunto                       shift and go to state 25
+    formacion                      shift and go to state 26
+    hash_add                       shift and go to state 27
+    hash_delete                    shift and go to state 28
+    hash_key                       shift and go to state 29
+    hash                           shift and go to state 33
 
-state 90
+state 104
 
     (74) condicion -> ARRAY PUNTO . NEW LPAREN arr RPAREN
 
-    NEW             shift and go to state 130
+    NEW             shift and go to state 134
 
 
-state 91
+state 105
 
     (104) sentenciaElsif -> IF condicion repetircontenido . mas_sentencias END
     (105) mas_sentencias -> . ELSIF repetircontenido
     (106) mas_sentencias -> . ELSIF repetircontenido mas_sentencias
 
-    ELSIF           shift and go to state 132
+    ELSIF           shift and go to state 136
 
-    mas_sentencias                 shift and go to state 131
+    mas_sentencias                 shift and go to state 135
 
-state 92
+state 106
 
     (68) repetircontenido -> contenido .
     (69) repetircontenido -> contenido . repetircontenido
@@ -1888,22 +2185,29 @@ state 92
     (36) variables -> . ID
     (37) variables -> . CONSTANT
     (38) variables -> . GLOBAL
-    (60) funcionsconjunto -> . variables PUNTO ADD LPAREN valor RPAREN
-    (61) funcionsconjunto -> . variables PUNTO ADD LPAREN arr RPAREN
-    (62) funcionsconjunto -> . variables PUNTO MERGE LPAREN variables RPAREN
-    (63) funcionsconjunto -> . variables PUNTO SIZE LPAREN RPAREN
-    (64) funcionsconjunto -> . variables PUNTO SIZE
-    (80) funcionsformacion -> . variables PUNTO LENGTH LPAREN RPAREN
-    (81) funcionsformacion -> . variables PUNTO PUSH LPAREN repetirvalor RPAREN
-    (82) funcionsformacion -> . variables PUNTO SAMPLE LPAREN variables RPAREN
-    (83) funcionsformacion -> . variables PUNTO FIRST
-    (84) funcionsformacion -> . variables PUNTO FIRST LPAREN RPAREN
+    (60) funcionsconjunto -> . conjunto PUNTO ADD LPAREN valor RPAREN
+    (61) funcionsconjunto -> . conjunto PUNTO ADD LPAREN arr RPAREN
+    (62) funcionsconjunto -> . conjunto PUNTO MERGE LPAREN variables RPAREN
+    (63) funcionsconjunto -> . conjunto PUNTO SIZE LPAREN RPAREN
+    (64) funcionsconjunto -> . conjunto PUNTO SIZE
+    (80) funcionsformacion -> . formacion PUNTO LENGTH LPAREN RPAREN
+    (81) funcionsformacion -> . formacion PUNTO PUSH LPAREN repetirvalor RPAREN
+    (82) funcionsformacion -> . formacion PUNTO SAMPLE LPAREN variables RPAREN
+    (83) funcionsformacion -> . formacion PUNTO FIRST
+    (84) funcionsformacion -> . formacion PUNTO FIRST LPAREN RPAREN
     (101) funcionsHash -> . hash_add
     (102) funcionsHash -> . hash_delete
     (103) funcionsHash -> . hash_key
-    (98) hash_add -> . variables PUNTO STORE LPAREN hash_element RPAREN
-    (99) hash_delete -> . variables PUNTO LPAREN clave RPAREN
-    (100) hash_key -> . variables PUNTO KEY LPAREN value RPAREN
+    (47) conjunto -> . SET arr
+    (48) conjunto -> . SET LCOR RCOR
+    (76) formacion -> . LCOR repetirvalor RCOR
+    (77) formacion -> . LCOR RCOR
+    (78) formacion -> . ARRAY PUNTO NEW LPAREN INT RPAREN
+    (79) formacion -> . ARRAY PUNTO NEW LPAREN RPAREN
+    (98) hash_add -> . hash PUNTO STORE LPAREN hash_element RPAREN
+    (99) hash_delete -> . hash PUNTO LPAREN clave RPAREN
+    (100) hash_key -> . hash PUNTO KEY LPAREN value RPAREN
+    (85) hash -> . LBRACE hash_content RBRACE
 
     ELSIF           reduce using rule 68 (repetircontenido -> contenido .)
     END             reduce using rule 68 (repetircontenido -> contenido .)
@@ -1911,21 +2215,28 @@ state 92
     ID              shift and go to state 22
     CONSTANT        shift and go to state 23
     GLOBAL          shift and go to state 24
+    SET             shift and go to state 30
+    LCOR            shift and go to state 31
+    ARRAY           shift and go to state 32
+    LBRACE          shift and go to state 34
 
-    contenido                      shift and go to state 92
-    repetircontenido               shift and go to state 133
-    impresion                      shift and go to state 93
-    asignacion                     shift and go to state 94
-    funcionstruct                  shift and go to state 95
-    variables                      shift and go to state 96
+    contenido                      shift and go to state 106
+    repetircontenido               shift and go to state 137
+    impresion                      shift and go to state 107
+    asignacion                     shift and go to state 108
+    funcionstruct                  shift and go to state 109
+    variables                      shift and go to state 110
     funcionsconjunto               shift and go to state 14
     funcionsformacion              shift and go to state 15
     funcionsHash                   shift and go to state 16
-    hash_add                       shift and go to state 25
-    hash_delete                    shift and go to state 26
-    hash_key                       shift and go to state 27
+    conjunto                       shift and go to state 25
+    formacion                      shift and go to state 26
+    hash_add                       shift and go to state 27
+    hash_delete                    shift and go to state 28
+    hash_key                       shift and go to state 29
+    hash                           shift and go to state 33
 
-state 93
+state 107
 
     (65) contenido -> impresion .
 
@@ -1933,11 +2244,15 @@ state 93
     ID              reduce using rule 65 (contenido -> impresion .)
     CONSTANT        reduce using rule 65 (contenido -> impresion .)
     GLOBAL          reduce using rule 65 (contenido -> impresion .)
+    SET             reduce using rule 65 (contenido -> impresion .)
+    LCOR            reduce using rule 65 (contenido -> impresion .)
+    ARRAY           reduce using rule 65 (contenido -> impresion .)
+    LBRACE          reduce using rule 65 (contenido -> impresion .)
     ELSIF           reduce using rule 65 (contenido -> impresion .)
     END             reduce using rule 65 (contenido -> impresion .)
 
 
-state 94
+state 108
 
     (66) contenido -> asignacion .
 
@@ -1945,11 +2260,15 @@ state 94
     ID              reduce using rule 66 (contenido -> asignacion .)
     CONSTANT        reduce using rule 66 (contenido -> asignacion .)
     GLOBAL          reduce using rule 66 (contenido -> asignacion .)
+    SET             reduce using rule 66 (contenido -> asignacion .)
+    LCOR            reduce using rule 66 (contenido -> asignacion .)
+    ARRAY           reduce using rule 66 (contenido -> asignacion .)
+    LBRACE          reduce using rule 66 (contenido -> asignacion .)
     ELSIF           reduce using rule 66 (contenido -> asignacion .)
     END             reduce using rule 66 (contenido -> asignacion .)
 
 
-state 95
+state 109
 
     (67) contenido -> funcionstruct .
 
@@ -1957,335 +2276,151 @@ state 95
     ID              reduce using rule 67 (contenido -> funcionstruct .)
     CONSTANT        reduce using rule 67 (contenido -> funcionstruct .)
     GLOBAL          reduce using rule 67 (contenido -> funcionstruct .)
+    SET             reduce using rule 67 (contenido -> funcionstruct .)
+    LCOR            reduce using rule 67 (contenido -> funcionstruct .)
+    ARRAY           reduce using rule 67 (contenido -> funcionstruct .)
+    LBRACE          reduce using rule 67 (contenido -> funcionstruct .)
     ELSIF           reduce using rule 67 (contenido -> funcionstruct .)
     END             reduce using rule 67 (contenido -> funcionstruct .)
 
 
-state 96
+state 110
 
     (39) asignacion -> variables . EQUAL factor
     (40) asignacion -> variables . EQUAL STRING
     (41) asignacion -> variables . EQUAL booleanos
     (42) asignacion -> variables . EQUAL comparacion_bool
     (43) asignacion -> variables . EQUAL struct
-    (60) funcionsconjunto -> variables . PUNTO ADD LPAREN valor RPAREN
-    (61) funcionsconjunto -> variables . PUNTO ADD LPAREN arr RPAREN
-    (62) funcionsconjunto -> variables . PUNTO MERGE LPAREN variables RPAREN
-    (63) funcionsconjunto -> variables . PUNTO SIZE LPAREN RPAREN
-    (64) funcionsconjunto -> variables . PUNTO SIZE
-    (80) funcionsformacion -> variables . PUNTO LENGTH LPAREN RPAREN
-    (81) funcionsformacion -> variables . PUNTO PUSH LPAREN repetirvalor RPAREN
-    (82) funcionsformacion -> variables . PUNTO SAMPLE LPAREN variables RPAREN
-    (83) funcionsformacion -> variables . PUNTO FIRST
-    (84) funcionsformacion -> variables . PUNTO FIRST LPAREN RPAREN
-    (98) hash_add -> variables . PUNTO STORE LPAREN hash_element RPAREN
-    (99) hash_delete -> variables . PUNTO LPAREN clave RPAREN
-    (100) hash_key -> variables . PUNTO KEY LPAREN value RPAREN
 
-    EQUAL           shift and go to state 43
-    PUNTO           shift and go to state 44
-
-
-state 97
-
-    (15) comparacion -> factor operadoresComp factor .
-    (14) expression -> factor . operadoresMat factor
-    (20) operadoresMat -> . PLUS
-    (21) operadoresMat -> . MINUS
-    (22) operadoresMat -> . TIMES
-    (23) operadoresMat -> . DIVIDE
-    (24) operadoresMat -> . MOD
-
-    $end            reduce using rule 15 (comparacion -> factor operadoresComp factor .)
-    PUTS            reduce using rule 15 (comparacion -> factor operadoresComp factor .)
-    ID              reduce using rule 15 (comparacion -> factor operadoresComp factor .)
-    CONSTANT        reduce using rule 15 (comparacion -> factor operadoresComp factor .)
-    GLOBAL          reduce using rule 15 (comparacion -> factor operadoresComp factor .)
-    ELSIF           reduce using rule 15 (comparacion -> factor operadoresComp factor .)
-    END             reduce using rule 15 (comparacion -> factor operadoresComp factor .)
-    DO              reduce using rule 15 (comparacion -> factor operadoresComp factor .)
-    PLUS            shift and go to state 29
-    MINUS           shift and go to state 30
-    TIMES           shift and go to state 31
-    DIVIDE          shift and go to state 32
-    MOD             shift and go to state 33
-
-    operadoresMat                  shift and go to state 28
-
-state 98
-
-    (16) comparacion_bool -> booleanos operadoresBool booleanos .
-
-    $end            reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
-    PUTS            reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
-    ID              reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
-    CONSTANT        reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
-    GLOBAL          reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
-    ELSIF           reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
-    END             reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
-    DO              reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
-
-
-state 99
-
-    (47) conjunto -> SET arr .
-
-    $end            reduce using rule 47 (conjunto -> SET arr .)
-    PUTS            reduce using rule 47 (conjunto -> SET arr .)
-    ID              reduce using rule 47 (conjunto -> SET arr .)
-    CONSTANT        reduce using rule 47 (conjunto -> SET arr .)
-    GLOBAL          reduce using rule 47 (conjunto -> SET arr .)
-    ELSIF           reduce using rule 47 (conjunto -> SET arr .)
-    END             reduce using rule 47 (conjunto -> SET arr .)
-    RPAREN          reduce using rule 47 (conjunto -> SET arr .)
-    COMMA           reduce using rule 47 (conjunto -> SET arr .)
-    RBRACE          reduce using rule 47 (conjunto -> SET arr .)
-
-
-state 100
-
-    (48) conjunto -> SET LCOR . RCOR
-    (56) arr -> LCOR . repetirvalor RCOR
-    (54) repetirvalor -> . valor
-    (55) repetirvalor -> . valor COMMA repetirvalor
-    (49) valor -> . INT
-    (50) valor -> . ID
-    (51) valor -> . STRING
-    (52) valor -> . booleanos
-    (53) valor -> . FLOAT
-    (29) booleanos -> . TRUE
-    (30) booleanos -> . FALSE
-
-    RCOR            shift and go to state 134
-    INT             shift and go to state 104
-    ID              shift and go to state 105
-    STRING          shift and go to state 106
-    FLOAT           shift and go to state 108
-    TRUE            shift and go to state 41
-    FALSE           shift and go to state 42
-
-    repetirvalor                   shift and go to state 135
-    valor                          shift and go to state 103
-    booleanos                      shift and go to state 107
-
-state 101
-
-    (76) formacion -> LCOR repetirvalor . RCOR
-
-    RCOR            shift and go to state 136
-
-
-state 102
-
-    (77) formacion -> LCOR RCOR .
-
-    $end            reduce using rule 77 (formacion -> LCOR RCOR .)
-    PUTS            reduce using rule 77 (formacion -> LCOR RCOR .)
-    ID              reduce using rule 77 (formacion -> LCOR RCOR .)
-    CONSTANT        reduce using rule 77 (formacion -> LCOR RCOR .)
-    GLOBAL          reduce using rule 77 (formacion -> LCOR RCOR .)
-    ELSIF           reduce using rule 77 (formacion -> LCOR RCOR .)
-    END             reduce using rule 77 (formacion -> LCOR RCOR .)
-    RPAREN          reduce using rule 77 (formacion -> LCOR RCOR .)
-    COMMA           reduce using rule 77 (formacion -> LCOR RCOR .)
-    RBRACE          reduce using rule 77 (formacion -> LCOR RCOR .)
-
-
-state 103
-
-    (54) repetirvalor -> valor .
-    (55) repetirvalor -> valor . COMMA repetirvalor
-
-    RCOR            reduce using rule 54 (repetirvalor -> valor .)
-    RPAREN          reduce using rule 54 (repetirvalor -> valor .)
-    COMMA           shift and go to state 137
-
-
-state 104
-
-    (49) valor -> INT .
-
-    COMMA           reduce using rule 49 (valor -> INT .)
-    RCOR            reduce using rule 49 (valor -> INT .)
-    RPAREN          reduce using rule 49 (valor -> INT .)
-    RBRACE          reduce using rule 49 (valor -> INT .)
-
-
-state 105
-
-    (50) valor -> ID .
-
-    COMMA           reduce using rule 50 (valor -> ID .)
-    RCOR            reduce using rule 50 (valor -> ID .)
-    RPAREN          reduce using rule 50 (valor -> ID .)
-    RBRACE          reduce using rule 50 (valor -> ID .)
-
-
-state 106
-
-    (51) valor -> STRING .
-
-    COMMA           reduce using rule 51 (valor -> STRING .)
-    RCOR            reduce using rule 51 (valor -> STRING .)
-    RPAREN          reduce using rule 51 (valor -> STRING .)
-    RBRACE          reduce using rule 51 (valor -> STRING .)
-
-
-state 107
-
-    (52) valor -> booleanos .
-
-    COMMA           reduce using rule 52 (valor -> booleanos .)
-    RCOR            reduce using rule 52 (valor -> booleanos .)
-    RPAREN          reduce using rule 52 (valor -> booleanos .)
-    RBRACE          reduce using rule 52 (valor -> booleanos .)
-
-
-state 108
-
-    (53) valor -> FLOAT .
-
-    COMMA           reduce using rule 53 (valor -> FLOAT .)
-    RCOR            reduce using rule 53 (valor -> FLOAT .)
-    RPAREN          reduce using rule 53 (valor -> FLOAT .)
-    RBRACE          reduce using rule 53 (valor -> FLOAT .)
-
-
-state 109
-
-    (78) formacion -> ARRAY PUNTO . NEW LPAREN INT RPAREN
-    (79) formacion -> ARRAY PUNTO . NEW LPAREN RPAREN
-
-    NEW             shift and go to state 138
-
-
-state 110
-
-    (85) hash -> LBRACE hash_content . RBRACE
-
-    RBRACE          shift and go to state 139
+    EQUAL           shift and go to state 50
 
 
 state 111
 
-    (87) hash_content -> hash_element .
-    (86) hash_elements -> hash_element . hash_more_elements
-    (90) hash_more_elements -> . COMMA hash_element
-    (91) hash_more_elements -> . COMMA hash_element hash_more_elements
+    (60) funcionsconjunto -> conjunto PUNTO ADD . LPAREN valor RPAREN
+    (61) funcionsconjunto -> conjunto PUNTO ADD . LPAREN arr RPAREN
 
-    RBRACE          reduce using rule 87 (hash_content -> hash_element .)
-    COMMA           shift and go to state 141
+    LPAREN          shift and go to state 138
 
-    hash_more_elements             shift and go to state 140
 
 state 112
 
-    (88) hash_content -> hash_elements .
+    (62) funcionsconjunto -> conjunto PUNTO MERGE . LPAREN variables RPAREN
 
-    RBRACE          reduce using rule 88 (hash_content -> hash_elements .)
+    LPAREN          shift and go to state 139
 
 
 state 113
 
-    (89) hash_element -> clave . FLECHA value
+    (63) funcionsconjunto -> conjunto PUNTO SIZE . LPAREN RPAREN
+    (64) funcionsconjunto -> conjunto PUNTO SIZE .
 
-    FLECHA          shift and go to state 142
+    LPAREN          shift and go to state 140
+    $end            reduce using rule 64 (funcionsconjunto -> conjunto PUNTO SIZE .)
+    PUTS            reduce using rule 64 (funcionsconjunto -> conjunto PUNTO SIZE .)
+    ID              reduce using rule 64 (funcionsconjunto -> conjunto PUNTO SIZE .)
+    CONSTANT        reduce using rule 64 (funcionsconjunto -> conjunto PUNTO SIZE .)
+    GLOBAL          reduce using rule 64 (funcionsconjunto -> conjunto PUNTO SIZE .)
+    SET             reduce using rule 64 (funcionsconjunto -> conjunto PUNTO SIZE .)
+    LCOR            reduce using rule 64 (funcionsconjunto -> conjunto PUNTO SIZE .)
+    ARRAY           reduce using rule 64 (funcionsconjunto -> conjunto PUNTO SIZE .)
+    LBRACE          reduce using rule 64 (funcionsconjunto -> conjunto PUNTO SIZE .)
+    ELSIF           reduce using rule 64 (funcionsconjunto -> conjunto PUNTO SIZE .)
+    END             reduce using rule 64 (funcionsconjunto -> conjunto PUNTO SIZE .)
 
 
 state 114
 
-    (92) clave -> variables .
+    (80) funcionsformacion -> formacion PUNTO LENGTH . LPAREN RPAREN
 
-    FLECHA          reduce using rule 92 (clave -> variables .)
-    RPAREN          reduce using rule 92 (clave -> variables .)
+    LPAREN          shift and go to state 141
 
 
 state 115
 
-    (93) clave -> STRING .
+    (81) funcionsformacion -> formacion PUNTO PUSH . LPAREN repetirvalor RPAREN
 
-    FLECHA          reduce using rule 93 (clave -> STRING .)
-    RPAREN          reduce using rule 93 (clave -> STRING .)
+    LPAREN          shift and go to state 142
 
 
 state 116
 
-    (94) clave -> INT .
+    (82) funcionsformacion -> formacion PUNTO SAMPLE . LPAREN variables RPAREN
 
-    FLECHA          reduce using rule 94 (clave -> INT .)
-    RPAREN          reduce using rule 94 (clave -> INT .)
+    LPAREN          shift and go to state 143
 
 
 state 117
 
-    (95) clave -> FLOAT .
+    (83) funcionsformacion -> formacion PUNTO FIRST .
+    (84) funcionsformacion -> formacion PUNTO FIRST . LPAREN RPAREN
 
-    FLECHA          reduce using rule 95 (clave -> FLOAT .)
-    RPAREN          reduce using rule 95 (clave -> FLOAT .)
+    $end            reduce using rule 83 (funcionsformacion -> formacion PUNTO FIRST .)
+    PUTS            reduce using rule 83 (funcionsformacion -> formacion PUNTO FIRST .)
+    ID              reduce using rule 83 (funcionsformacion -> formacion PUNTO FIRST .)
+    CONSTANT        reduce using rule 83 (funcionsformacion -> formacion PUNTO FIRST .)
+    GLOBAL          reduce using rule 83 (funcionsformacion -> formacion PUNTO FIRST .)
+    SET             reduce using rule 83 (funcionsformacion -> formacion PUNTO FIRST .)
+    LCOR            reduce using rule 83 (funcionsformacion -> formacion PUNTO FIRST .)
+    ARRAY           reduce using rule 83 (funcionsformacion -> formacion PUNTO FIRST .)
+    LBRACE          reduce using rule 83 (funcionsformacion -> formacion PUNTO FIRST .)
+    ELSIF           reduce using rule 83 (funcionsformacion -> formacion PUNTO FIRST .)
+    END             reduce using rule 83 (funcionsformacion -> formacion PUNTO FIRST .)
+    LPAREN          shift and go to state 144
 
 
 state 118
 
-    (60) funcionsconjunto -> variables PUNTO ADD LPAREN . valor RPAREN
-    (61) funcionsconjunto -> variables PUNTO ADD LPAREN . arr RPAREN
-    (49) valor -> . INT
-    (50) valor -> . ID
-    (51) valor -> . STRING
-    (52) valor -> . booleanos
-    (53) valor -> . FLOAT
-    (56) arr -> . LCOR repetirvalor RCOR
-    (29) booleanos -> . TRUE
-    (30) booleanos -> . FALSE
+    (48) conjunto -> SET LCOR RCOR .
 
-    INT             shift and go to state 104
-    ID              shift and go to state 105
-    STRING          shift and go to state 106
-    FLOAT           shift and go to state 108
-    LCOR            shift and go to state 145
-    TRUE            shift and go to state 41
-    FALSE           shift and go to state 42
+    PUNTO           reduce using rule 48 (conjunto -> SET LCOR RCOR .)
+    $end            reduce using rule 48 (conjunto -> SET LCOR RCOR .)
+    PUTS            reduce using rule 48 (conjunto -> SET LCOR RCOR .)
+    ID              reduce using rule 48 (conjunto -> SET LCOR RCOR .)
+    CONSTANT        reduce using rule 48 (conjunto -> SET LCOR RCOR .)
+    GLOBAL          reduce using rule 48 (conjunto -> SET LCOR RCOR .)
+    SET             reduce using rule 48 (conjunto -> SET LCOR RCOR .)
+    LCOR            reduce using rule 48 (conjunto -> SET LCOR RCOR .)
+    ARRAY           reduce using rule 48 (conjunto -> SET LCOR RCOR .)
+    LBRACE          reduce using rule 48 (conjunto -> SET LCOR RCOR .)
+    ELSIF           reduce using rule 48 (conjunto -> SET LCOR RCOR .)
+    END             reduce using rule 48 (conjunto -> SET LCOR RCOR .)
+    COMMA           reduce using rule 48 (conjunto -> SET LCOR RCOR .)
+    RBRACE          reduce using rule 48 (conjunto -> SET LCOR RCOR .)
+    RPAREN          reduce using rule 48 (conjunto -> SET LCOR RCOR .)
 
-    valor                          shift and go to state 143
-    arr                            shift and go to state 144
-    booleanos                      shift and go to state 107
 
 state 119
 
-    (99) hash_delete -> variables PUNTO LPAREN clave . RPAREN
+    (56) arr -> LCOR repetirvalor . RCOR
 
-    RPAREN          shift and go to state 146
+    RCOR            shift and go to state 145
 
 
 state 120
 
-    (62) funcionsconjunto -> variables PUNTO MERGE LPAREN . variables RPAREN
-    (36) variables -> . ID
-    (37) variables -> . CONSTANT
-    (38) variables -> . GLOBAL
+    (76) formacion -> LCOR repetirvalor RCOR .
 
-    ID              shift and go to state 22
-    CONSTANT        shift and go to state 23
-    GLOBAL          shift and go to state 24
+    PUNTO           reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
+    $end            reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
+    PUTS            reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
+    ID              reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
+    CONSTANT        reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
+    GLOBAL          reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
+    SET             reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
+    LCOR            reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
+    ARRAY           reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
+    LBRACE          reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
+    ELSIF           reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
+    END             reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
+    COMMA           reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
+    RBRACE          reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
+    RPAREN          reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
 
-    variables                      shift and go to state 147
 
 state 121
 
-    (63) funcionsconjunto -> variables PUNTO SIZE LPAREN . RPAREN
-
-    RPAREN          shift and go to state 148
-
-
-state 122
-
-    (80) funcionsformacion -> variables PUNTO LENGTH LPAREN . RPAREN
-
-    RPAREN          shift and go to state 149
-
-
-state 123
-
-    (81) funcionsformacion -> variables PUNTO PUSH LPAREN . repetirvalor RPAREN
+    (55) repetirvalor -> valor COMMA . repetirvalor
     (54) repetirvalor -> . valor
     (55) repetirvalor -> . valor COMMA repetirvalor
     (49) valor -> . INT
@@ -2296,40 +2431,92 @@ state 123
     (29) booleanos -> . TRUE
     (30) booleanos -> . FALSE
 
-    INT             shift and go to state 104
-    ID              shift and go to state 105
-    STRING          shift and go to state 106
-    FLOAT           shift and go to state 108
-    TRUE            shift and go to state 41
-    FALSE           shift and go to state 42
+    INT             shift and go to state 67
+    ID              shift and go to state 68
+    STRING          shift and go to state 69
+    FLOAT           shift and go to state 71
+    TRUE            shift and go to state 48
+    FALSE           shift and go to state 49
 
-    repetirvalor                   shift and go to state 150
-    valor                          shift and go to state 103
-    booleanos                      shift and go to state 107
+    valor                          shift and go to state 66
+    repetirvalor                   shift and go to state 146
+    booleanos                      shift and go to state 70
+
+state 122
+
+    (78) formacion -> ARRAY PUNTO NEW . LPAREN INT RPAREN
+    (79) formacion -> ARRAY PUNTO NEW . LPAREN RPAREN
+
+    LPAREN          shift and go to state 147
+
+
+state 123
+
+    (98) hash_add -> hash PUNTO STORE . LPAREN hash_element RPAREN
+
+    LPAREN          shift and go to state 148
+
 
 state 124
 
-    (82) funcionsformacion -> variables PUNTO SAMPLE LPAREN . variables RPAREN
+    (99) hash_delete -> hash PUNTO LPAREN . clave RPAREN
+    (92) clave -> . variables
+    (93) clave -> . STRING
+    (94) clave -> . INT
+    (95) clave -> . FLOAT
     (36) variables -> . ID
     (37) variables -> . CONSTANT
     (38) variables -> . GLOBAL
 
+    STRING          shift and go to state 79
+    INT             shift and go to state 80
+    FLOAT           shift and go to state 81
     ID              shift and go to state 22
     CONSTANT        shift and go to state 23
     GLOBAL          shift and go to state 24
 
-    variables                      shift and go to state 151
+    clave                          shift and go to state 149
+    variables                      shift and go to state 78
 
 state 125
 
-    (84) funcionsformacion -> variables PUNTO FIRST LPAREN . RPAREN
+    (100) hash_key -> hash PUNTO KEY . LPAREN value RPAREN
 
-    RPAREN          shift and go to state 152
+    LPAREN          shift and go to state 150
 
 
 state 126
 
-    (98) hash_add -> variables PUNTO STORE LPAREN . hash_element RPAREN
+    (85) hash -> LBRACE hash_content RBRACE .
+
+    PUNTO           reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
+    $end            reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
+    PUTS            reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
+    ID              reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
+    CONSTANT        reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
+    GLOBAL          reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
+    SET             reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
+    LCOR            reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
+    ARRAY           reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
+    LBRACE          reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
+    ELSIF           reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
+    END             reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
+    COMMA           reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
+    RBRACE          reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
+    RPAREN          reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
+
+
+state 127
+
+    (86) hash_elements -> hash_element hash_more_elements .
+
+    RBRACE          reduce using rule 86 (hash_elements -> hash_element hash_more_elements .)
+
+
+state 128
+
+    (90) hash_more_elements -> COMMA . hash_element
+    (91) hash_more_elements -> COMMA . hash_element hash_more_elements
     (89) hash_element -> . clave FLECHA value
     (92) clave -> . variables
     (93) clave -> . STRING
@@ -2339,20 +2526,20 @@ state 126
     (37) variables -> . CONSTANT
     (38) variables -> . GLOBAL
 
-    STRING          shift and go to state 115
-    INT             shift and go to state 116
-    FLOAT           shift and go to state 117
+    STRING          shift and go to state 79
+    INT             shift and go to state 80
+    FLOAT           shift and go to state 81
     ID              shift and go to state 22
     CONSTANT        shift and go to state 23
     GLOBAL          shift and go to state 24
 
-    variables                      shift and go to state 114
-    hash_element                   shift and go to state 153
-    clave                          shift and go to state 113
+    hash_element                   shift and go to state 151
+    clave                          shift and go to state 77
+    variables                      shift and go to state 78
 
-state 127
+state 129
 
-    (100) hash_key -> variables PUNTO KEY LPAREN . value RPAREN
+    (89) hash_element -> clave FLECHA . value
     (96) value -> . valor
     (97) value -> . struct
     (49) valor -> . INT
@@ -2373,54 +2560,102 @@ state 127
     (79) formacion -> . ARRAY PUNTO NEW LPAREN RPAREN
     (85) hash -> . LBRACE hash_content RBRACE
 
-    INT             shift and go to state 104
-    ID              shift and go to state 105
-    STRING          shift and go to state 106
-    FLOAT           shift and go to state 108
-    TRUE            shift and go to state 41
-    FALSE           shift and go to state 42
-    SET             shift and go to state 73
-    LCOR            shift and go to state 74
-    ARRAY           shift and go to state 75
-    LBRACE          shift and go to state 76
+    INT             shift and go to state 67
+    ID              shift and go to state 68
+    STRING          shift and go to state 69
+    FLOAT           shift and go to state 71
+    TRUE            shift and go to state 48
+    FALSE           shift and go to state 49
+    SET             shift and go to state 30
+    LCOR            shift and go to state 31
+    ARRAY           shift and go to state 32
+    LBRACE          shift and go to state 34
 
-    value                          shift and go to state 154
-    valor                          shift and go to state 155
-    struct                         shift and go to state 156
-    booleanos                      shift and go to state 107
-    conjunto                       shift and go to state 70
-    formacion                      shift and go to state 71
-    hash                           shift and go to state 72
+    value                          shift and go to state 152
+    valor                          shift and go to state 153
+    struct                         shift and go to state 154
+    booleanos                      shift and go to state 70
+    conjunto                       shift and go to state 98
+    formacion                      shift and go to state 99
+    hash                           shift and go to state 100
 
-state 128
+state 130
+
+    (15) comparacion -> factor operadoresComp factor .
+    (14) expression -> factor . operadoresMat factor
+    (20) operadoresMat -> . PLUS
+    (21) operadoresMat -> . MINUS
+    (22) operadoresMat -> . TIMES
+    (23) operadoresMat -> . DIVIDE
+    (24) operadoresMat -> . MOD
+
+    $end            reduce using rule 15 (comparacion -> factor operadoresComp factor .)
+    PUTS            reduce using rule 15 (comparacion -> factor operadoresComp factor .)
+    ID              reduce using rule 15 (comparacion -> factor operadoresComp factor .)
+    CONSTANT        reduce using rule 15 (comparacion -> factor operadoresComp factor .)
+    GLOBAL          reduce using rule 15 (comparacion -> factor operadoresComp factor .)
+    SET             reduce using rule 15 (comparacion -> factor operadoresComp factor .)
+    LCOR            reduce using rule 15 (comparacion -> factor operadoresComp factor .)
+    ARRAY           reduce using rule 15 (comparacion -> factor operadoresComp factor .)
+    LBRACE          reduce using rule 15 (comparacion -> factor operadoresComp factor .)
+    ELSIF           reduce using rule 15 (comparacion -> factor operadoresComp factor .)
+    END             reduce using rule 15 (comparacion -> factor operadoresComp factor .)
+    DO              reduce using rule 15 (comparacion -> factor operadoresComp factor .)
+    PLUS            shift and go to state 36
+    MINUS           shift and go to state 37
+    TIMES           shift and go to state 38
+    DIVIDE          shift and go to state 39
+    MOD             shift and go to state 40
+
+    operadoresMat                  shift and go to state 35
+
+state 131
+
+    (16) comparacion_bool -> booleanos operadoresBool booleanos .
+
+    $end            reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
+    PUTS            reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
+    ID              reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
+    CONSTANT        reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
+    GLOBAL          reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
+    SET             reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
+    LCOR            reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
+    ARRAY           reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
+    LBRACE          reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
+    ELSIF           reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
+    END             reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
+    DO              reduce using rule 16 (comparacion_bool -> booleanos operadoresBool booleanos .)
+
+
+state 132
 
     (70) sentenciafor -> FOR variables IN LPAREN . INT PUNTO PUNTO INT RPAREN repetircontenido END
 
-    INT             shift and go to state 157
+    INT             shift and go to state 155
 
 
-state 129
+state 133
 
     (75) sentenciawhile -> WHILE condicion DO repetircontenido . END
+
+    END             shift and go to state 156
+
+
+state 134
+
+    (74) condicion -> ARRAY PUNTO NEW . LPAREN arr RPAREN
+
+    LPAREN          shift and go to state 157
+
+
+state 135
+
+    (104) sentenciaElsif -> IF condicion repetircontenido mas_sentencias . END
 
     END             shift and go to state 158
 
 
-state 130
-
-    (74) condicion -> ARRAY PUNTO NEW . LPAREN arr RPAREN
-
-    LPAREN          shift and go to state 159
-
-
-state 131
-
-    (104) sentenciaElsif -> IF condicion repetircontenido mas_sentencias . END
-
-    END             shift and go to state 160
-
-
-state 132
+state 136
 
     (105) mas_sentencias -> ELSIF . repetircontenido
     (106) mas_sentencias -> ELSIF . repetircontenido mas_sentencias
@@ -2444,42 +2679,56 @@ state 132
     (36) variables -> . ID
     (37) variables -> . CONSTANT
     (38) variables -> . GLOBAL
-    (60) funcionsconjunto -> . variables PUNTO ADD LPAREN valor RPAREN
-    (61) funcionsconjunto -> . variables PUNTO ADD LPAREN arr RPAREN
-    (62) funcionsconjunto -> . variables PUNTO MERGE LPAREN variables RPAREN
-    (63) funcionsconjunto -> . variables PUNTO SIZE LPAREN RPAREN
-    (64) funcionsconjunto -> . variables PUNTO SIZE
-    (80) funcionsformacion -> . variables PUNTO LENGTH LPAREN RPAREN
-    (81) funcionsformacion -> . variables PUNTO PUSH LPAREN repetirvalor RPAREN
-    (82) funcionsformacion -> . variables PUNTO SAMPLE LPAREN variables RPAREN
-    (83) funcionsformacion -> . variables PUNTO FIRST
-    (84) funcionsformacion -> . variables PUNTO FIRST LPAREN RPAREN
+    (60) funcionsconjunto -> . conjunto PUNTO ADD LPAREN valor RPAREN
+    (61) funcionsconjunto -> . conjunto PUNTO ADD LPAREN arr RPAREN
+    (62) funcionsconjunto -> . conjunto PUNTO MERGE LPAREN variables RPAREN
+    (63) funcionsconjunto -> . conjunto PUNTO SIZE LPAREN RPAREN
+    (64) funcionsconjunto -> . conjunto PUNTO SIZE
+    (80) funcionsformacion -> . formacion PUNTO LENGTH LPAREN RPAREN
+    (81) funcionsformacion -> . formacion PUNTO PUSH LPAREN repetirvalor RPAREN
+    (82) funcionsformacion -> . formacion PUNTO SAMPLE LPAREN variables RPAREN
+    (83) funcionsformacion -> . formacion PUNTO FIRST
+    (84) funcionsformacion -> . formacion PUNTO FIRST LPAREN RPAREN
     (101) funcionsHash -> . hash_add
     (102) funcionsHash -> . hash_delete
     (103) funcionsHash -> . hash_key
-    (98) hash_add -> . variables PUNTO STORE LPAREN hash_element RPAREN
-    (99) hash_delete -> . variables PUNTO LPAREN clave RPAREN
-    (100) hash_key -> . variables PUNTO KEY LPAREN value RPAREN
+    (47) conjunto -> . SET arr
+    (48) conjunto -> . SET LCOR RCOR
+    (76) formacion -> . LCOR repetirvalor RCOR
+    (77) formacion -> . LCOR RCOR
+    (78) formacion -> . ARRAY PUNTO NEW LPAREN INT RPAREN
+    (79) formacion -> . ARRAY PUNTO NEW LPAREN RPAREN
+    (98) hash_add -> . hash PUNTO STORE LPAREN hash_element RPAREN
+    (99) hash_delete -> . hash PUNTO LPAREN clave RPAREN
+    (100) hash_key -> . hash PUNTO KEY LPAREN value RPAREN
+    (85) hash -> . LBRACE hash_content RBRACE
 
     PUTS            shift and go to state 11
     ID              shift and go to state 22
     CONSTANT        shift and go to state 23
     GLOBAL          shift and go to state 24
+    SET             shift and go to state 30
+    LCOR            shift and go to state 31
+    ARRAY           shift and go to state 32
+    LBRACE          shift and go to state 34
 
-    repetircontenido               shift and go to state 161
-    contenido                      shift and go to state 92
-    impresion                      shift and go to state 93
-    asignacion                     shift and go to state 94
-    funcionstruct                  shift and go to state 95
-    variables                      shift and go to state 96
+    repetircontenido               shift and go to state 159
+    contenido                      shift and go to state 106
+    impresion                      shift and go to state 107
+    asignacion                     shift and go to state 108
+    funcionstruct                  shift and go to state 109
+    variables                      shift and go to state 110
     funcionsconjunto               shift and go to state 14
     funcionsformacion              shift and go to state 15
     funcionsHash                   shift and go to state 16
-    hash_add                       shift and go to state 25
-    hash_delete                    shift and go to state 26
-    hash_key                       shift and go to state 27
+    conjunto                       shift and go to state 25
+    formacion                      shift and go to state 26
+    hash_add                       shift and go to state 27
+    hash_delete                    shift and go to state 28
+    hash_key                       shift and go to state 29
+    hash                           shift and go to state 33
 
-state 133
+state 137
 
     (69) repetircontenido -> contenido repetircontenido .
 
@@ -2487,48 +2736,61 @@ state 133
     END             reduce using rule 69 (repetircontenido -> contenido repetircontenido .)
 
 
-state 134
+state 138
 
-    (48) conjunto -> SET LCOR RCOR .
+    (60) funcionsconjunto -> conjunto PUNTO ADD LPAREN . valor RPAREN
+    (61) funcionsconjunto -> conjunto PUNTO ADD LPAREN . arr RPAREN
+    (49) valor -> . INT
+    (50) valor -> . ID
+    (51) valor -> . STRING
+    (52) valor -> . booleanos
+    (53) valor -> . FLOAT
+    (56) arr -> . LCOR repetirvalor RCOR
+    (29) booleanos -> . TRUE
+    (30) booleanos -> . FALSE
 
-    $end            reduce using rule 48 (conjunto -> SET LCOR RCOR .)
-    PUTS            reduce using rule 48 (conjunto -> SET LCOR RCOR .)
-    ID              reduce using rule 48 (conjunto -> SET LCOR RCOR .)
-    CONSTANT        reduce using rule 48 (conjunto -> SET LCOR RCOR .)
-    GLOBAL          reduce using rule 48 (conjunto -> SET LCOR RCOR .)
-    ELSIF           reduce using rule 48 (conjunto -> SET LCOR RCOR .)
-    END             reduce using rule 48 (conjunto -> SET LCOR RCOR .)
-    RPAREN          reduce using rule 48 (conjunto -> SET LCOR RCOR .)
-    COMMA           reduce using rule 48 (conjunto -> SET LCOR RCOR .)
-    RBRACE          reduce using rule 48 (conjunto -> SET LCOR RCOR .)
+    INT             shift and go to state 67
+    ID              shift and go to state 68
+    STRING          shift and go to state 69
+    FLOAT           shift and go to state 71
+    LCOR            shift and go to state 162
+    TRUE            shift and go to state 48
+    FALSE           shift and go to state 49
+
+    valor                          shift and go to state 160
+    arr                            shift and go to state 161
+    booleanos                      shift and go to state 70
+
+state 139
+
+    (62) funcionsconjunto -> conjunto PUNTO MERGE LPAREN . variables RPAREN
+    (36) variables -> . ID
+    (37) variables -> . CONSTANT
+    (38) variables -> . GLOBAL
+
+    ID              shift and go to state 22
+    CONSTANT        shift and go to state 23
+    GLOBAL          shift and go to state 24
+
+    variables                      shift and go to state 163
+
+state 140
+
+    (63) funcionsconjunto -> conjunto PUNTO SIZE LPAREN . RPAREN
+
+    RPAREN          shift and go to state 164
 
 
-state 135
+state 141
 
-    (56) arr -> LCOR repetirvalor . RCOR
+    (80) funcionsformacion -> formacion PUNTO LENGTH LPAREN . RPAREN
 
-    RCOR            shift and go to state 162
-
-
-state 136
-
-    (76) formacion -> LCOR repetirvalor RCOR .
-
-    $end            reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
-    PUTS            reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
-    ID              reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
-    CONSTANT        reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
-    GLOBAL          reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
-    ELSIF           reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
-    END             reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
-    RPAREN          reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
-    COMMA           reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
-    RBRACE          reduce using rule 76 (formacion -> LCOR repetirvalor RCOR .)
+    RPAREN          shift and go to state 165
 
 
-state 137
+state 142
 
-    (55) repetirvalor -> valor COMMA . repetirvalor
+    (81) funcionsformacion -> formacion PUNTO PUSH LPAREN . repetirvalor RPAREN
     (54) repetirvalor -> . valor
     (55) repetirvalor -> . valor COMMA repetirvalor
     (49) valor -> . INT
@@ -2539,52 +2801,78 @@ state 137
     (29) booleanos -> . TRUE
     (30) booleanos -> . FALSE
 
-    INT             shift and go to state 104
-    ID              shift and go to state 105
-    STRING          shift and go to state 106
-    FLOAT           shift and go to state 108
-    TRUE            shift and go to state 41
-    FALSE           shift and go to state 42
+    INT             shift and go to state 67
+    ID              shift and go to state 68
+    STRING          shift and go to state 69
+    FLOAT           shift and go to state 71
+    TRUE            shift and go to state 48
+    FALSE           shift and go to state 49
 
-    valor                          shift and go to state 103
-    repetirvalor                   shift and go to state 163
-    booleanos                      shift and go to state 107
+    repetirvalor                   shift and go to state 166
+    valor                          shift and go to state 66
+    booleanos                      shift and go to state 70
 
-state 138
+state 143
 
-    (78) formacion -> ARRAY PUNTO NEW . LPAREN INT RPAREN
-    (79) formacion -> ARRAY PUNTO NEW . LPAREN RPAREN
+    (82) funcionsformacion -> formacion PUNTO SAMPLE LPAREN . variables RPAREN
+    (36) variables -> . ID
+    (37) variables -> . CONSTANT
+    (38) variables -> . GLOBAL
 
-    LPAREN          shift and go to state 164
+    ID              shift and go to state 22
+    CONSTANT        shift and go to state 23
+    GLOBAL          shift and go to state 24
 
+    variables                      shift and go to state 167
 
-state 139
+state 144
 
-    (85) hash -> LBRACE hash_content RBRACE .
+    (84) funcionsformacion -> formacion PUNTO FIRST LPAREN . RPAREN
 
-    $end            reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
-    PUTS            reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
-    ID              reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
-    CONSTANT        reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
-    GLOBAL          reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
-    ELSIF           reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
-    END             reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
-    RPAREN          reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
-    COMMA           reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
-    RBRACE          reduce using rule 85 (hash -> LBRACE hash_content RBRACE .)
+    RPAREN          shift and go to state 168
 
 
-state 140
+state 145
 
-    (86) hash_elements -> hash_element hash_more_elements .
+    (56) arr -> LCOR repetirvalor RCOR .
 
-    RBRACE          reduce using rule 86 (hash_elements -> hash_element hash_more_elements .)
+    PUNTO           reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
+    $end            reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
+    PUTS            reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
+    ID              reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
+    CONSTANT        reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
+    GLOBAL          reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
+    SET             reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
+    LCOR            reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
+    ARRAY           reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
+    LBRACE          reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
+    ELSIF           reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
+    END             reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
+    COMMA           reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
+    RBRACE          reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
+    RPAREN          reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
 
 
-state 141
+state 146
 
-    (90) hash_more_elements -> COMMA . hash_element
-    (91) hash_more_elements -> COMMA . hash_element hash_more_elements
+    (55) repetirvalor -> valor COMMA repetirvalor .
+
+    RCOR            reduce using rule 55 (repetirvalor -> valor COMMA repetirvalor .)
+    RPAREN          reduce using rule 55 (repetirvalor -> valor COMMA repetirvalor .)
+
+
+state 147
+
+    (78) formacion -> ARRAY PUNTO NEW LPAREN . INT RPAREN
+    (79) formacion -> ARRAY PUNTO NEW LPAREN . RPAREN
+
+    INT             shift and go to state 169
+    RPAREN          shift and go to state 170
+
+
+state 148
+
+    (98) hash_add -> hash PUNTO STORE LPAREN . hash_element RPAREN
     (89) hash_element -> . clave FLECHA value
     (92) clave -> . variables
     (93) clave -> . STRING
@@ -2594,20 +2882,27 @@ state 141
     (37) variables -> . CONSTANT
     (38) variables -> . GLOBAL
 
-    STRING          shift and go to state 115
-    INT             shift and go to state 116
-    FLOAT           shift and go to state 117
+    STRING          shift and go to state 79
+    INT             shift and go to state 80
+    FLOAT           shift and go to state 81
     ID              shift and go to state 22
     CONSTANT        shift and go to state 23
     GLOBAL          shift and go to state 24
 
-    hash_element                   shift and go to state 165
-    clave                          shift and go to state 113
-    variables                      shift and go to state 114
+    hash_element                   shift and go to state 171
+    clave                          shift and go to state 77
+    variables                      shift and go to state 78
 
-state 142
+state 149
 
-    (89) hash_element -> clave FLECHA . value
+    (99) hash_delete -> hash PUNTO LPAREN clave . RPAREN
+
+    RPAREN          shift and go to state 172
+
+
+state 150
+
+    (100) hash_key -> hash PUNTO KEY LPAREN . value RPAREN
     (96) value -> . valor
     (97) value -> . struct
     (49) valor -> . INT
@@ -2628,40 +2923,121 @@ state 142
     (79) formacion -> . ARRAY PUNTO NEW LPAREN RPAREN
     (85) hash -> . LBRACE hash_content RBRACE
 
-    INT             shift and go to state 104
-    ID              shift and go to state 105
-    STRING          shift and go to state 106
-    FLOAT           shift and go to state 108
-    TRUE            shift and go to state 41
-    FALSE           shift and go to state 42
-    SET             shift and go to state 73
-    LCOR            shift and go to state 74
-    ARRAY           shift and go to state 75
-    LBRACE          shift and go to state 76
+    INT             shift and go to state 67
+    ID              shift and go to state 68
+    STRING          shift and go to state 69
+    FLOAT           shift and go to state 71
+    TRUE            shift and go to state 48
+    FALSE           shift and go to state 49
+    SET             shift and go to state 30
+    LCOR            shift and go to state 31
+    ARRAY           shift and go to state 32
+    LBRACE          shift and go to state 34
 
-    value                          shift and go to state 166
-    valor                          shift and go to state 155
-    struct                         shift and go to state 156
-    booleanos                      shift and go to state 107
-    conjunto                       shift and go to state 70
-    formacion                      shift and go to state 71
-    hash                           shift and go to state 72
+    hash                           shift and go to state 100
+    value                          shift and go to state 173
+    valor                          shift and go to state 153
+    struct                         shift and go to state 154
+    booleanos                      shift and go to state 70
+    conjunto                       shift and go to state 98
+    formacion                      shift and go to state 99
 
-state 143
+state 151
 
-    (60) funcionsconjunto -> variables PUNTO ADD LPAREN valor . RPAREN
+    (90) hash_more_elements -> COMMA hash_element .
+    (91) hash_more_elements -> COMMA hash_element . hash_more_elements
+    (90) hash_more_elements -> . COMMA hash_element
+    (91) hash_more_elements -> . COMMA hash_element hash_more_elements
 
-    RPAREN          shift and go to state 167
+    RBRACE          reduce using rule 90 (hash_more_elements -> COMMA hash_element .)
+    COMMA           shift and go to state 128
+
+    hash_more_elements             shift and go to state 174
+
+state 152
+
+    (89) hash_element -> clave FLECHA value .
+
+    COMMA           reduce using rule 89 (hash_element -> clave FLECHA value .)
+    RBRACE          reduce using rule 89 (hash_element -> clave FLECHA value .)
+    RPAREN          reduce using rule 89 (hash_element -> clave FLECHA value .)
 
 
-state 144
+state 153
 
-    (61) funcionsconjunto -> variables PUNTO ADD LPAREN arr . RPAREN
+    (96) value -> valor .
 
-    RPAREN          shift and go to state 168
+    COMMA           reduce using rule 96 (value -> valor .)
+    RBRACE          reduce using rule 96 (value -> valor .)
+    RPAREN          reduce using rule 96 (value -> valor .)
 
 
-state 145
+state 154
+
+    (97) value -> struct .
+
+    COMMA           reduce using rule 97 (value -> struct .)
+    RBRACE          reduce using rule 97 (value -> struct .)
+    RPAREN          reduce using rule 97 (value -> struct .)
+
+
+state 155
+
+    (70) sentenciafor -> FOR variables IN LPAREN INT . PUNTO PUNTO INT RPAREN repetircontenido END
+
+    PUNTO           shift and go to state 175
+
+
+state 156
+
+    (75) sentenciawhile -> WHILE condicion DO repetircontenido END .
+
+    $end            reduce using rule 75 (sentenciawhile -> WHILE condicion DO repetircontenido END .)
+
+
+state 157
+
+    (74) condicion -> ARRAY PUNTO NEW LPAREN . arr RPAREN
+    (56) arr -> . LCOR repetirvalor RCOR
+
+    LCOR            shift and go to state 162
+
+    arr                            shift and go to state 176
+
+state 158
+
+    (104) sentenciaElsif -> IF condicion repetircontenido mas_sentencias END .
+
+    $end            reduce using rule 104 (sentenciaElsif -> IF condicion repetircontenido mas_sentencias END .)
+
+
+state 159
+
+    (105) mas_sentencias -> ELSIF repetircontenido .
+    (106) mas_sentencias -> ELSIF repetircontenido . mas_sentencias
+    (105) mas_sentencias -> . ELSIF repetircontenido
+    (106) mas_sentencias -> . ELSIF repetircontenido mas_sentencias
+
+    END             reduce using rule 105 (mas_sentencias -> ELSIF repetircontenido .)
+    ELSIF           shift and go to state 136
+
+    mas_sentencias                 shift and go to state 177
+
+state 160
+
+    (60) funcionsconjunto -> conjunto PUNTO ADD LPAREN valor . RPAREN
+
+    RPAREN          shift and go to state 178
+
+
+state 161
+
+    (61) funcionsconjunto -> conjunto PUNTO ADD LPAREN arr . RPAREN
+
+    RPAREN          shift and go to state 179
+
+
+state 162
 
     (56) arr -> LCOR . repetirvalor RCOR
     (54) repetirvalor -> . valor
@@ -2674,368 +3050,324 @@ state 145
     (29) booleanos -> . TRUE
     (30) booleanos -> . FALSE
 
-    INT             shift and go to state 104
-    ID              shift and go to state 105
-    STRING          shift and go to state 106
-    FLOAT           shift and go to state 108
-    TRUE            shift and go to state 41
-    FALSE           shift and go to state 42
-
-    repetirvalor                   shift and go to state 135
-    valor                          shift and go to state 103
-    booleanos                      shift and go to state 107
-
-state 146
-
-    (99) hash_delete -> variables PUNTO LPAREN clave RPAREN .
-
-    $end            reduce using rule 99 (hash_delete -> variables PUNTO LPAREN clave RPAREN .)
-    PUTS            reduce using rule 99 (hash_delete -> variables PUNTO LPAREN clave RPAREN .)
-    ID              reduce using rule 99 (hash_delete -> variables PUNTO LPAREN clave RPAREN .)
-    CONSTANT        reduce using rule 99 (hash_delete -> variables PUNTO LPAREN clave RPAREN .)
-    GLOBAL          reduce using rule 99 (hash_delete -> variables PUNTO LPAREN clave RPAREN .)
-    ELSIF           reduce using rule 99 (hash_delete -> variables PUNTO LPAREN clave RPAREN .)
-    END             reduce using rule 99 (hash_delete -> variables PUNTO LPAREN clave RPAREN .)
-
-
-state 147
-
-    (62) funcionsconjunto -> variables PUNTO MERGE LPAREN variables . RPAREN
-
-    RPAREN          shift and go to state 169
-
-
-state 148
-
-    (63) funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .
-
-    $end            reduce using rule 63 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
-    PUTS            reduce using rule 63 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
-    ID              reduce using rule 63 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
-    CONSTANT        reduce using rule 63 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
-    GLOBAL          reduce using rule 63 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
-    ELSIF           reduce using rule 63 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
-    END             reduce using rule 63 (funcionsconjunto -> variables PUNTO SIZE LPAREN RPAREN .)
-
-
-state 149
-
-    (80) funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .
-
-    $end            reduce using rule 80 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
-    PUTS            reduce using rule 80 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
-    ID              reduce using rule 80 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
-    CONSTANT        reduce using rule 80 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
-    GLOBAL          reduce using rule 80 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
-    ELSIF           reduce using rule 80 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
-    END             reduce using rule 80 (funcionsformacion -> variables PUNTO LENGTH LPAREN RPAREN .)
-
-
-state 150
-
-    (81) funcionsformacion -> variables PUNTO PUSH LPAREN repetirvalor . RPAREN
-
-    RPAREN          shift and go to state 170
-
-
-state 151
-
-    (82) funcionsformacion -> variables PUNTO SAMPLE LPAREN variables . RPAREN
-
-    RPAREN          shift and go to state 171
-
-
-state 152
-
-    (84) funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .
-
-    $end            reduce using rule 84 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
-    PUTS            reduce using rule 84 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
-    ID              reduce using rule 84 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
-    CONSTANT        reduce using rule 84 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
-    GLOBAL          reduce using rule 84 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
-    ELSIF           reduce using rule 84 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
-    END             reduce using rule 84 (funcionsformacion -> variables PUNTO FIRST LPAREN RPAREN .)
-
-
-state 153
-
-    (98) hash_add -> variables PUNTO STORE LPAREN hash_element . RPAREN
-
-    RPAREN          shift and go to state 172
-
-
-state 154
-
-    (100) hash_key -> variables PUNTO KEY LPAREN value . RPAREN
-
-    RPAREN          shift and go to state 173
-
-
-state 155
-
-    (96) value -> valor .
-
-    RPAREN          reduce using rule 96 (value -> valor .)
-    COMMA           reduce using rule 96 (value -> valor .)
-    RBRACE          reduce using rule 96 (value -> valor .)
-
-
-state 156
-
-    (97) value -> struct .
-
-    RPAREN          reduce using rule 97 (value -> struct .)
-    COMMA           reduce using rule 97 (value -> struct .)
-    RBRACE          reduce using rule 97 (value -> struct .)
-
-
-state 157
-
-    (70) sentenciafor -> FOR variables IN LPAREN INT . PUNTO PUNTO INT RPAREN repetircontenido END
-
-    PUNTO           shift and go to state 174
-
-
-state 158
-
-    (75) sentenciawhile -> WHILE condicion DO repetircontenido END .
-
-    $end            reduce using rule 75 (sentenciawhile -> WHILE condicion DO repetircontenido END .)
-
-
-state 159
-
-    (74) condicion -> ARRAY PUNTO NEW LPAREN . arr RPAREN
-    (56) arr -> . LCOR repetirvalor RCOR
-
-    LCOR            shift and go to state 145
-
-    arr                            shift and go to state 175
-
-state 160
-
-    (104) sentenciaElsif -> IF condicion repetircontenido mas_sentencias END .
-
-    $end            reduce using rule 104 (sentenciaElsif -> IF condicion repetircontenido mas_sentencias END .)
-
-
-state 161
-
-    (105) mas_sentencias -> ELSIF repetircontenido .
-    (106) mas_sentencias -> ELSIF repetircontenido . mas_sentencias
-    (105) mas_sentencias -> . ELSIF repetircontenido
-    (106) mas_sentencias -> . ELSIF repetircontenido mas_sentencias
-
-    END             reduce using rule 105 (mas_sentencias -> ELSIF repetircontenido .)
-    ELSIF           shift and go to state 132
-
-    mas_sentencias                 shift and go to state 176
-
-state 162
-
-    (56) arr -> LCOR repetirvalor RCOR .
-
-    $end            reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
-    PUTS            reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
-    ID              reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
-    CONSTANT        reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
-    GLOBAL          reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
-    ELSIF           reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
-    END             reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
-    RPAREN          reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
-    COMMA           reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
-    RBRACE          reduce using rule 56 (arr -> LCOR repetirvalor RCOR .)
-
+    INT             shift and go to state 67
+    ID              shift and go to state 68
+    STRING          shift and go to state 69
+    FLOAT           shift and go to state 71
+    TRUE            shift and go to state 48
+    FALSE           shift and go to state 49
+
+    repetirvalor                   shift and go to state 119
+    valor                          shift and go to state 66
+    booleanos                      shift and go to state 70
 
 state 163
 
-    (55) repetirvalor -> valor COMMA repetirvalor .
+    (62) funcionsconjunto -> conjunto PUNTO MERGE LPAREN variables . RPAREN
 
-    RCOR            reduce using rule 55 (repetirvalor -> valor COMMA repetirvalor .)
-    RPAREN          reduce using rule 55 (repetirvalor -> valor COMMA repetirvalor .)
+    RPAREN          shift and go to state 180
 
 
 state 164
 
-    (78) formacion -> ARRAY PUNTO NEW LPAREN . INT RPAREN
-    (79) formacion -> ARRAY PUNTO NEW LPAREN . RPAREN
+    (63) funcionsconjunto -> conjunto PUNTO SIZE LPAREN RPAREN .
 
-    INT             shift and go to state 177
-    RPAREN          shift and go to state 178
+    $end            reduce using rule 63 (funcionsconjunto -> conjunto PUNTO SIZE LPAREN RPAREN .)
+    PUTS            reduce using rule 63 (funcionsconjunto -> conjunto PUNTO SIZE LPAREN RPAREN .)
+    ID              reduce using rule 63 (funcionsconjunto -> conjunto PUNTO SIZE LPAREN RPAREN .)
+    CONSTANT        reduce using rule 63 (funcionsconjunto -> conjunto PUNTO SIZE LPAREN RPAREN .)
+    GLOBAL          reduce using rule 63 (funcionsconjunto -> conjunto PUNTO SIZE LPAREN RPAREN .)
+    SET             reduce using rule 63 (funcionsconjunto -> conjunto PUNTO SIZE LPAREN RPAREN .)
+    LCOR            reduce using rule 63 (funcionsconjunto -> conjunto PUNTO SIZE LPAREN RPAREN .)
+    ARRAY           reduce using rule 63 (funcionsconjunto -> conjunto PUNTO SIZE LPAREN RPAREN .)
+    LBRACE          reduce using rule 63 (funcionsconjunto -> conjunto PUNTO SIZE LPAREN RPAREN .)
+    ELSIF           reduce using rule 63 (funcionsconjunto -> conjunto PUNTO SIZE LPAREN RPAREN .)
+    END             reduce using rule 63 (funcionsconjunto -> conjunto PUNTO SIZE LPAREN RPAREN .)
 
 
 state 165
 
-    (90) hash_more_elements -> COMMA hash_element .
-    (91) hash_more_elements -> COMMA hash_element . hash_more_elements
-    (90) hash_more_elements -> . COMMA hash_element
-    (91) hash_more_elements -> . COMMA hash_element hash_more_elements
+    (80) funcionsformacion -> formacion PUNTO LENGTH LPAREN RPAREN .
 
-    RBRACE          reduce using rule 90 (hash_more_elements -> COMMA hash_element .)
-    COMMA           shift and go to state 141
+    $end            reduce using rule 80 (funcionsformacion -> formacion PUNTO LENGTH LPAREN RPAREN .)
+    PUTS            reduce using rule 80 (funcionsformacion -> formacion PUNTO LENGTH LPAREN RPAREN .)
+    ID              reduce using rule 80 (funcionsformacion -> formacion PUNTO LENGTH LPAREN RPAREN .)
+    CONSTANT        reduce using rule 80 (funcionsformacion -> formacion PUNTO LENGTH LPAREN RPAREN .)
+    GLOBAL          reduce using rule 80 (funcionsformacion -> formacion PUNTO LENGTH LPAREN RPAREN .)
+    SET             reduce using rule 80 (funcionsformacion -> formacion PUNTO LENGTH LPAREN RPAREN .)
+    LCOR            reduce using rule 80 (funcionsformacion -> formacion PUNTO LENGTH LPAREN RPAREN .)
+    ARRAY           reduce using rule 80 (funcionsformacion -> formacion PUNTO LENGTH LPAREN RPAREN .)
+    LBRACE          reduce using rule 80 (funcionsformacion -> formacion PUNTO LENGTH LPAREN RPAREN .)
+    ELSIF           reduce using rule 80 (funcionsformacion -> formacion PUNTO LENGTH LPAREN RPAREN .)
+    END             reduce using rule 80 (funcionsformacion -> formacion PUNTO LENGTH LPAREN RPAREN .)
 
-    hash_more_elements             shift and go to state 179
 
 state 166
 
-    (89) hash_element -> clave FLECHA value .
-
-    COMMA           reduce using rule 89 (hash_element -> clave FLECHA value .)
-    RBRACE          reduce using rule 89 (hash_element -> clave FLECHA value .)
-    RPAREN          reduce using rule 89 (hash_element -> clave FLECHA value .)
-
-
-state 167
-
-    (60) funcionsconjunto -> variables PUNTO ADD LPAREN valor RPAREN .
-
-    $end            reduce using rule 60 (funcionsconjunto -> variables PUNTO ADD LPAREN valor RPAREN .)
-    PUTS            reduce using rule 60 (funcionsconjunto -> variables PUNTO ADD LPAREN valor RPAREN .)
-    ID              reduce using rule 60 (funcionsconjunto -> variables PUNTO ADD LPAREN valor RPAREN .)
-    CONSTANT        reduce using rule 60 (funcionsconjunto -> variables PUNTO ADD LPAREN valor RPAREN .)
-    GLOBAL          reduce using rule 60 (funcionsconjunto -> variables PUNTO ADD LPAREN valor RPAREN .)
-    ELSIF           reduce using rule 60 (funcionsconjunto -> variables PUNTO ADD LPAREN valor RPAREN .)
-    END             reduce using rule 60 (funcionsconjunto -> variables PUNTO ADD LPAREN valor RPAREN .)
-
-
-state 168
-
-    (61) funcionsconjunto -> variables PUNTO ADD LPAREN arr RPAREN .
-
-    $end            reduce using rule 61 (funcionsconjunto -> variables PUNTO ADD LPAREN arr RPAREN .)
-    PUTS            reduce using rule 61 (funcionsconjunto -> variables PUNTO ADD LPAREN arr RPAREN .)
-    ID              reduce using rule 61 (funcionsconjunto -> variables PUNTO ADD LPAREN arr RPAREN .)
-    CONSTANT        reduce using rule 61 (funcionsconjunto -> variables PUNTO ADD LPAREN arr RPAREN .)
-    GLOBAL          reduce using rule 61 (funcionsconjunto -> variables PUNTO ADD LPAREN arr RPAREN .)
-    ELSIF           reduce using rule 61 (funcionsconjunto -> variables PUNTO ADD LPAREN arr RPAREN .)
-    END             reduce using rule 61 (funcionsconjunto -> variables PUNTO ADD LPAREN arr RPAREN .)
-
-
-state 169
-
-    (62) funcionsconjunto -> variables PUNTO MERGE LPAREN variables RPAREN .
-
-    $end            reduce using rule 62 (funcionsconjunto -> variables PUNTO MERGE LPAREN variables RPAREN .)
-    PUTS            reduce using rule 62 (funcionsconjunto -> variables PUNTO MERGE LPAREN variables RPAREN .)
-    ID              reduce using rule 62 (funcionsconjunto -> variables PUNTO MERGE LPAREN variables RPAREN .)
-    CONSTANT        reduce using rule 62 (funcionsconjunto -> variables PUNTO MERGE LPAREN variables RPAREN .)
-    GLOBAL          reduce using rule 62 (funcionsconjunto -> variables PUNTO MERGE LPAREN variables RPAREN .)
-    ELSIF           reduce using rule 62 (funcionsconjunto -> variables PUNTO MERGE LPAREN variables RPAREN .)
-    END             reduce using rule 62 (funcionsconjunto -> variables PUNTO MERGE LPAREN variables RPAREN .)
-
-
-state 170
-
-    (81) funcionsformacion -> variables PUNTO PUSH LPAREN repetirvalor RPAREN .
-
-    $end            reduce using rule 81 (funcionsformacion -> variables PUNTO PUSH LPAREN repetirvalor RPAREN .)
-    PUTS            reduce using rule 81 (funcionsformacion -> variables PUNTO PUSH LPAREN repetirvalor RPAREN .)
-    ID              reduce using rule 81 (funcionsformacion -> variables PUNTO PUSH LPAREN repetirvalor RPAREN .)
-    CONSTANT        reduce using rule 81 (funcionsformacion -> variables PUNTO PUSH LPAREN repetirvalor RPAREN .)
-    GLOBAL          reduce using rule 81 (funcionsformacion -> variables PUNTO PUSH LPAREN repetirvalor RPAREN .)
-    ELSIF           reduce using rule 81 (funcionsformacion -> variables PUNTO PUSH LPAREN repetirvalor RPAREN .)
-    END             reduce using rule 81 (funcionsformacion -> variables PUNTO PUSH LPAREN repetirvalor RPAREN .)
-
-
-state 171
-
-    (82) funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .
-
-    $end            reduce using rule 82 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
-    PUTS            reduce using rule 82 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
-    ID              reduce using rule 82 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
-    CONSTANT        reduce using rule 82 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
-    GLOBAL          reduce using rule 82 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
-    ELSIF           reduce using rule 82 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
-    END             reduce using rule 82 (funcionsformacion -> variables PUNTO SAMPLE LPAREN variables RPAREN .)
-
-
-state 172
-
-    (98) hash_add -> variables PUNTO STORE LPAREN hash_element RPAREN .
-
-    $end            reduce using rule 98 (hash_add -> variables PUNTO STORE LPAREN hash_element RPAREN .)
-    PUTS            reduce using rule 98 (hash_add -> variables PUNTO STORE LPAREN hash_element RPAREN .)
-    ID              reduce using rule 98 (hash_add -> variables PUNTO STORE LPAREN hash_element RPAREN .)
-    CONSTANT        reduce using rule 98 (hash_add -> variables PUNTO STORE LPAREN hash_element RPAREN .)
-    GLOBAL          reduce using rule 98 (hash_add -> variables PUNTO STORE LPAREN hash_element RPAREN .)
-    ELSIF           reduce using rule 98 (hash_add -> variables PUNTO STORE LPAREN hash_element RPAREN .)
-    END             reduce using rule 98 (hash_add -> variables PUNTO STORE LPAREN hash_element RPAREN .)
-
-
-state 173
-
-    (100) hash_key -> variables PUNTO KEY LPAREN value RPAREN .
-
-    $end            reduce using rule 100 (hash_key -> variables PUNTO KEY LPAREN value RPAREN .)
-    PUTS            reduce using rule 100 (hash_key -> variables PUNTO KEY LPAREN value RPAREN .)
-    ID              reduce using rule 100 (hash_key -> variables PUNTO KEY LPAREN value RPAREN .)
-    CONSTANT        reduce using rule 100 (hash_key -> variables PUNTO KEY LPAREN value RPAREN .)
-    GLOBAL          reduce using rule 100 (hash_key -> variables PUNTO KEY LPAREN value RPAREN .)
-    ELSIF           reduce using rule 100 (hash_key -> variables PUNTO KEY LPAREN value RPAREN .)
-    END             reduce using rule 100 (hash_key -> variables PUNTO KEY LPAREN value RPAREN .)
-
-
-state 174
-
-    (70) sentenciafor -> FOR variables IN LPAREN INT PUNTO . PUNTO INT RPAREN repetircontenido END
-
-    PUNTO           shift and go to state 180
-
-
-state 175
-
-    (74) condicion -> ARRAY PUNTO NEW LPAREN arr . RPAREN
+    (81) funcionsformacion -> formacion PUNTO PUSH LPAREN repetirvalor . RPAREN
 
     RPAREN          shift and go to state 181
 
 
-state 176
+state 167
 
-    (106) mas_sentencias -> ELSIF repetircontenido mas_sentencias .
-
-    END             reduce using rule 106 (mas_sentencias -> ELSIF repetircontenido mas_sentencias .)
-
-
-state 177
-
-    (78) formacion -> ARRAY PUNTO NEW LPAREN INT . RPAREN
+    (82) funcionsformacion -> formacion PUNTO SAMPLE LPAREN variables . RPAREN
 
     RPAREN          shift and go to state 182
 
 
-state 178
+state 168
+
+    (84) funcionsformacion -> formacion PUNTO FIRST LPAREN RPAREN .
+
+    $end            reduce using rule 84 (funcionsformacion -> formacion PUNTO FIRST LPAREN RPAREN .)
+    PUTS            reduce using rule 84 (funcionsformacion -> formacion PUNTO FIRST LPAREN RPAREN .)
+    ID              reduce using rule 84 (funcionsformacion -> formacion PUNTO FIRST LPAREN RPAREN .)
+    CONSTANT        reduce using rule 84 (funcionsformacion -> formacion PUNTO FIRST LPAREN RPAREN .)
+    GLOBAL          reduce using rule 84 (funcionsformacion -> formacion PUNTO FIRST LPAREN RPAREN .)
+    SET             reduce using rule 84 (funcionsformacion -> formacion PUNTO FIRST LPAREN RPAREN .)
+    LCOR            reduce using rule 84 (funcionsformacion -> formacion PUNTO FIRST LPAREN RPAREN .)
+    ARRAY           reduce using rule 84 (funcionsformacion -> formacion PUNTO FIRST LPAREN RPAREN .)
+    LBRACE          reduce using rule 84 (funcionsformacion -> formacion PUNTO FIRST LPAREN RPAREN .)
+    ELSIF           reduce using rule 84 (funcionsformacion -> formacion PUNTO FIRST LPAREN RPAREN .)
+    END             reduce using rule 84 (funcionsformacion -> formacion PUNTO FIRST LPAREN RPAREN .)
+
+
+state 169
+
+    (78) formacion -> ARRAY PUNTO NEW LPAREN INT . RPAREN
+
+    RPAREN          shift and go to state 183
+
+
+state 170
 
     (79) formacion -> ARRAY PUNTO NEW LPAREN RPAREN .
 
+    PUNTO           reduce using rule 79 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
     $end            reduce using rule 79 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
     PUTS            reduce using rule 79 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
     ID              reduce using rule 79 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
     CONSTANT        reduce using rule 79 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
     GLOBAL          reduce using rule 79 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
+    SET             reduce using rule 79 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
+    LCOR            reduce using rule 79 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
+    ARRAY           reduce using rule 79 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
+    LBRACE          reduce using rule 79 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
     ELSIF           reduce using rule 79 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
     END             reduce using rule 79 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
-    RPAREN          reduce using rule 79 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
     COMMA           reduce using rule 79 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
     RBRACE          reduce using rule 79 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
+    RPAREN          reduce using rule 79 (formacion -> ARRAY PUNTO NEW LPAREN RPAREN .)
 
 
-state 179
+state 171
+
+    (98) hash_add -> hash PUNTO STORE LPAREN hash_element . RPAREN
+
+    RPAREN          shift and go to state 184
+
+
+state 172
+
+    (99) hash_delete -> hash PUNTO LPAREN clave RPAREN .
+
+    $end            reduce using rule 99 (hash_delete -> hash PUNTO LPAREN clave RPAREN .)
+    PUTS            reduce using rule 99 (hash_delete -> hash PUNTO LPAREN clave RPAREN .)
+    ID              reduce using rule 99 (hash_delete -> hash PUNTO LPAREN clave RPAREN .)
+    CONSTANT        reduce using rule 99 (hash_delete -> hash PUNTO LPAREN clave RPAREN .)
+    GLOBAL          reduce using rule 99 (hash_delete -> hash PUNTO LPAREN clave RPAREN .)
+    SET             reduce using rule 99 (hash_delete -> hash PUNTO LPAREN clave RPAREN .)
+    LCOR            reduce using rule 99 (hash_delete -> hash PUNTO LPAREN clave RPAREN .)
+    ARRAY           reduce using rule 99 (hash_delete -> hash PUNTO LPAREN clave RPAREN .)
+    LBRACE          reduce using rule 99 (hash_delete -> hash PUNTO LPAREN clave RPAREN .)
+    ELSIF           reduce using rule 99 (hash_delete -> hash PUNTO LPAREN clave RPAREN .)
+    END             reduce using rule 99 (hash_delete -> hash PUNTO LPAREN clave RPAREN .)
+
+
+state 173
+
+    (100) hash_key -> hash PUNTO KEY LPAREN value . RPAREN
+
+    RPAREN          shift and go to state 185
+
+
+state 174
 
     (91) hash_more_elements -> COMMA hash_element hash_more_elements .
 
     RBRACE          reduce using rule 91 (hash_more_elements -> COMMA hash_element hash_more_elements .)
 
 
+state 175
+
+    (70) sentenciafor -> FOR variables IN LPAREN INT PUNTO . PUNTO INT RPAREN repetircontenido END
+
+    PUNTO           shift and go to state 186
+
+
+state 176
+
+    (74) condicion -> ARRAY PUNTO NEW LPAREN arr . RPAREN
+
+    RPAREN          shift and go to state 187
+
+
+state 177
+
+    (106) mas_sentencias -> ELSIF repetircontenido mas_sentencias .
+
+    END             reduce using rule 106 (mas_sentencias -> ELSIF repetircontenido mas_sentencias .)
+
+
+state 178
+
+    (60) funcionsconjunto -> conjunto PUNTO ADD LPAREN valor RPAREN .
+
+    $end            reduce using rule 60 (funcionsconjunto -> conjunto PUNTO ADD LPAREN valor RPAREN .)
+    PUTS            reduce using rule 60 (funcionsconjunto -> conjunto PUNTO ADD LPAREN valor RPAREN .)
+    ID              reduce using rule 60 (funcionsconjunto -> conjunto PUNTO ADD LPAREN valor RPAREN .)
+    CONSTANT        reduce using rule 60 (funcionsconjunto -> conjunto PUNTO ADD LPAREN valor RPAREN .)
+    GLOBAL          reduce using rule 60 (funcionsconjunto -> conjunto PUNTO ADD LPAREN valor RPAREN .)
+    SET             reduce using rule 60 (funcionsconjunto -> conjunto PUNTO ADD LPAREN valor RPAREN .)
+    LCOR            reduce using rule 60 (funcionsconjunto -> conjunto PUNTO ADD LPAREN valor RPAREN .)
+    ARRAY           reduce using rule 60 (funcionsconjunto -> conjunto PUNTO ADD LPAREN valor RPAREN .)
+    LBRACE          reduce using rule 60 (funcionsconjunto -> conjunto PUNTO ADD LPAREN valor RPAREN .)
+    ELSIF           reduce using rule 60 (funcionsconjunto -> conjunto PUNTO ADD LPAREN valor RPAREN .)
+    END             reduce using rule 60 (funcionsconjunto -> conjunto PUNTO ADD LPAREN valor RPAREN .)
+
+
+state 179
+
+    (61) funcionsconjunto -> conjunto PUNTO ADD LPAREN arr RPAREN .
+
+    $end            reduce using rule 61 (funcionsconjunto -> conjunto PUNTO ADD LPAREN arr RPAREN .)
+    PUTS            reduce using rule 61 (funcionsconjunto -> conjunto PUNTO ADD LPAREN arr RPAREN .)
+    ID              reduce using rule 61 (funcionsconjunto -> conjunto PUNTO ADD LPAREN arr RPAREN .)
+    CONSTANT        reduce using rule 61 (funcionsconjunto -> conjunto PUNTO ADD LPAREN arr RPAREN .)
+    GLOBAL          reduce using rule 61 (funcionsconjunto -> conjunto PUNTO ADD LPAREN arr RPAREN .)
+    SET             reduce using rule 61 (funcionsconjunto -> conjunto PUNTO ADD LPAREN arr RPAREN .)
+    LCOR            reduce using rule 61 (funcionsconjunto -> conjunto PUNTO ADD LPAREN arr RPAREN .)
+    ARRAY           reduce using rule 61 (funcionsconjunto -> conjunto PUNTO ADD LPAREN arr RPAREN .)
+    LBRACE          reduce using rule 61 (funcionsconjunto -> conjunto PUNTO ADD LPAREN arr RPAREN .)
+    ELSIF           reduce using rule 61 (funcionsconjunto -> conjunto PUNTO ADD LPAREN arr RPAREN .)
+    END             reduce using rule 61 (funcionsconjunto -> conjunto PUNTO ADD LPAREN arr RPAREN .)
+
+
 state 180
 
-    (70) sentenciafor -> FOR variables IN LPAREN INT PUNTO PUNTO . INT RPAREN repetircontenido END
+    (62) funcionsconjunto -> conjunto PUNTO MERGE LPAREN variables RPAREN .
 
-    INT             shift and go to state 183
+    $end            reduce using rule 62 (funcionsconjunto -> conjunto PUNTO MERGE LPAREN variables RPAREN .)
+    PUTS            reduce using rule 62 (funcionsconjunto -> conjunto PUNTO MERGE LPAREN variables RPAREN .)
+    ID              reduce using rule 62 (funcionsconjunto -> conjunto PUNTO MERGE LPAREN variables RPAREN .)
+    CONSTANT        reduce using rule 62 (funcionsconjunto -> conjunto PUNTO MERGE LPAREN variables RPAREN .)
+    GLOBAL          reduce using rule 62 (funcionsconjunto -> conjunto PUNTO MERGE LPAREN variables RPAREN .)
+    SET             reduce using rule 62 (funcionsconjunto -> conjunto PUNTO MERGE LPAREN variables RPAREN .)
+    LCOR            reduce using rule 62 (funcionsconjunto -> conjunto PUNTO MERGE LPAREN variables RPAREN .)
+    ARRAY           reduce using rule 62 (funcionsconjunto -> conjunto PUNTO MERGE LPAREN variables RPAREN .)
+    LBRACE          reduce using rule 62 (funcionsconjunto -> conjunto PUNTO MERGE LPAREN variables RPAREN .)
+    ELSIF           reduce using rule 62 (funcionsconjunto -> conjunto PUNTO MERGE LPAREN variables RPAREN .)
+    END             reduce using rule 62 (funcionsconjunto -> conjunto PUNTO MERGE LPAREN variables RPAREN .)
 
 
 state 181
+
+    (81) funcionsformacion -> formacion PUNTO PUSH LPAREN repetirvalor RPAREN .
+
+    $end            reduce using rule 81 (funcionsformacion -> formacion PUNTO PUSH LPAREN repetirvalor RPAREN .)
+    PUTS            reduce using rule 81 (funcionsformacion -> formacion PUNTO PUSH LPAREN repetirvalor RPAREN .)
+    ID              reduce using rule 81 (funcionsformacion -> formacion PUNTO PUSH LPAREN repetirvalor RPAREN .)
+    CONSTANT        reduce using rule 81 (funcionsformacion -> formacion PUNTO PUSH LPAREN repetirvalor RPAREN .)
+    GLOBAL          reduce using rule 81 (funcionsformacion -> formacion PUNTO PUSH LPAREN repetirvalor RPAREN .)
+    SET             reduce using rule 81 (funcionsformacion -> formacion PUNTO PUSH LPAREN repetirvalor RPAREN .)
+    LCOR            reduce using rule 81 (funcionsformacion -> formacion PUNTO PUSH LPAREN repetirvalor RPAREN .)
+    ARRAY           reduce using rule 81 (funcionsformacion -> formacion PUNTO PUSH LPAREN repetirvalor RPAREN .)
+    LBRACE          reduce using rule 81 (funcionsformacion -> formacion PUNTO PUSH LPAREN repetirvalor RPAREN .)
+    ELSIF           reduce using rule 81 (funcionsformacion -> formacion PUNTO PUSH LPAREN repetirvalor RPAREN .)
+    END             reduce using rule 81 (funcionsformacion -> formacion PUNTO PUSH LPAREN repetirvalor RPAREN .)
+
+
+state 182
+
+    (82) funcionsformacion -> formacion PUNTO SAMPLE LPAREN variables RPAREN .
+
+    $end            reduce using rule 82 (funcionsformacion -> formacion PUNTO SAMPLE LPAREN variables RPAREN .)
+    PUTS            reduce using rule 82 (funcionsformacion -> formacion PUNTO SAMPLE LPAREN variables RPAREN .)
+    ID              reduce using rule 82 (funcionsformacion -> formacion PUNTO SAMPLE LPAREN variables RPAREN .)
+    CONSTANT        reduce using rule 82 (funcionsformacion -> formacion PUNTO SAMPLE LPAREN variables RPAREN .)
+    GLOBAL          reduce using rule 82 (funcionsformacion -> formacion PUNTO SAMPLE LPAREN variables RPAREN .)
+    SET             reduce using rule 82 (funcionsformacion -> formacion PUNTO SAMPLE LPAREN variables RPAREN .)
+    LCOR            reduce using rule 82 (funcionsformacion -> formacion PUNTO SAMPLE LPAREN variables RPAREN .)
+    ARRAY           reduce using rule 82 (funcionsformacion -> formacion PUNTO SAMPLE LPAREN variables RPAREN .)
+    LBRACE          reduce using rule 82 (funcionsformacion -> formacion PUNTO SAMPLE LPAREN variables RPAREN .)
+    ELSIF           reduce using rule 82 (funcionsformacion -> formacion PUNTO SAMPLE LPAREN variables RPAREN .)
+    END             reduce using rule 82 (funcionsformacion -> formacion PUNTO SAMPLE LPAREN variables RPAREN .)
+
+
+state 183
+
+    (78) formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .
+
+    PUNTO           reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    $end            reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    PUTS            reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    ID              reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    CONSTANT        reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    GLOBAL          reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    SET             reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    LCOR            reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    ARRAY           reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    LBRACE          reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    ELSIF           reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    END             reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    COMMA           reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    RBRACE          reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+    RPAREN          reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
+
+
+state 184
+
+    (98) hash_add -> hash PUNTO STORE LPAREN hash_element RPAREN .
+
+    $end            reduce using rule 98 (hash_add -> hash PUNTO STORE LPAREN hash_element RPAREN .)
+    PUTS            reduce using rule 98 (hash_add -> hash PUNTO STORE LPAREN hash_element RPAREN .)
+    ID              reduce using rule 98 (hash_add -> hash PUNTO STORE LPAREN hash_element RPAREN .)
+    CONSTANT        reduce using rule 98 (hash_add -> hash PUNTO STORE LPAREN hash_element RPAREN .)
+    GLOBAL          reduce using rule 98 (hash_add -> hash PUNTO STORE LPAREN hash_element RPAREN .)
+    SET             reduce using rule 98 (hash_add -> hash PUNTO STORE LPAREN hash_element RPAREN .)
+    LCOR            reduce using rule 98 (hash_add -> hash PUNTO STORE LPAREN hash_element RPAREN .)
+    ARRAY           reduce using rule 98 (hash_add -> hash PUNTO STORE LPAREN hash_element RPAREN .)
+    LBRACE          reduce using rule 98 (hash_add -> hash PUNTO STORE LPAREN hash_element RPAREN .)
+    ELSIF           reduce using rule 98 (hash_add -> hash PUNTO STORE LPAREN hash_element RPAREN .)
+    END             reduce using rule 98 (hash_add -> hash PUNTO STORE LPAREN hash_element RPAREN .)
+
+
+state 185
+
+    (100) hash_key -> hash PUNTO KEY LPAREN value RPAREN .
+
+    $end            reduce using rule 100 (hash_key -> hash PUNTO KEY LPAREN value RPAREN .)
+    PUTS            reduce using rule 100 (hash_key -> hash PUNTO KEY LPAREN value RPAREN .)
+    ID              reduce using rule 100 (hash_key -> hash PUNTO KEY LPAREN value RPAREN .)
+    CONSTANT        reduce using rule 100 (hash_key -> hash PUNTO KEY LPAREN value RPAREN .)
+    GLOBAL          reduce using rule 100 (hash_key -> hash PUNTO KEY LPAREN value RPAREN .)
+    SET             reduce using rule 100 (hash_key -> hash PUNTO KEY LPAREN value RPAREN .)
+    LCOR            reduce using rule 100 (hash_key -> hash PUNTO KEY LPAREN value RPAREN .)
+    ARRAY           reduce using rule 100 (hash_key -> hash PUNTO KEY LPAREN value RPAREN .)
+    LBRACE          reduce using rule 100 (hash_key -> hash PUNTO KEY LPAREN value RPAREN .)
+    ELSIF           reduce using rule 100 (hash_key -> hash PUNTO KEY LPAREN value RPAREN .)
+    END             reduce using rule 100 (hash_key -> hash PUNTO KEY LPAREN value RPAREN .)
+
+
+state 186
+
+    (70) sentenciafor -> FOR variables IN LPAREN INT PUNTO PUNTO . INT RPAREN repetircontenido END
+
+    INT             shift and go to state 188
+
+
+state 187
 
     (74) condicion -> ARRAY PUNTO NEW LPAREN arr RPAREN .
 
@@ -3044,32 +3376,20 @@ state 181
     ID              reduce using rule 74 (condicion -> ARRAY PUNTO NEW LPAREN arr RPAREN .)
     CONSTANT        reduce using rule 74 (condicion -> ARRAY PUNTO NEW LPAREN arr RPAREN .)
     GLOBAL          reduce using rule 74 (condicion -> ARRAY PUNTO NEW LPAREN arr RPAREN .)
+    SET             reduce using rule 74 (condicion -> ARRAY PUNTO NEW LPAREN arr RPAREN .)
+    LCOR            reduce using rule 74 (condicion -> ARRAY PUNTO NEW LPAREN arr RPAREN .)
+    ARRAY           reduce using rule 74 (condicion -> ARRAY PUNTO NEW LPAREN arr RPAREN .)
+    LBRACE          reduce using rule 74 (condicion -> ARRAY PUNTO NEW LPAREN arr RPAREN .)
 
 
-state 182
-
-    (78) formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .
-
-    $end            reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
-    PUTS            reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
-    ID              reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
-    CONSTANT        reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
-    GLOBAL          reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
-    ELSIF           reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
-    END             reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
-    RPAREN          reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
-    COMMA           reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
-    RBRACE          reduce using rule 78 (formacion -> ARRAY PUNTO NEW LPAREN INT RPAREN .)
-
-
-state 183
+state 188
 
     (70) sentenciafor -> FOR variables IN LPAREN INT PUNTO PUNTO INT . RPAREN repetircontenido END
 
-    RPAREN          shift and go to state 184
+    RPAREN          shift and go to state 189
 
 
-state 184
+state 189
 
     (70) sentenciafor -> FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN . repetircontenido END
     (68) repetircontenido -> . contenido
@@ -3092,49 +3412,63 @@ state 184
     (36) variables -> . ID
     (37) variables -> . CONSTANT
     (38) variables -> . GLOBAL
-    (60) funcionsconjunto -> . variables PUNTO ADD LPAREN valor RPAREN
-    (61) funcionsconjunto -> . variables PUNTO ADD LPAREN arr RPAREN
-    (62) funcionsconjunto -> . variables PUNTO MERGE LPAREN variables RPAREN
-    (63) funcionsconjunto -> . variables PUNTO SIZE LPAREN RPAREN
-    (64) funcionsconjunto -> . variables PUNTO SIZE
-    (80) funcionsformacion -> . variables PUNTO LENGTH LPAREN RPAREN
-    (81) funcionsformacion -> . variables PUNTO PUSH LPAREN repetirvalor RPAREN
-    (82) funcionsformacion -> . variables PUNTO SAMPLE LPAREN variables RPAREN
-    (83) funcionsformacion -> . variables PUNTO FIRST
-    (84) funcionsformacion -> . variables PUNTO FIRST LPAREN RPAREN
+    (60) funcionsconjunto -> . conjunto PUNTO ADD LPAREN valor RPAREN
+    (61) funcionsconjunto -> . conjunto PUNTO ADD LPAREN arr RPAREN
+    (62) funcionsconjunto -> . conjunto PUNTO MERGE LPAREN variables RPAREN
+    (63) funcionsconjunto -> . conjunto PUNTO SIZE LPAREN RPAREN
+    (64) funcionsconjunto -> . conjunto PUNTO SIZE
+    (80) funcionsformacion -> . formacion PUNTO LENGTH LPAREN RPAREN
+    (81) funcionsformacion -> . formacion PUNTO PUSH LPAREN repetirvalor RPAREN
+    (82) funcionsformacion -> . formacion PUNTO SAMPLE LPAREN variables RPAREN
+    (83) funcionsformacion -> . formacion PUNTO FIRST
+    (84) funcionsformacion -> . formacion PUNTO FIRST LPAREN RPAREN
     (101) funcionsHash -> . hash_add
     (102) funcionsHash -> . hash_delete
     (103) funcionsHash -> . hash_key
-    (98) hash_add -> . variables PUNTO STORE LPAREN hash_element RPAREN
-    (99) hash_delete -> . variables PUNTO LPAREN clave RPAREN
-    (100) hash_key -> . variables PUNTO KEY LPAREN value RPAREN
+    (47) conjunto -> . SET arr
+    (48) conjunto -> . SET LCOR RCOR
+    (76) formacion -> . LCOR repetirvalor RCOR
+    (77) formacion -> . LCOR RCOR
+    (78) formacion -> . ARRAY PUNTO NEW LPAREN INT RPAREN
+    (79) formacion -> . ARRAY PUNTO NEW LPAREN RPAREN
+    (98) hash_add -> . hash PUNTO STORE LPAREN hash_element RPAREN
+    (99) hash_delete -> . hash PUNTO LPAREN clave RPAREN
+    (100) hash_key -> . hash PUNTO KEY LPAREN value RPAREN
+    (85) hash -> . LBRACE hash_content RBRACE
 
     PUTS            shift and go to state 11
     ID              shift and go to state 22
     CONSTANT        shift and go to state 23
     GLOBAL          shift and go to state 24
+    SET             shift and go to state 30
+    LCOR            shift and go to state 31
+    ARRAY           shift and go to state 32
+    LBRACE          shift and go to state 34
 
-    variables                      shift and go to state 96
-    repetircontenido               shift and go to state 185
-    contenido                      shift and go to state 92
-    impresion                      shift and go to state 93
-    asignacion                     shift and go to state 94
-    funcionstruct                  shift and go to state 95
+    variables                      shift and go to state 110
+    repetircontenido               shift and go to state 190
+    contenido                      shift and go to state 106
+    impresion                      shift and go to state 107
+    asignacion                     shift and go to state 108
+    funcionstruct                  shift and go to state 109
     funcionsconjunto               shift and go to state 14
     funcionsformacion              shift and go to state 15
     funcionsHash                   shift and go to state 16
-    hash_add                       shift and go to state 25
-    hash_delete                    shift and go to state 26
-    hash_key                       shift and go to state 27
+    conjunto                       shift and go to state 25
+    formacion                      shift and go to state 26
+    hash_add                       shift and go to state 27
+    hash_delete                    shift and go to state 28
+    hash_key                       shift and go to state 29
+    hash                           shift and go to state 33
 
-state 185
+state 190
 
     (70) sentenciafor -> FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN repetircontenido . END
 
-    END             shift and go to state 186
+    END             shift and go to state 191
 
 
-state 186
+state 191
 
     (70) sentenciafor -> FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN repetircontenido END .
 
@@ -3143,8 +3477,8 @@ state 186
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for PLUS in state 54 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 54 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 54 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 54 resolved as shift
-WARNING: shift/reduce conflict for MOD in state 54 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 82 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 82 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 82 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 82 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 82 resolved as shift

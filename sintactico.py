@@ -112,11 +112,11 @@ def p_funcionstruct(p):
                         | funcionsHash'''
 
 def p_funcionsconjunto(p):
-    '''funcionsconjunto : variables PUNTO ADD LPAREN valor RPAREN
-                        | variables PUNTO ADD LPAREN arr RPAREN
-                        | variables PUNTO MERGE LPAREN variables RPAREN
-                        | variables PUNTO SIZE LPAREN RPAREN
-                        | variables PUNTO SIZE'''
+    '''funcionsconjunto : conjunto PUNTO ADD LPAREN valor RPAREN
+                        | conjunto PUNTO ADD LPAREN arr RPAREN
+                        | conjunto PUNTO MERGE LPAREN variables RPAREN
+                        | conjunto PUNTO SIZE LPAREN RPAREN
+                        | conjunto PUNTO SIZE'''
 
 def p_contenido(p):
     '''contenido : impresion
@@ -146,11 +146,11 @@ def p_formacion(p):
                 | ARRAY PUNTO NEW LPAREN  RPAREN'''
 
 def p_funcionsformacion(p):
-    '''funcionsformacion : variables PUNTO LENGTH LPAREN RPAREN
-                        | variables PUNTO PUSH LPAREN repetirvalor RPAREN
-                        | variables PUNTO SAMPLE LPAREN variables RPAREN
-                        | variables PUNTO FIRST
-                        | variables PUNTO FIRST LPAREN RPAREN'''
+    '''funcionsformacion : formacion PUNTO LENGTH LPAREN RPAREN
+                        | formacion PUNTO PUSH LPAREN repetirvalor RPAREN
+                        | formacion PUNTO SAMPLE LPAREN variables RPAREN
+                        | formacion PUNTO FIRST
+                        | formacion PUNTO FIRST LPAREN RPAREN'''
 
 def p_hash(p):
     'hash : LBRACE hash_content RBRACE'
@@ -178,13 +178,13 @@ def p_value(p):
             | struct'''
 
 def p_hash_store(p):
-    'hash_add : variables PUNTO STORE LPAREN hash_element RPAREN'
+    'hash_add : hash PUNTO STORE LPAREN hash_element RPAREN'
 
 def p_hash_delete(p):
-    'hash_delete : variables PUNTO LPAREN clave RPAREN'
+    'hash_delete : hash PUNTO LPAREN clave RPAREN'
 
 def p_hash_key(p):
-    'hash_key : variables PUNTO KEY LPAREN value RPAREN'
+    'hash_key : hash PUNTO KEY LPAREN value RPAREN'
 
 def p_funcionsHash(p):
     '''funcionsHash : hash_add
