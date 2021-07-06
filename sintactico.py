@@ -5,14 +5,15 @@ from lexico import tokens
 sinresult = ""
 
 def p_cuerpo(p):
-    """cuerpo : expression
+    '''cuerpo : expression
              | impresion
              | asignacion
              | leer
              | funcionstruct
              | sentenciafor
              | sentenciawhile
-             | sentenciaElsif"""
+             | sentenciaElsif'''
+   
 
 def p_impresion(p):
     '''impresion : PUTS factor
@@ -30,7 +31,9 @@ def p_expression_mat(p):
 
 
 def p_comparacion(p):
-    'comparacion : factor operadoresComp factor'
+   '''comparacion : factor operadoresComp factor
+                | STRING operadoresEquals STRING'''
+
 
 def p_comparacion_bool(p):
     'comparacion_bool : booleanos operadoresBool booleanos'
@@ -49,7 +52,6 @@ def p_operadoresMat(p):
 
 def p_factor_num(p):
     '''factor : INT
-            | variables
             | FLOAT'''
 
 def p_factor_expr(p):
@@ -78,7 +80,8 @@ def p_asignacion(p):
                   | variables EQUAL STRING
                   | variables EQUAL booleanos
                   | variables EQUAL comparacion_bool
-                  | variables EQUAL struct'''
+                  | variables EQUAL struct
+                  | variables EQUAL comparacion'''
 
 #AQUI PUEDEN DEFINIR LAS DEMAS ESTRUCTURAS
 def p_struct(p):
@@ -123,8 +126,8 @@ def p_contenido(p):
                  | asignacion
                  | funcionstruct'''
 def p_repetircontenido(p):
-    '''repetircontenido : contenido
-                        | contenido repetircontenido'''
+    '''repetircontenido : contenido 
+                        | contenido repetircontenido '''
 
 def p_sentenciafor(p):
     'sentenciafor : FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN repetircontenido END'
@@ -191,11 +194,18 @@ def p_funcionsHash(p):
                     | hash_delete
                     | hash_key'''
 def p_sentenciaElsif(p):
-    'sentenciaElsif : IF condicion repetircontenido mas_sentencias END'
+    'sentenciaElsif : IF condicion NEWLINE repetircontenido mas_sentencias END'
 
 def p_mas_sentencias(p):
-    '''mas_sentencias : ELSIF repetircontenido 
-                        | ELSIF repetircontenido mas_sentencias'''
+    '''mas_sentencias : NEWLINE ELSIF condicion NEWLINE repetircontenido NEWLINE
+                        |  NEWLINE ELSIF condicion NEWLINE repetircontenido NEWLINE mas_sentencias'''
+
+
+##########################################Reglas semanticas########################################################
+def p_operacionNumeros(p):
+    '''operacionNumeros : INT PLUS INT'''
+
+
 # Error rule for syntax errors
 def p_error(p):
     global sinresult
