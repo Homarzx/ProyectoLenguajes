@@ -10,16 +10,19 @@ def p_cuerpo(p):
              | asignacion
              | leer
              | funcionstruct
-             | sentenciafor
-             | sentenciawhile
-             | sentenciaElsif'''
+             | estructurasControl
+             | operaciones
+             | cuerpo NEWLINE cuerpo'''
+    global sinresult
+    p[0] = sinresult
    
 
 def p_impresion(p):
     '''impresion : PUTS factor
                     | PUTS comparacion
                     | PUTS comparacion_bool
-                    | PUTS STRING'''
+                    | PUTS STRING
+                    | PUTS variables'''
 
 def p_leer(p):
     'leer : GETS PUNTO CHOMP'
@@ -27,16 +30,36 @@ def p_leer(p):
 def p_expression_mat(p):
     'expression : factor operadoresMat factor'
 
-
+def p_operacionstring(p):
+    '''operacionstring : STRING PLUS STRING
+                     | STRING TIMES INT
+                     | STRING PLUS operacionstring
+                     | STRING TIMES INT PLUS operacionstring'''
+    global sinresult
+    sinresult += "\n OPERACION STRING"
+def p_operaciones(p):
+    '''operaciones : operacionstring
+                    | comparacion_bool
+                    | comparacionb'''
 
 
 def p_comparacion(p):
    '''comparacion : factor operadoresComp factor
-                | STRING operadoresEquals STRING'''
+                | STRING operadoresEquals STRING
+                | comparacion operadoresBool comparacion'''
 
 
 def p_comparacion_bool(p):
-    'comparacion_bool : booleanos operadoresBool booleanos'
+    'comparacion_bool : booleanos operadoresEquals booleanos'
+    global sinresult
+    sinresult+="\n Comparacion BOOLEAN"
+
+def p_comparacionb(p):
+     '''comparacionb : booleanos operadoresBool booleanos
+                           | booleanos operadoresBool comparacionb
+                           | booleanos operadoresBool comparacion_bool'''
+     global sinresult
+     sinresult += "\n Comparacion BOOLEAN"
 
 def p_operadoresComp(p):
     '''operadoresComp : MAYORQUE
@@ -64,8 +87,7 @@ def p_booleanos(p):
 
 def p_operadoresBool(p):
     '''operadoresBool : AND
-                        | OR
-                        | operadoresEquals'''
+                        | OR'''
 def p_operadoresEqual(p):
     '''operadoresEquals : EQUALSX2
                         | NOTEQUALS'''
@@ -80,8 +102,10 @@ def p_asignacion(p):
                   | variables EQUAL STRING
                   | variables EQUAL booleanos
                   | variables EQUAL comparacion_bool
+                  | variables EQUAL comparacionb
                   | variables EQUAL struct
-                  | variables EQUAL comparacion'''
+                  | variables EQUAL comparacion
+                  | variables EQUAL operacionstring'''
 
 #AQUI PUEDEN DEFINIR LAS DEMAS ESTRUCTURAS
 def p_struct(p):
@@ -95,7 +119,6 @@ def p_conjunto(p):
 
 def p_valor(p):
     '''valor : INT
-             | ID
              | STRING
              | booleanos
              | FLOAT'''
@@ -117,7 +140,7 @@ def p_funcionstruct(p):
 def p_funcionsconjunto(p):
     '''funcionsconjunto : conjunto PUNTO ADD LPAREN valor RPAREN
                         | conjunto PUNTO ADD LPAREN arr RPAREN
-                        | conjunto PUNTO MERGE LPAREN variables RPAREN
+                        | conjunto PUNTO MERGE LPAREN conjunto RPAREN
                         | conjunto PUNTO SIZE LPAREN RPAREN
                         | conjunto PUNTO SIZE'''
 
@@ -125,22 +148,51 @@ def p_contenido(p):
     '''contenido : impresion
                  | asignacion
                  | funcionstruct'''
-def p_repetircontenido(p):
-    '''repetircontenido : contenido 
-                        | contenido repetircontenido '''
 
-def p_sentenciafor(p):
-    'sentenciafor : FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN repetircontenido END'
+def p_repetircontenido(p):
+    '''repetircontenido : contenido
+                         | contenido SEMICOLON repetircontenido'''
+
+
+
 
 
 def p_condicion(p):
     '''condicion : comparacion
                 | comparacion_bool
-                | booleanos
-                | ARRAY PUNTO NEW LPAREN arr RPAREN'''
+                | comparacionb
+                | booleanos'''
+
+def p_sentenciafor(p):
+    '''sentenciafor : FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN NEWLINE repetircontenido NEWLINE END
+                    | FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN NEWLINE sentenciaif NEWLINE END
+                    | FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN NEWLINE sentenciaif NEWLINE repetircontenido NEWLINE END'''
+    global sinresult
+    sinresult += "\n Sentencia FOR"
+
+def p_sentenciaif(p):
+    '''sentenciaif : IF condicion NEWLINE repetircontenido NEWLINE END
+                   | IF condicion NEWLINE repetircontenido NEWLINE sentenciaelsif'''
+    global sinresult
+    sinresult += "\n Sentencia IF"
+
+def p_sentenciaelsif(p):
+    '''sentenciaelsif : ELSIF condicion NEWLINE repetircontenido NEWLINE END
+                      | ELSIF condicion NEWLINE repetircontenido NEWLINE sentenciaelsif'''
+    global sinresult
+    sinresult += "\n Sentencia ELSIF"
+
 
 def p_sentenciawhile(p):
-    'sentenciawhile : WHILE condicion  DO repetircontenido END'
+    '''sentenciawhile : WHILE condicion NEWLINE repetircontenido NEWLINE END
+                      | WHILE condicion NEWLINE sentenciaif NEWLINE END'''
+    global sinresult
+    sinresult += "\n Sentencia WHILE"
+
+def p_estructurasControl(p):
+    '''estructurasControl : sentenciaif
+                           | sentenciawhile
+                           | sentenciafor'''
 
 def p_formacion(p):
     '''formacion : LCOR repetirvalor RCOR
@@ -151,7 +203,8 @@ def p_formacion(p):
 def p_funcionsformacion(p):
     '''funcionsformacion : formacion PUNTO LENGTH LPAREN RPAREN
                         | formacion PUNTO PUSH LPAREN repetirvalor RPAREN
-                        | formacion PUNTO SAMPLE LPAREN variables RPAREN
+                        | formacion PUNTO SAMPLE LPAREN RPAREN
+                        | formacion PUNTO SAMPLE LPAREN INT RPAREN
                         | formacion PUNTO FIRST
                         | formacion PUNTO FIRST LPAREN RPAREN'''
 
@@ -172,8 +225,7 @@ def p_hash_more_elements(p):
     '''hash_more_elements : COMMA hash_element
                             | COMMA hash_element hash_more_elements'''
 def p_clave(p):
-    '''clave : variables                                                     
-            | STRING
+    '''clave : STRING
             | INT
             | FLOAT'''
 def p_value(p):
@@ -181,10 +233,10 @@ def p_value(p):
             | struct'''
 
 def p_hash_store(p):
-    'hash_add : hash PUNTO STORE LPAREN hash_element RPAREN'
+    'hash_add : hash PUNTO STORE LPAREN clave COMMA value RPAREN'
 
 def p_hash_delete(p):
-    'hash_delete : hash PUNTO LPAREN clave RPAREN'
+    'hash_delete : hash PUNTO DELETE LPAREN clave RPAREN'
 
 def p_hash_key(p):
     'hash_key : hash PUNTO KEY LPAREN value RPAREN'
@@ -193,28 +245,23 @@ def p_funcionsHash(p):
     '''funcionsHash : hash_add
                     | hash_delete
                     | hash_key'''
-def p_sentenciaElsif(p):
-    'sentenciaElsif : IF condicion NEWLINE repetircontenido mas_sentencias END'
 
-def p_mas_sentencias(p):
-    '''mas_sentencias : NEWLINE ELSIF condicion NEWLINE repetircontenido NEWLINE
-                        |  NEWLINE ELSIF condicion NEWLINE repetircontenido NEWLINE mas_sentencias'''
+
 
 
 ##########################################Reglas semanticas########################################################
-def p_operacionNumeros(p):
-    '''operacionNumeros : INT PLUS INT'''
+
 
 
 # Error rule for syntax errors
 def p_error(p):
     global sinresult
     if p:
-        print("Syntax error at token", p.type)
-        sinresult += ("Syntax error at token " + p.type)
+        print("Syntax error at token %s" %  p.value)
+        sinresult += "\n Syntax error at token " + p.value
         # Just discard the token and tell the parser it's okay.
     else:
-        sinresult += ("Syntax error at EOF")
+        sinresult += "\n Syntax error at EOF"
         print("Syntax error at EOF")
 # Build the parser
 
@@ -233,10 +280,10 @@ def getSintatic(linea):
         break
     return sinresult
 
-"""while True:
+'''while True:
     try:
         s = input('calc > ')
     except EOFError:
         break
     if not s: continue
-    result = parser.parse(s)"""
+    result = parser.parse(s)'''

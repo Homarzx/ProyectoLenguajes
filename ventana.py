@@ -86,6 +86,7 @@ class Window(QWidget):
     def clear(self):#borrar
         self.textEdit.clear()
         self.textEditLex.clear()
+        self.textEditSint
 
     def showSintatic(self):
         self.textEditSint.clear()
