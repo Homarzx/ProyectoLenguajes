@@ -4,6 +4,11 @@ from lexico import tokens
 
 sinresult = ""
 
+precedence = (
+    ('left','PLUS','MINUS'),
+    ('left','TIMES','DIVIDE')
+    )
+
 def p_cuerpo(p):
     '''cuerpo : expression
              | impresion
@@ -40,8 +45,7 @@ def p_expression_mat(p):
 def p_operacionstring(p):
     '''operacionstring : STRING PLUS STRING
                      | STRING TIMES INT
-                     | STRING PLUS operacionstring
-                     | STRING TIMES INT PLUS operacionstring'''
+                     | STRING PLUS operacionstring'''
     global sinresult
     sinresult += "\n Operaciones con STRING"
 def p_operaciones(p):
@@ -51,15 +55,16 @@ def p_operaciones(p):
                     | comparacion'''
 
 
-def p_comparacion(p):
-   '''comparacion : factor operadoresComp factor
+def p_comparacioon(p):
+   '''comparacioon : factor operadoresComp factor
                 | factor operadoresEquals factor
-                | STRING operadoresEquals STRING
-                | comparacion operadoresBool comparacion'''
+                | STRING operadoresEquals STRING'''
    global sinresult
    sinresult += "\n Comparacion STRING o NUMEROS"
 
-
+def p_comparacion(p):
+    '''comparacion : comparacioon
+                   | comparacioon operadoresBool comparacion '''
 
 def p_comparacion_bool(p):
     'comparacion_bool : booleanos operadoresEquals booleanos'
