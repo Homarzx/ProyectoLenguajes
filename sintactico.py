@@ -4,39 +4,125 @@ from lexico import tokens
 
 sinresult = ""
 
+precedence = (
+    ('left','PLUS','MINUS'),
+    ('left','TIMES','DIVIDE')
+    )
+
 def p_cuerpo(p):
     '''cuerpo : expression
              | impresion
              | asignacion
              | leer
              | funcionstruct
-             | sentenciafor
-             | sentenciawhile
-             | sentenciaElsif'''
+             | estructurasControl
+             | operaciones
+             | cuerpo NEWLINE cuerpo'''
+    global sinresult
+    p[0] = sinresult
    
 
 def p_impresion(p):
     '''impresion : PUTS factor
                     | PUTS comparacion
                     | PUTS comparacion_bool
-                    | PUTS STRING'''
+                    | PUTS STRING
+                    | PUTS variables'''
+    global sinresult
+    sinresult += "\n Imprimir"
+
 
 def p_leer(p):
-    'leer : GETS PUNTO CHOMP'
+    'leer : PUTS STRING NEWLINE variables EQUAL GETS PUNTO CHOMP'
+    global sinresult
+    sinresult += "\n Leer"
 
 def p_expression_mat(p):
     'expression : factor operadoresMat factor'
+    global sinresult
+    sinresult += "\n Operaciones Numeros"
 
+def p_expression_mat_error(p):
+    'expression : factor error factor'
+    global sinresult
+    sinresult += "\n Operacion numerica no definida"
 
+def p_expression_mat_error_factors(p):
+    'expression : factor operadoresMat error'
+    global sinresult
+    sinresult += "\n Un numero solo se debe operar con otro"
 
+def p_operacionstring(p):
+    '''operacionstring : STRING PLUS STRING
+                     | STRING TIMES INT
+                     | STRING PLUS operacionstring'''
+def p_operacionstring_error(p):
+    '''operacionstring : STRING error STRING
+                     | STRING error INT
+                     | STRING error operacionstring'''
+    global sinresult
+    sinresult += "\n Operaciones no definida con STRING"
+
+def p_operacionstring_error_element(p):
+    '''operacionstring : STRING PLUS error
+                     | STRING TIMES error'''
+    global sinresult
+    sinresult += "\n Operaciones no definida con STRING"
+
+def p_operaciones(p):
+    '''operaciones : operacionstring
+                    | comparacion_bool
+                    | comparacionb
+                    | comparacion'''
+
+def p_comparacion_strings(p):
+    '''comparacioon : STRING operadoresEquals STRING
+                    | STRING operadoresComp STRING'''
+    global sinresult
+    sinresult += "\n Comparacion STRING"
+
+def p_comparacion_strigs_error(p):
+    '''comparacioon : STRING operadoresEquals error
+                    | STRING operadoresComp error'''
+    global sinresult
+    sinresult += "\n No se puede comparar un tipo de dato STRING con otro tipo de dato"
+
+def p_comparacion_numeros(p):
+    '''comparacioon : factor operadoresEquals factor
+                    | factor operadoresComp factor'''
+    global sinresult
+    sinresult += "\n Comparacion NUMEROS"
+
+def p_comparacion_numeros_error(p):
+    '''comparacioon : factor operadoresEquals error
+                    | factor operadoresComp error'''
+    global sinresult
+    sinresult += "\n No se puede comparar un tipo de dato numerico con otro tipo de dato"
 
 def p_comparacion(p):
-   '''comparacion : factor operadoresComp factor
-                | STRING operadoresEquals STRING'''
-
+    '''comparacion : comparacioon
+                   | comparacioon operadoresBool comparacion '''
 
 def p_comparacion_bool(p):
-    'comparacion_bool : booleanos operadoresBool booleanos'
+    'comparacion_bool : booleanos operadoresEquals booleanos'
+    global sinresult
+    sinresult+="\n Comparacion BOOLEAN"
+
+def p_comparacion_bool_type_error(p):
+    'comparacion_bool : booleanos operadoresEquals error'
+    global sinresult
+    sinresult+="\n No se puede comparar un tipo de dato BOOLEAN con otro tipo de dato"
+
+def p_comparacion_bool_operand_error(p):
+    'comparacion_bool : booleanos error booleanos'
+    global sinresult
+    sinresult+="\n operacion no definida para BOOLEAN"
+
+def p_comparacionb(p):
+     '''comparacionb : booleanos operadoresBool booleanos
+                           | booleanos operadoresBool comparacionb'''
+     global sinresult
+     sinresult += "\n Comparacion BOOLEAN"
 
 def p_operadoresComp(p):
     '''operadoresComp : MAYORQUE
@@ -64,8 +150,7 @@ def p_booleanos(p):
 
 def p_operadoresBool(p):
     '''operadoresBool : AND
-                        | OR
-                        | operadoresEquals'''
+                        | OR'''
 def p_operadoresEqual(p):
     '''operadoresEquals : EQUALSX2
                         | NOTEQUALS'''
@@ -79,9 +164,11 @@ def p_asignacion(p):
     '''asignacion : variables EQUAL factor
                   | variables EQUAL STRING
                   | variables EQUAL booleanos
-                  | variables EQUAL comparacion_bool
                   | variables EQUAL struct
-                  | variables EQUAL comparacion'''
+                  | variables EQUAL operaciones'''
+
+    global sinresult
+    sinresult += "\n Asignacion"
 
 #AQUI PUEDEN DEFINIR LAS DEMAS ESTRUCTURAS
 def p_struct(p):
@@ -92,10 +179,11 @@ def p_struct(p):
 def p_conjunto(p):
     '''conjunto : SET arr
                 | SET LCOR RCOR'''
+    global sinresult
+    sinresult += "\n Set"
 
 def p_valor(p):
     '''valor : INT
-             | ID
              | STRING
              | booleanos
              | FLOAT'''
@@ -117,46 +205,102 @@ def p_funcionstruct(p):
 def p_funcionsconjunto(p):
     '''funcionsconjunto : conjunto PUNTO ADD LPAREN valor RPAREN
                         | conjunto PUNTO ADD LPAREN arr RPAREN
-                        | conjunto PUNTO MERGE LPAREN variables RPAREN
+                        | conjunto PUNTO MERGE LPAREN conjunto RPAREN
                         | conjunto PUNTO SIZE LPAREN RPAREN
                         | conjunto PUNTO SIZE'''
+    global sinresult
+    sinresult += "\n Función de Set"
 
 def p_contenido(p):
     '''contenido : impresion
                  | asignacion
                  | funcionstruct'''
+
 def p_repetircontenido(p):
-    '''repetircontenido : contenido 
-                        | contenido repetircontenido '''
-
-def p_sentenciafor(p):
-    'sentenciafor : FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN repetircontenido END'
-
+    '''repetircontenido : contenido
+                         | contenido SEMICOLON repetircontenido'''
 
 def p_condicion(p):
     '''condicion : comparacion
                 | comparacion_bool
-                | booleanos
-                | ARRAY PUNTO NEW LPAREN arr RPAREN'''
+                | comparacionb
+                | booleanos'''
+
+def p_sentenciafor(p):
+    '''sentenciafor : FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN NEWLINE repetircontenido NEWLINE END
+                    | FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN NEWLINE sentenciaif NEWLINE END
+                    | FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN NEWLINE sentenciaif NEWLINE repetircontenido NEWLINE END'''
+    global sinresult
+    sinresult += "\n Sentencia for"
+
+def p_sentenciaif(p):
+    '''sentenciaif : IF condicion NEWLINE repetircontenido NEWLINE END
+                   | IF condicion NEWLINE repetircontenido NEWLINE sentenciaelsif'''
+    global sinresult
+    sinresult += "\n Sentencia if"
+
+
+def p_sentenciaif_error(p):
+    '''sentenciaif : IF error NEWLINE repetircontenido NEWLINE END
+                   | IF error NEWLINE repetircontenido NEWLINE sentenciaelsif'''
+    global sinresult
+    sinresult += "\n condicion no valida en sentencia if"
+
+
+
+def p_sentenciaelsif(p):
+    '''sentenciaelsif : ELSIF condicion NEWLINE repetircontenido NEWLINE END
+                      | ELSIF condicion NEWLINE repetircontenido NEWLINE sentenciaelsif'''
+    global sinresult
+    sinresult += "\n Sentencia elsif"
+
+def p_sentenciaelsif_error(p):
+    '''sentenciaelsif : ELSIF error NEWLINE repetircontenido NEWLINE END
+                      | ELSIF error NEWLINE repetircontenido NEWLINE sentenciaelsif'''
+    global sinresult
+    sinresult += "\n condicion no valida en sentencia elsif"
+
 
 def p_sentenciawhile(p):
-    'sentenciawhile : WHILE condicion  DO repetircontenido END'
+    '''sentenciawhile : WHILE condicion NEWLINE repetircontenido NEWLINE END
+                      | WHILE condicion NEWLINE sentenciaif NEWLINE END'''
+    global sinresult
+    sinresult += "\n Sentencia while"
+
+def p_sentenciawhile_error(p):
+    '''sentenciawhile : WHILE error NEWLINE repetircontenido NEWLINE END
+                      | WHILE error NEWLINE sentenciaif NEWLINE END'''
+    global sinresult
+    sinresult += "\n condicion no valida en sentencia while"
+
+
+def p_estructurasControl(p):
+    '''estructurasControl : sentenciaif
+                           | sentenciawhile
+                           | sentenciafor'''
 
 def p_formacion(p):
     '''formacion : LCOR repetirvalor RCOR
                 | LCOR RCOR
                 | ARRAY PUNTO NEW LPAREN INT RPAREN
                 | ARRAY PUNTO NEW LPAREN  RPAREN'''
+    global sinresult
+    sinresult += "\n Array"
 
 def p_funcionsformacion(p):
     '''funcionsformacion : formacion PUNTO LENGTH LPAREN RPAREN
                         | formacion PUNTO PUSH LPAREN repetirvalor RPAREN
-                        | formacion PUNTO SAMPLE LPAREN variables RPAREN
+                        | formacion PUNTO SAMPLE LPAREN RPAREN
+                        | formacion PUNTO SAMPLE LPAREN INT RPAREN
                         | formacion PUNTO FIRST
                         | formacion PUNTO FIRST LPAREN RPAREN'''
+    global sinresult
+    sinresult += "\n Funcion de Array"
 
 def p_hash(p):
     'hash : LBRACE hash_content RBRACE'
+    global sinresult
+    sinresult += "\n hash"
 
 def p_hash_elements(p):
     '''hash_elements : hash_element hash_more_elements'''
@@ -172,8 +316,7 @@ def p_hash_more_elements(p):
     '''hash_more_elements : COMMA hash_element
                             | COMMA hash_element hash_more_elements'''
 def p_clave(p):
-    '''clave : variables                                                     
-            | STRING
+    '''clave : STRING
             | INT
             | FLOAT'''
 def p_value(p):
@@ -181,10 +324,10 @@ def p_value(p):
             | struct'''
 
 def p_hash_store(p):
-    'hash_add : hash PUNTO STORE LPAREN hash_element RPAREN'
+    'hash_add : hash PUNTO STORE LPAREN clave COMMA value RPAREN'
 
 def p_hash_delete(p):
-    'hash_delete : hash PUNTO LPAREN clave RPAREN'
+    'hash_delete : hash PUNTO DELETE LPAREN clave RPAREN'
 
 def p_hash_key(p):
     'hash_key : hash PUNTO KEY LPAREN value RPAREN'
@@ -193,28 +336,19 @@ def p_funcionsHash(p):
     '''funcionsHash : hash_add
                     | hash_delete
                     | hash_key'''
-def p_sentenciaElsif(p):
-    'sentenciaElsif : IF condicion NEWLINE repetircontenido mas_sentencias END'
 
-def p_mas_sentencias(p):
-    '''mas_sentencias : NEWLINE ELSIF condicion NEWLINE repetircontenido NEWLINE
-                        |  NEWLINE ELSIF condicion NEWLINE repetircontenido NEWLINE mas_sentencias'''
-
-
-##########################################Reglas semanticas########################################################
-def p_operacionNumeros(p):
-    '''operacionNumeros : INT PLUS INT'''
-
+    global sinresult
+    sinresult += "\n Función de Hash"
 
 # Error rule for syntax errors
 def p_error(p):
     global sinresult
     if p:
-        print("Syntax error at token", p.type)
-        sinresult += ("Syntax error at token " + p.type)
+        print("Syntax error at token %s" %  p.value)
+        sinresult += "\n Syntax error at token " + str(p.value)
         # Just discard the token and tell the parser it's okay.
     else:
-        sinresult += ("Syntax error at EOF")
+        sinresult += "\n Syntax error at EOF"
         print("Syntax error at EOF")
 # Build the parser
 
@@ -233,10 +367,10 @@ def getSintatic(linea):
         break
     return sinresult
 
-"""while True:
+'''while True:
     try:
         s = input('calc > ')
     except EOFError:
         break
     if not s: continue
-    result = parser.parse(s)"""
+    result = parser.parse(s)'''

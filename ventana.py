@@ -86,10 +86,10 @@ class Window(QWidget):
     def clear(self):#borrar
         self.textEdit.clear()
         self.textEditLex.clear()
+        self.textEditSint.clear()
 
     def showSintatic(self):
         self.textEditSint.clear()
-        #
         sin = getSintatic(self.textEdit.toPlainText())
         print(sin)
         if (len(sin)>0):

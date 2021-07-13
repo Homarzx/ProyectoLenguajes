@@ -8,27 +8,16 @@ reserved = {
     'else' : 'ELSE',
     'for' : 'FOR',
     'puts': 'PUTS',
-    'Begin':'BEGIN',
     'end':'END',
-    'alias':'ALIAS',
     'and':'AND',
     'break':'BREAK',
-    'case':'CASE',
-    'class':'CLASS',
     'def':'DEF',
     'defined':'DEFINED',
-    'do':'DO',
-    'ensure':'ENSURE','false':'FALSE',
-    'in':'IN','module':'MODULE',
-    'next':'NEXT','nil':'NIL',
-    'not':'NOT','or':'OR',
-    'redo':'REDO','rescue':'RESCUE',
-    'retry':'RETRY','return':'RETURN',
-    'self':'SELF','super':'SUPER',
-    'then':'THEN','true':'TRUE',
-    'undef':'UNDEF','unless':'UNLESS',
-    'until':'UNTIL','when':'WHEN',
-    'while':'WHILE','yield':'YIELD',
+    'false':'FALSE',
+    'in':'IN','or':'OR',
+    'return':'RETURN',
+    'true':'TRUE',
+    'while':'WHILE',
     'gets':'GETS',
     'chomp':'CHOMP',
     'length':'LENGTH',
@@ -75,7 +64,8 @@ tokens = (
     'CONSTANT',
     'GLOBAL',
     'STORE',
-    'KEY'
+    'KEY',
+    'SEMICOLON'
  ) + tuple(reserved.values())
 
 # Reglas de expresión regular para tokens simples
@@ -99,6 +89,7 @@ t_COMMA = r','
 t_PUNTO = r'\.'
 t_FLECHA = r'=>'
 t_NUMERAL = r'\#'
+t_SEMICOLON = r'\;'
 t_ignore = ' \t'
 
 def t_STORE(t):
@@ -108,7 +99,7 @@ def t_STORE(t):
 
 def t_KEY(t):
     r'key'
-    t.type = reserved.get(t.value, 'key')  # Check for reserved words
+    t.type = reserved.get(t.value, 'KEY')  # Check for reserved words
     return t
 
 def t_SET (t) :
