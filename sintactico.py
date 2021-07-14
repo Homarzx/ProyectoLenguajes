@@ -160,6 +160,8 @@ def p_variables(p):
                 | GLOBAL'''
 
 
+
+
 def p_asignacion(p):
     '''asignacion : variables EQUAL factor
                   | variables EQUAL STRING
@@ -191,6 +193,12 @@ def p_valor(p):
 def p_repetirvalor(p):
     '''repetirvalor : valor
                     | valor COMMA repetirvalor'''
+
+def p_parametro(p):
+    '''parametros :  variables
+                    | valor
+                    | variables COMMA parametros
+                    | valor COMMA parametros'''
 
 
 #Sirve para que me de un arreglo [1,"hola",34.5]
@@ -273,11 +281,19 @@ def p_sentenciawhile_error(p):
     global sinresult
     sinresult += "\n condicion no valida en sentencia while"
 
+def p_sentenciadef(p):
+    '''sentenciadef : DEF variables LPAREN parametros RPAREN NEWLINE repetircontenido NEWLINE END
+                    | DEF variables LPAREN  RPAREN NEWLINE repetircontenido NEWLINE END'''
+    global sinresult
+    sinresult += "\n Sentencia def"
+
 
 def p_estructurasControl(p):
     '''estructurasControl : sentenciaif
                            | sentenciawhile
-                           | sentenciafor'''
+                           | sentenciafor
+                           | sentenciadef
+                            '''
 
 def p_formacion(p):
     '''formacion : LCOR repetirvalor RCOR
@@ -339,6 +355,8 @@ def p_funcionsHash(p):
 
     global sinresult
     sinresult += "\n Función de Hash"
+
+
 
 # Error rule for syntax errors
 def p_error(p):
