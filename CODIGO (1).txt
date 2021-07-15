@@ -1,0 +1,61 @@
+------------------Errores-------------------------
+5>"hola"
+true + true
+
+if hola
+puts "hola"
+end
+
+"cadena" - "cadena"
+-----------------------------------
+while 12>10 and "hola"=="hola"
+if 12<13 and 23>1
+  puts "hola" ; a=12
+elsif "hola"=="hola"
+  puts"no"; a=12
+end
+end
+#
+if "hola" == "hola"
+puts "hola"
+end
+"hola"+"hola"
+true and true and false
+true !=false
+#
+for i in(0..9)
+    if 12>3 and 14<20
+      puts "entre"; a=12
+    elsif "hola"!="fea"
+      puts "elsif"
+    end
+    puts i end
+
+
+var2=[12,13,14,"hola"]
+var2.push(2,3,"holac")
+puts var2
+puts Set["hola",12,45].merge(Set[35,36])
+i=12
+while i>10 and "hola"=="hola"
+if 12<13 and 23>1 and false
+  puts "hola" ; a=12;puts a
+elsif "hola"=="hola"
+  puts"no"; a=12; puts a
+  i=1
+end
+end
+for i in(0..9)
+    if 12>3 and 14<20
+      puts "entre"; a=12; puts a
+    end
+    puts i
+end
+#leer
+puts "Escribe otra cosa"
+sin_salto_de_linea = gets.chomp
+
+def paint_text(text, color)
+   puts text
+end
+

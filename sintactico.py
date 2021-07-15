@@ -14,6 +14,7 @@ def p_cuerpo(p):
              | impresion
              | asignacion
              | leer
+             | struct
              | funcionstruct
              | estructurasControl
              | operaciones
@@ -39,90 +40,81 @@ def p_leer(p):
 
 def p_expression_mat(p):
     'expression : factor operadoresMat factor'
-    global sinresult
-    sinresult += "\n Operaciones Numeros"
-
-def p_expression_mat_error(p):
-    'expression : factor error factor'
-    global sinresult
-    sinresult += "\n Operacion numerica no definida"
 
 def p_expression_mat_error_factors(p):
     'expression : factor operadoresMat error'
     global sinresult
-    sinresult += "\n Un numero solo se debe operar con otro"
+    sinresult += " Un numero solo se debe operar con otro"
+
+def p_expression_mat_error(p):
+    'expression : factor error factor'
+    global sinresult
+    sinresult += " Operacion numerica no definida"
+
+
+def p_comparacion_todo(p):
+    '''comparacionTodo : STRING operadoresEquals factor
+                        | STRING operadoresEquals STRING
+                        | booleanos operadoresEquals STRING
+                        | STRING operadoresEquals booleanos
+                        | factor operadoresEquals STRING
+                        | factor operadoresEquals factor'''
 
 def p_operacionstring(p):
     '''operacionstring : STRING PLUS STRING
                      | STRING TIMES INT
+                     | STRING TIMES FLOAT
                      | STRING PLUS operacionstring'''
 def p_operacionstring_error(p):
     '''operacionstring : STRING error STRING
                      | STRING error INT
                      | STRING error operacionstring'''
     global sinresult
-    sinresult += "\n Operaciones no definida con STRING"
+    sinresult += " Operaciones no definida con STRING"
 
 def p_operacionstring_error_element(p):
     '''operacionstring : STRING PLUS error
                      | STRING TIMES error'''
     global sinresult
-    sinresult += "\n Operaciones no definida con STRING"
+    sinresult += " Operaciones no definida con STRING"
 
 def p_operaciones(p):
     '''operaciones : operacionstring
                     | comparacion_bool
                     | comparacionb
-                    | comparacion'''
+                    | comparacion
+                    '''
 
-def p_comparacion_strings(p):
-    '''comparacioon : STRING operadoresEquals STRING
-                    | STRING operadoresComp STRING'''
-    global sinresult
-    sinresult += "\n Comparacion STRING"
 
-def p_comparacion_strigs_error(p):
-    '''comparacioon : STRING operadoresEquals error
-                    | STRING operadoresComp error'''
-    global sinresult
-    sinresult += "\n No se puede comparar un tipo de dato STRING con otro tipo de dato"
+
 
 def p_comparacion_numeros(p):
-    '''comparacioon : factor operadoresEquals factor
-                    | factor operadoresComp factor'''
-    global sinresult
-    sinresult += "\n Comparacion NUMEROS"
+    'comparacioNumeros : factor operadoresComp factor'
 
 def p_comparacion_numeros_error(p):
-    '''comparacioon : factor operadoresEquals error
-                    | factor operadoresComp error'''
+    'comparacioNumeros : factor operadoresComp error'
     global sinresult
     sinresult += "\n No se puede comparar un tipo de dato numerico con otro tipo de dato"
 
 def p_comparacion(p):
-    '''comparacion : comparacioon
-                   | comparacioon operadoresBool comparacion '''
+    '''comparacion : comparacioNumeros
+                    | comparacionTodo
+                    | comparacioNumeros operadoresBool comparacion
+                   | comparacionTodo operadoresBool comparacion
+                   '''
 
 def p_comparacion_bool(p):
     'comparacion_bool : booleanos operadoresEquals booleanos'
-    global sinresult
-    sinresult+="\n Comparacion BOOLEAN"
 
-def p_comparacion_bool_type_error(p):
-    'comparacion_bool : booleanos operadoresEquals error'
-    global sinresult
-    sinresult+="\n No se puede comparar un tipo de dato BOOLEAN con otro tipo de dato"
-
-def p_comparacion_bool_operand_error(p):
-    'comparacion_bool : booleanos error booleanos'
-    global sinresult
-    sinresult+="\n operacion no definida para BOOLEAN"
 
 def p_comparacionb(p):
      '''comparacionb : booleanos operadoresBool booleanos
                            | booleanos operadoresBool comparacionb'''
-     global sinresult
-     sinresult += "\n Comparacion BOOLEAN"
+def p_comparacionb_error(p):
+    '''comparacionb : booleanos error booleanos
+                    | booleanos error comparacionb'''
+    global sinresult
+    sinresult+=" operacion no definida para BOOLEAN"
 
 def p_operadoresComp(p):
     '''operadoresComp : MAYORQUE
@@ -143,6 +135,7 @@ def p_factor_num(p):
 def p_factor_expr(p):
     'factor : expression'
 
+
 def p_booleanos(p):
     '''booleanos : TRUE
         | FALSE
@@ -156,11 +149,7 @@ def p_operadoresEqual(p):
                         | NOTEQUALS'''
 def p_variables(p):
     '''variables : ID
-                | CONSTANT
                 | GLOBAL'''
-
-
-
 
 def p_asignacion(p):
     '''asignacion : variables EQUAL factor
@@ -240,6 +229,14 @@ def p_sentenciafor(p):
                     | FOR variables IN LPAREN INT PUNTO PUNTO INT RPAREN NEWLINE sentenciaif NEWLINE repetircontenido NEWLINE END'''
     global sinresult
     sinresult += "\n Sentencia for"
+
+def p_sentenciafor_error(p):
+    '''sentenciafor : FOR variables IN LPAREN error PUNTO PUNTO error RPAREN NEWLINE repetircontenido NEWLINE END
+                    | FOR variables IN LPAREN error PUNTO PUNTO error RPAREN NEWLINE sentenciaif NEWLINE END
+                    | FOR variables IN LPAREN error PUNTO PUNTO error RPAREN NEWLINE sentenciaif NEWLINE repetircontenido NEWLINE END'''
+    global sinresult
+    sinresult += "\n Sentencia for incorrecta, rangos solo entre enteros"
+
 
 def p_sentenciaif(p):
     '''sentenciaif : IF condicion NEWLINE repetircontenido NEWLINE END

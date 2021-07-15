@@ -1,0 +1,92 @@
+#Operaciones entre numeros
+22+13*34
+12/3.45
+Errores
+23 and 24
+12.34+"hola"
+#Operaciones de String
+"hola" + "como"
+"bien"*3
+Errores
+"hola" / 3
+"hola" - "tu"
+#Operaciones booleans
+true and true or false
+true or false
+true != false
+true == false
+Errores
+true + false
+ESTRUCTURAS DE CONTROL
+#while
+while 12>10 and "hola"=="hola"
+if 12<13 and 23>1
+  puts "hola" ; a=12
+elsif "hola"=="hola"
+  puts"no"; a=12
+end
+end
+#if-elsif
+if "hola" == "hola"
+puts "hola"
+end
+if "hola" == "hola"
+puts "hola"
+elsif true
+a="hola"
+end
+#for
+for i in(0..9)
+    if 12>3
+      puts "entre"
+    elsif "hola"!="fea"
+      puts "elsif"
+    end
+    puts i
+end
+for i in(0..9)
+    if 12>3
+      puts "entre"
+    end
+    puts i
+end
+ERROR
+for i in(0.34..9)
+    if 12>3
+      puts "entre"
+    end
+    puts i
+end
+ESTRUCTURAS DE DATOS
+#Array
+nombres = ["Satish", "Talim", "Ruby", "Java"]
+var2=[12,13,14,"hola"]
+[12,13,14,"hola"].length()
+[12,13,14,"hola"].push(1)
+[12,13,14,"hola"].push(1,23,2)
+[12,13,14,"hola"].sample(1)
+[12,13,14,"hola"].first()
+#Hash
+nombre={"nombre"=>"Alejandra", "apellido"=>"Escobar", "edad"=>34, "estatura"=>1.8}
+{"nombre"=>"Alejandra", "apellido"=>"Escobar", "edad"=>34, "estatura"=>1.8}
+{"nombre"=>"Alejandra", "apellido"=>"Escobar", "edad"=>34, "estatura"=>1.8}.delete("nombre")
+{"nombre"=>"Alejandra", "apellido"=>"Escobar", "edad"=>34, "estatura"=>1.8}.store("bar",3)
+{"nombre"=>"Alejandra", "apellido"=>"Escobar", "edad"=>34, "estatura"=>1.8}.key("Alejandra")
+#Set
+var=Set[23,12,45]
+Set[1,2,4].add([14,23])
+Set[1,2,4].add(14)
+Set[1,2,4].merge(Set[222,223])
+Set[1,2,4].size()
+#Definir una funcion
+def paint_text(text, color)
+   puts text
+end
+#Leer
+puts "Escribe otra cosa"
+sin_salto_de_linea = gets.chomp
+
+
+
+
+
