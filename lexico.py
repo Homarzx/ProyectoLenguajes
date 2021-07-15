@@ -5,17 +5,13 @@ lexresult=""
 reserved = {
     'if' : 'IF',
     'elsif' : 'ELSIF',
-    'else' : 'ELSE',
     'for' : 'FOR',
     'puts': 'PUTS',
     'end':'END',
     'and':'AND',
-    'break':'BREAK',
     'def':'DEF',
-    'defined':'DEFINED',
     'false':'FALSE',
     'in':'IN','or':'OR',
-    'return':'RETURN',
     'true':'TRUE',
     'while':'WHILE',
     'gets':'GETS',
@@ -26,11 +22,11 @@ reserved = {
     'add':'ADD',
     'merge':'MERGE',
     'size':'SIZE',
-    'clear':'CLEAR',
-    'fetch':'FETCH',
     'delete':'DELETE',
     'new' : 'NEW',
-    'push' : 'PUSH'
+    'push' : 'PUSH',
+    'store' : 'STORE',
+    'key' :'KEY'
 }
 
 tokens = (
@@ -51,7 +47,6 @@ tokens = (
     'MENORQUE',
     'EQUALSX2',
     'NOTEQUALS',
-    'NUMERAL',
     'COMMA',
     'PUNTO',
     'FLECHA',
@@ -63,9 +58,7 @@ tokens = (
     'ARRAY',
     'CONSTANT',
     'GLOBAL',
-    'STORE',
-    'KEY',
-    'SEMICOLON'
+    'SEMICOLON',
  ) + tuple(reserved.values())
 
 # Reglas de expresión regular para tokens simples
@@ -88,19 +81,9 @@ t_EQUAL = r'='
 t_COMMA = r','
 t_PUNTO = r'\.'
 t_FLECHA = r'=>'
-t_NUMERAL = r'\#'
 t_SEMICOLON = r'\;'
 t_ignore = ' \t'
 
-def t_STORE(t):
-    r'store'
-    t.type = reserved.get(t.value, 'STORE')  # Check for reserved words
-    return t
-
-def t_KEY(t):
-    r'key'
-    t.type = reserved.get(t.value, 'KEY')  # Check for reserved words
-    return t
 
 def t_SET (t) :
    r'Set'

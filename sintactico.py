@@ -21,7 +21,8 @@ def p_cuerpo(p):
              | cuerpo NEWLINE cuerpo'''
     global sinresult
     p[0] = sinresult
-   
+
+
 
 def p_impresion(p):
     '''impresion : PUTS factor
@@ -37,6 +38,12 @@ def p_leer(p):
     'leer : PUTS STRING NEWLINE variables EQUAL GETS PUNTO CHOMP'
     global sinresult
     sinresult += "\n Leer"
+
+def p_sentenciaif_error(p):
+    '''sentenciaif : IF error NEWLINE repetircontenido NEWLINE END
+                   | IF error NEWLINE repetircontenido NEWLINE sentenciaelsif'''
+    global sinresult
+    sinresult += "\n condicion no valida en sentencia if"
 
 def p_expression_mat(p):
     'expression : factor operadoresMat factor'
@@ -149,7 +156,8 @@ def p_operadoresEqual(p):
                         | NOTEQUALS'''
 def p_variables(p):
     '''variables : ID
-                | GLOBAL'''
+                | GLOBAL
+                | CONSTANT'''
 
 def p_asignacion(p):
     '''asignacion : variables EQUAL factor
@@ -245,11 +253,6 @@ def p_sentenciaif(p):
     sinresult += "\n Sentencia if"
 
 
-def p_sentenciaif_error(p):
-    '''sentenciaif : IF error NEWLINE repetircontenido NEWLINE END
-                   | IF error NEWLINE repetircontenido NEWLINE sentenciaelsif'''
-    global sinresult
-    sinresult += "\n condicion no valida en sentencia if"
 
 
 
@@ -359,12 +362,12 @@ def p_funcionsHash(p):
 def p_error(p):
     global sinresult
     if p:
-        print("Syntax error at token %s" %  p.value)
-        sinresult += "\n Syntax error at token " + str(p.value)
+        print("Error sintactico en token %s" %  p.type)
+        sinresult += "\n Error sintactico en token " + str(p.type)
         # Just discard the token and tell the parser it's okay.
     else:
-        sinresult += "\n Syntax error at EOF"
-        print("Syntax error at EOF")
+        sinresult += "\n Error sintactico en EOF"
+        print("Error sintactico en EOF")
 # Build the parser
 
 parser = yacc.yacc()
