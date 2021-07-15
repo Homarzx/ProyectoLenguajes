@@ -92,6 +92,7 @@ class Window(QWidget):
         self.textEditSint.clear()
         sin = getSintatic(self.textEdit.toPlainText())
         print(sin)
+
         if (len(sin)>0):
             self.textEditSint.insertPlainText(sin)
         else:

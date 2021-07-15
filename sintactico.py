@@ -39,12 +39,6 @@ def p_leer(p):
     global sinresult
     sinresult += "\n Leer"
 
-def p_sentenciaif_error(p):
-    '''sentenciaif : IF error NEWLINE repetircontenido NEWLINE END
-                   | IF error NEWLINE repetircontenido NEWLINE sentenciaelsif'''
-    global sinresult
-    sinresult += "\n condicion no valida en sentencia if"
-
 def p_expression_mat(p):
     'expression : factor operadoresMat factor'
 
@@ -215,6 +209,11 @@ def p_funcionsconjunto(p):
                         | conjunto PUNTO SIZE'''
     global sinresult
     sinresult += "\n Función de Set"
+def p_funcionsconjunto_error(p):
+    'funcionsconjunto :  conjunto PUNTO MERGE LPAREN error RPAREN'
+
+    global sinresult
+    sinresult += " Incorrecto debe introducir un Set"
 
 def p_contenido(p):
     '''contenido : impresion
@@ -262,12 +261,6 @@ def p_sentenciaelsif(p):
     global sinresult
     sinresult += "\n Sentencia elsif"
 
-def p_sentenciaelsif_error(p):
-    '''sentenciaelsif : ELSIF error NEWLINE repetircontenido NEWLINE END
-                      | ELSIF error NEWLINE repetircontenido NEWLINE sentenciaelsif'''
-    global sinresult
-    sinresult += "\n condicion no valida en sentencia elsif"
-
 
 def p_sentenciawhile(p):
     '''sentenciawhile : WHILE condicion NEWLINE repetircontenido NEWLINE END
@@ -275,11 +268,7 @@ def p_sentenciawhile(p):
     global sinresult
     sinresult += "\n Sentencia while"
 
-def p_sentenciawhile_error(p):
-    '''sentenciawhile : WHILE error NEWLINE repetircontenido NEWLINE END
-                      | WHILE error NEWLINE sentenciaif NEWLINE END'''
-    global sinresult
-    sinresult += "\n condicion no valida en sentencia while"
+
 
 def p_sentenciadef(p):
     '''sentenciadef : DEF variables LPAREN parametros RPAREN NEWLINE repetircontenido NEWLINE END
@@ -362,12 +351,13 @@ def p_funcionsHash(p):
 def p_error(p):
     global sinresult
     if p:
-        print("Error sintactico en token %s" %  p.type)
-        sinresult += "\n Error sintactico en token " + str(p.type)
+
+        print("Error sintactico %s" %  p.type)
+        sinresult += "\n Error sintactico " + str(p.type)
         # Just discard the token and tell the parser it's okay.
     else:
-        sinresult += "\n Error sintactico en EOF"
-        print("Error sintactico en EOF")
+        sinresult += "\n Error sintactico"
+        print("Error sintactico")
 # Build the parser
 
 parser = yacc.yacc()
@@ -385,10 +375,3 @@ def getSintatic(linea):
         break
     return sinresult
 
-'''while True:
-    try:
-        s = input('calc > ')
-    except EOFError:
-        break
-    if not s: continue
-    result = parser.parse(s)'''

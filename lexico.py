@@ -137,7 +137,7 @@ def t_COMMENT(t):
 
 def t_error(t):
     global lexresult
-    print("illegal character '%s'" %t.value[0])
+    print("Caracter Ilegal '%s'" %t.value[0])
     lexresult += "\nCaracter Ilegal " + t.value[0]
     t.lexer.skip(1)
 
@@ -154,11 +154,6 @@ def getTokensLexer(linea):
         lexresult += "\n" + str(tok)
     return lexresult
 
-def getTokens(lexer):
-    while True:
-        tok = lexer.token()
-        if not tok:
-            break  # No more input
-        print(tok)
+
 # Build the lexer
 lexer = lex.lex()

@@ -26,6 +26,11 @@ elsif "hola"=="hola"
   puts"no"; a=12
 end
 end
+Error
+while "hola" and "hola"=="hola"
+  puts "hola" ; a=12
+end
+
 #if-elsif
 if "hola" == "hola"
 puts "hola"
@@ -35,9 +40,23 @@ puts "hola"
 elsif true
 a="hola"
 end
+Error
+if "hola"
+  puts "hola" ; a=12
+end
+
 #for
 for i in(0..9)
     if 12>3
+      puts "entre"
+    elsif "hola"!="fea"
+      puts "elsif"
+    end
+    puts i
+end
+Error
+for i in(0.45..9)
+if 12>3
       puts "entre"
     elsif "hola"!="fea"
       puts "elsif"
